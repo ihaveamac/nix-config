@@ -353,7 +353,6 @@
           {
             home-manager.users.${me}.imports = [
               ./additional-systems/nixos-liveimage/home.nix
-              ./common-home/cfg-vscodium.nix
               ./common-home/cfg-neovim.nix
               ./common-home/linux.nix
               ./common-home/core.nix

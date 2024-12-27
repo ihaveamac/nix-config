@@ -2,6 +2,5 @@
 
 {
   imports = [
-    ../../common-home/cfg-vscodium.nix
   ];
 }

@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ../common-home/cfg-vscodium.nix
     ../common-home/cfg-docker-aliases.nix
   ];
 
