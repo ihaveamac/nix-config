@@ -5,7 +5,8 @@
   environment.systemPackages = with pkgs; [
     keepassxc
     iina
-    dolphin-emu
+    # sfml build error
+    #dolphin-emu
     utm
     prismlauncher
     (hexfiend.overrideAttrs (oldAttrs: {

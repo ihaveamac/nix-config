@@ -46,7 +46,8 @@
     zstd
     colordiff
     gist
-    magic-wormhole
+    # error in a test, i think
+    #magic-wormhole
     magic-wormhole-rs
     cachix
     nix-tree
