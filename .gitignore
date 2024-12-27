@@ -1,0 +1,9 @@
+.st*
+.DS_Store
+._*
+result
+result-*
+repl-result*
+*.nar*
+*.tar*
+ext-commits.json
