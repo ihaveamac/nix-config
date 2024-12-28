@@ -17,7 +17,6 @@
     ../common-nixos/cfg-libvirt.nix
     ../common-nixos/cfg-python-environment.nix
     ../common-nixos/cfg-auto-optimise.nix
-    ../common-nixos/cfg-darling.nix
     ../common-nixos/cfg-xdg.nix
     ../common-nixos/cfg-neovim.nix
     ../common-nixos/cfg-zsh.nix
