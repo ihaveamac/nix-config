@@ -70,6 +70,7 @@
       #"yubico-yubikey-manager"
       "openzfs"
       "xquartz"
+      "syncplay" # this one is in nixpkgs but does not create an "Applications" folder
 
       # quicklook plugins
       "qlstephen"
