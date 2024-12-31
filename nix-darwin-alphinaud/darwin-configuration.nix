@@ -31,12 +31,6 @@ in
     inputs.lix-module.nixosModules.default
   ];
 
-  home-manager.users.${me}.imports = [
-    ./home.nix
-    (r.common-home + /desktop.nix)
-    (r.common-home + /core.nix)
-  ];
-
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
@@ -145,8 +139,16 @@ in
   };
 
   # since ZDOTDIR is set globally, i don't need this useless .zshenv file (hopefully)
-  home-manager.users.${me}.home.file.".zshenv".enable = false;
   home-manager.users.root.home.file.".zshenv".enable = false;
+  home-manager.users.${me} = {
+    imports = [
+      ./home.nix
+      (r.common-home + /desktop.nix)
+      (r.common-home + /core.nix)
+    ];
+    home.file.".zshenv".enable = false;
+  };
+
 
   programs.tmux.enable = true;
 
