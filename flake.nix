@@ -4,12 +4,10 @@
   nixConfig = {
     extra-substituters = [
       "https://ihaveahax.cachix.org"
-      "https://cache.lix.systems"
       "https://attic.ihaveahax.net/ihaveahax"
     ];
     extra-trusted-public-keys = [
       "ihaveahax.cachix.org-1:587ONPwRnx0AQu27y7rD1f7jTj2isGRAVDVddKEAv7I="
-      "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
       "ihaveahax:oiYXxjqHZYe4OzvX6CGFfUIK9HEZBWPS0y7DpcZ5Cok="
     ];
   };
@@ -192,8 +190,10 @@
         pkgs = import nixos-unstable { inherit system; };
       in {
         inherit pkgs;
-        modules = [ ./hm-krile/home.nix ];
+
         extraSpecialArgs = mkSpecialArgs "deck" system;
+
+        modules = [ ./hm-krile/home.nix ];
       });
     }; # homeConfigurations
 
@@ -202,134 +202,91 @@
     packages = let
       # this is a derivation in part so i can easily nix-copy-closure this
       # in case i need to, which there was at least one time i did...
-      buildInputs = p: p.stdenvNoCC.mkDerivation {
-        name = "flake-inputs";
-
-        dontUnpack = true;
-        dontPatch = true;
-        dontBuild = true;
-        dontFixup = true;
-
-        installPhase = ''
-          mkdir $out
-        '' + p.lib.concatStringsSep "\n" (p.lib.mapAttrsToList (k: v: ''
-          echo "Linking input ${k}"
-          ln -s ${v} $out/${k}
-        '') {
-          "hax-nur" = hax-nur;
-          "hax-nur.nixpkgs" = hax-nur.inputs.nixpkgs;
-          "home-manager" = home-manager;
-          "home-manager.inputs.nixpkgs" = home-manager.inputs.nixpkgs;
-          "lix-module" = lix-module;
-          "lix-module.flake-utils" = lix-module.inputs.flake-utils;
-          "lix-module.flake-utils.systems" = lix-module.inputs.flake-utils.inputs.systems;
-          "lix-module.flakey-profile" = lix-module.inputs.flakey-profile;
-          "lix-module.lix" = lix-module.inputs.lix;
-          "lix-module.nixpkgs" = lix-module.inputs.nixpkgs;
-          "ninfs" = ninfs;
-          "ninfs.flake-utils" = ninfs.inputs.flake-utils;
-          "ninfs.flake-utils.systems" = ninfs.inputs.flake-utils.inputs.systems;
-          "ninfs.nixpkgs" = ninfs.inputs.nixpkgs;
-          "ninfs.pyctr" = ninfs.inputs.pyctr;
-          "ninfs.pyctr.nixpkgs" = ninfs.inputs.pyctr.inputs.nixpkgs;
-          "nix-darwin" = nix-darwin;
-          "nix-darwin.nixpkgs" = nix-darwin.inputs.nixpkgs;
-          "nixos-apple-silicon" = nixos-apple-silicon;
-          "nixos-apple-silicon.flake-compat" = nixos-apple-silicon.inputs.flake-compat;
-          "nixos-apple-silicon.nixpkgs" = nixos-apple-silicon.inputs.nixpkgs;
-          "nixos-apple-silicon.rust-overlay" = nixos-apple-silicon.inputs.rust-overlay;
-          "nixos-unstable" = nixos-unstable;
-          "srcds-nix" = srcds-nix;
-          "srcds-nix.nixpkgs" = srcds-nix.inputs.nixpkgs;
-        });
-      };
+      buildInputs = p: p.runCommandLocal "flake-inputs" {} ''
+        mkdir $out
+      '' + p.lib.concatStringsSep "\n" (p.lib.mapAttrsToList (k: v: ''
+        echo "Linking input ${k}"
+        ln -s ${v} $out/${k}
+      '') {
+        "hax-nur" = hax-nur;
+        "hax-nur.nixpkgs" = hax-nur.inputs.nixpkgs;
+        "home-manager" = home-manager;
+        "home-manager.inputs.nixpkgs" = home-manager.inputs.nixpkgs;
+        "lix-module" = lix-module;
+        "lix-module.flake-utils" = lix-module.inputs.flake-utils;
+        "lix-module.flake-utils.systems" = lix-module.inputs.flake-utils.inputs.systems;
+        "lix-module.flakey-profile" = lix-module.inputs.flakey-profile;
+        "lix-module.lix" = lix-module.inputs.lix;
+        "lix-module.nixpkgs" = lix-module.inputs.nixpkgs;
+        "ninfs" = ninfs;
+        "ninfs.flake-utils" = ninfs.inputs.flake-utils;
+        "ninfs.flake-utils.systems" = ninfs.inputs.flake-utils.inputs.systems;
+        "ninfs.nixpkgs" = ninfs.inputs.nixpkgs;
+        "ninfs.pyctr" = ninfs.inputs.pyctr;
+        "ninfs.pyctr.nixpkgs" = ninfs.inputs.pyctr.inputs.nixpkgs;
+        "nix-darwin" = nix-darwin;
+        "nix-darwin.nixpkgs" = nix-darwin.inputs.nixpkgs;
+        "nixos-apple-silicon" = nixos-apple-silicon;
+        "nixos-apple-silicon.flake-compat" = nixos-apple-silicon.inputs.flake-compat;
+        "nixos-apple-silicon.nixpkgs" = nixos-apple-silicon.inputs.nixpkgs;
+        "nixos-apple-silicon.rust-overlay" = nixos-apple-silicon.inputs.rust-overlay;
+        "nixos-unstable" = nixos-unstable;
+        "srcds-nix" = srcds-nix;
+        "srcds-nix.nixpkgs" = srcds-nix.inputs.nixpkgs;
+      });
     in {
       x86_64-linux = let 
         pkgs = import nixos-unstable { system = "x86_64-linux"; };
       in rec {
-        default = self.packages.x86_64-linux.all-systems;
+        default = all-systems;
         flake-inputs = buildInputs pkgs;
-        all-systems = pkgs.stdenvNoCC.mkDerivation {
-          name = "all-systems-x86_64-linux";
+        all-systems = pkgs.runCommandLocal "all-systems-x86_64-linux" {} ''
+          mkdir $out
 
-          dontUnpack = true;
-          dontPatch = true;
-          dontUpdateAutotoolsGnuConfigScripts = true;
-          dontConfigure = true;
-          dontBuild = true;
-          dontFixup = true;
+          ln -s ${pkgs.lib.info "evaluating thancred" self.nixosConfigurations.thancred.config.system.build.toplevel} $out/nixos-thancred
+          ln -s ${pkgs.lib.info "evaluating tataru" self.nixosConfigurations.tataru.config.system.build.toplevel} $out/nixos-tataru
+          ln -s ${pkgs.lib.info "evaluating homeserver" self.nixosConfigurations.homeserver.config.system.build.toplevel} $out/nixos-homeserver
 
-          installPhase = ''
-            mkdir $out
+          ln -s ${pkgs.lib.info "evaluating hm-krile" self.homeConfigurations."deck@krile".activationPackage} $out/hm-krile
 
-            ln -s ${pkgs.lib.info "evaluating thancred" self.nixosConfigurations.thancred.config.system.build.toplevel} $out/nixos-thancred
-            ln -s ${pkgs.lib.info "evaluating tataru" self.nixosConfigurations.tataru.config.system.build.toplevel} $out/nixos-tataru
-            ln -s ${pkgs.lib.info "evaluating homeserver" self.nixosConfigurations.homeserver.config.system.build.toplevel} $out/nixos-homeserver
-
-            ln -s ${pkgs.lib.info "evaluating hm-krile" self.homeConfigurations."deck@krile".activationPackage} $out/hm-krile
-
-            ln -s ${flake-inputs} $out/.flake-inputs
-          '';
-        };
+          ln -s ${flake-inputs} $out/.flake-inputs
+        '';
         iso = let
           system = self.nixosConfigurations.liveimage;
           toplevel = system.config.system.build.toplevel;
           isobase = system.config.system.build.isoImage;
-        in pkgs.stdenvNoCC.mkDerivation {
-          name = isobase.name + "-static-name";
-          preferLocalBuild = true;
+        in pkgs.runCommandLocal (isobase.name + "-static-name") {} ''
+          mkdir $out
+          isoname=${isobase}/iso/${isobase.name}
+          ln -s $isoname $out/nixos.iso
+          cat >$out/copy-to-thancred.sh <<EOF
+          ${pkgs.rsync}/bin/rsync -avzLI --progress $isoname thancred:nixos.iso
+          EOF
 
-          dontUnpack = true;
-          dontPatch = true;
-          dontUpdateAutotoolsGnuConfigScripts = true;
-          dontConfigure = true;
-          dontBuild = true;
-          dontFixup = true;
+          cat >$out/copy-to-macbook.sh <<EOF
+          ${pkgs.rsync}/bin/rsync -avzLI --progress $isoname alphinaud:nixos.iso
+          EOF
 
-          installPhase = ''
-            mkdir $out
-            isoname=${isobase}/iso/${isobase.name}
-            ln -s $isoname $out/nixos.iso
-            cat >$out/copy-to-thancred.sh <<EOF
-            ${pkgs.rsync}/bin/rsync -avzLI --progress $isoname thancred:nixos.iso
-            EOF
+          cat >$out/copy-to-libvirt-images.sh <<EOF
+          sudo cp -v $isoname /var/lib/libvirt/images
+          EOF
 
-            cat >$out/copy-to-macbook.sh <<EOF
-            ${pkgs.rsync}/bin/rsync -avzLI --progress $isoname macbook-pro:nixos.iso
-            EOF
-
-            cat >$out/copy-to-libvirt-images.sh <<EOF
-            sudo cp -v $isoname /var/lib/libvirt/images
-            EOF
-
-            chmod +x $out/*.sh
-          '';
-        };
+          chmod +x $out/*.sh
+        '';
       };
 
       aarch64-darwin = let
         pkgs = import nixos-unstable { system = "aarch64-darwin"; };
       in rec {
-        default = self.packages.aarch64-darwin.all-systems;
+        default = all-systems;
         flake-inputs = buildInputs pkgs;
-        all-systems = pkgs.stdenvNoCC.mkDerivation {
-          name = "all-systems-aarch64-darwin";
+        all-systems = pkgs.runCommandLocal "all-systems-aarch64-darwin" {} ''
+          mkdir $out
 
-          dontUnpack = true;
-          dontPatch = true;
-          dontUpdateAutotoolsGnuConfigScripts = true;
-          dontConfigure = true;
-          dontBuild = true;
-          dontFixup = true;
+          ln -s ${self.darwinConfigurations.alphinaud.system} $out/nix-darwin-alphinaud
 
-          installPhase = ''
-            mkdir $out
-
-            ln -s ${self.darwinConfigurations.alphinaud.system} $out/nix-darwin-alphinaud
-
-            ln -s ${flake-inputs} $out/.flake-inputs
-          '';
-        };
+          ln -s ${flake-inputs} $out/.flake-inputs
+        '';
       };
     };
   };

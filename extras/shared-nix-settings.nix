@@ -32,13 +32,11 @@
     substituters = lib.mkForce [
       "https://cache.nixos.org"
       "https://ihaveahax.cachix.org"
-      "https://cache.lix.systems"
       "https://attic.ihaveahax.net/ihaveahax"
     ];
     trusted-public-keys = lib.mkForce [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "ihaveahax.cachix.org-1:587ONPwRnx0AQu27y7rD1f7jTj2isGRAVDVddKEAv7I="
-      "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
       "ihaveahax:oiYXxjqHZYe4OzvX6CGFfUIK9HEZBWPS0y7DpcZ5Cok="
     ];
     # this will be overridden in home-manager
