@@ -1,29 +1,29 @@
-{ config, lib, pkgs, me, my-inputs, ... }:
+{ config, lib, pkgs, me, r, my-inputs, ... }:
 
 {
   imports = [
-    ../common-nixos/cfg-misc.nix
-    ../common-nixos/cfg-common-system-packages.nix
-    ../common-nixos/cfg-linux-kernel.nix
-    ../common-nixos/cfg-my-user.nix
-    ../common-nixos/cfg-pc-boot.nix
-    ../common-nixos/cfg-docker.nix
-    ../common-nixos/cfg-plasma6.nix
-    ../common-nixos/cfg-time-and-i18n.nix
-    ../common-nixos/cfg-sound.nix
-    ../common-nixos/cfg-nix-homeserver-builder.nix
-    ../common-nixos/cfg-disable-sleep.nix
-    ../common-nixos/cfg-sudo-config.nix
-    ../common-nixos/cfg-zfs.nix
-    ../common-nixos/cfg-avahi.nix
-    ../common-nixos/cfg-shell-aliases.nix
-    ../common-nixos/cfg-firefox.nix
-    ../common-nixos/cfg-python-environment.nix
-    ../common-nixos/cfg-auto-optimise.nix
-    ../common-nixos/cfg-xdg.nix
-    ../common-nixos/cfg-neovim.nix
-    ../common-nixos/cfg-zsh.nix
-    ../common-nixos/cfg-syncthing.nix
+    (r.common-nixos + /cfg-misc.nix)
+    (r.common-nixos + /cfg-common-system-packages.nix)
+    (r.common-nixos + /cfg-linux-kernel.nix)
+    (r.common-nixos + /cfg-my-user.nix)
+    (r.common-nixos + /cfg-pc-boot.nix)
+    (r.common-nixos + /cfg-docker.nix)
+    (r.common-nixos + /cfg-plasma6.nix)
+    (r.common-nixos + /cfg-time-and-i18n.nix)
+    (r.common-nixos + /cfg-sound.nix)
+    (r.common-nixos + /cfg-nix-homeserver-builder.nix)
+    (r.common-nixos + /cfg-disable-sleep.nix)
+    (r.common-nixos + /cfg-sudo-config.nix)
+    (r.common-nixos + /cfg-zfs.nix)
+    (r.common-nixos + /cfg-avahi.nix)
+    (r.common-nixos + /cfg-shell-aliases.nix)
+    (r.common-nixos + /cfg-firefox.nix)
+    (r.common-nixos + /cfg-python-environment.nix)
+    (r.common-nixos + /cfg-auto-optimise.nix)
+    (r.common-nixos + /cfg-xdg.nix)
+    (r.common-nixos + /cfg-neovim.nix)
+    (r.common-nixos + /cfg-zsh.nix)
+    (r.common-nixos + /cfg-syncthing.nix)
     ./cfg-nvidia.nix
     #./cfg-specialisation-no-gui.nix
     ./cfg-java.nix
@@ -111,7 +111,7 @@
   };
 
   fonts = {
-    packages = pkgs.callPackage ../extras/fonts.nix {};
+    packages = pkgs.callPackage (r.extras + /fonts.nix) {};
     enableDefaultPackages = true;
   };
 

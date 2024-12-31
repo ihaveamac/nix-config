@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, r, ... }:
 
 {
   home.packages = (with pkgs; [
@@ -12,7 +12,7 @@
     imagemagick
     twine
     cdecrypt
-  ]) ++ (if pkgs.stdenv.isDarwin || (pkgs.stdenv.isLinux && pkgs.stdenv.isx86_64) then [ pkgs.rar ] else [ ]) ++ (pkgs.callPackage ../extras/fonts.nix {});
+  ]) ++ (if pkgs.stdenv.isDarwin || (pkgs.stdenv.isLinux && pkgs.stdenv.isx86_64) then [ pkgs.rar ] else [ ]) ++ (pkgs.callPackage (r.extras + /fonts.nix) {});
 
   # note: disabled in nix-darwin-alphinaud/home.nix
   # note: disabled in common-nixos/cfg-home-manager.nix

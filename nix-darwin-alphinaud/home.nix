@@ -1,4 +1,4 @@
-{ config, lib, pkgs, my-inputs, osConfig, ... }:
+{ config, lib, pkgs, r, my-inputs, osConfig, ... }:
 
 let
   nix-channel-and-index-update = pkgs.writeShellApplication {
@@ -13,7 +13,7 @@ let
 in
 {
   imports = [
-    ../common-home/cfg-docker-aliases.nix
+    (r.common-home + /cfg-docker-aliases.nix)
     ./cfg-home-applinker.nix
   ];
 

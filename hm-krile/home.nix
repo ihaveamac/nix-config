@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, r, ... }:
 
 {
   programs = {
@@ -8,7 +8,7 @@
         libsForQt5.plasma-browser-integration
         keepassxc  # remember to configure KeePassXC to not update this file
       ];
-      policies = import ../extras/firefox-policies.nix;
+      policies = import (r.extras + /firefox-policies.nix);
       package = pkgs.firefox-esr-128;
     };
     zsh = {

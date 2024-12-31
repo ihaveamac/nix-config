@@ -1,29 +1,29 @@
-{ config, lib, pkgs, me, my-inputs, ... }:
+{ config, lib, pkgs, me, r, my-inputs, ... }:
 
 {
   imports = [
-    ../../common-nixos/cfg-misc.nix
-    ../../common-nixos/cfg-common-system-packages.nix
-    ../../extras/shared-nix-settings.nix
-    ../../common-nixos/cfg-linux-kernel.nix
-    ../../common-nixos/cfg-my-user.nix
-    ../../common-nixos/cfg-docker.nix
-    ../../common-nixos/cfg-ssh.nix
-    ../../common-nixos/cfg-nix-settings.nix
-    ../../common-nixos/cfg-plasma6.nix
-    ../../common-nixos/cfg-time-and-i18n.nix
-    ../../common-nixos/cfg-sound.nix
-    ../../common-nixos/cfg-nix-homeserver-builder.nix
-    ../../common-nixos/cfg-sudo-config.nix
-    ../../common-nixos/cfg-avahi.nix
-    ../../common-nixos/cfg-shell-aliases.nix
-    ../../common-nixos/cfg-firefox.nix
-    ../../common-nixos/cfg-python-environment.nix
-    ../../common-nixos/cfg-auto-optimise.nix
-    ../../common-nixos/cfg-xdg.nix
-    ../../common-nixos/cfg-neovim.nix
-    ../../common-nixos/cfg-zsh.nix
-    ../../nixos-thancred/cfg-java.nix
+    (r.common-nixos + /cfg-misc.nix)
+    (r.common-nixos + /cfg-common-system-packages.nix)
+    (r.extras + /shared-nix-settings.nix)
+    (r.common-nixos + /cfg-linux-kernel.nix)
+    (r.common-nixos + /cfg-my-user.nix)
+    (r.common-nixos + /cfg-docker.nix)
+    (r.common-nixos + /cfg-ssh.nix)
+    (r.common-nixos + /cfg-nix-settings.nix)
+    (r.common-nixos + /cfg-plasma6.nix)
+    (r.common-nixos + /cfg-time-and-i18n.nix)
+    (r.common-nixos + /cfg-sound.nix)
+    (r.common-nixos + /cfg-nix-homeserver-builder.nix)
+    (r.common-nixos + /cfg-sudo-config.nix)
+    (r.common-nixos + /cfg-avahi.nix)
+    (r.common-nixos + /cfg-shell-aliases.nix)
+    (r.common-nixos + /cfg-firefox.nix)
+    (r.common-nixos + /cfg-python-environment.nix)
+    (r.common-nixos + /cfg-auto-optimise.nix)
+    (r.common-nixos + /cfg-xdg.nix)
+    (r.common-nixos + /cfg-neovim.nix)
+    (r.common-nixos + /cfg-zsh.nix)
+    (r.root + /nixos-thancred/cfg-java.nix)
     ./hardware-configuration.nix
   ];
 

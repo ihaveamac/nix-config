@@ -1,4 +1,4 @@
-{ config, lib, pkgs, me, ... }:
+{ config, lib, pkgs, me, r, ... }:
 
 {
   programs.neovim = {
@@ -10,7 +10,7 @@
     viAlias = true;
     vimAlias = true;
     configure = {
-      customRC = builtins.readFile ../extras/neovim-config.vim;
+      customRC = builtins.readFile (r.extras + /neovim-config.vim);
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
           vim-surround

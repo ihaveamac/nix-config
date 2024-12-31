@@ -2,22 +2,22 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, me, ... }:
+{ config, lib, pkgs, me, r, ... }:
 
 {
   imports = [
-    ../../common-nixos/cfg-misc.nix
-    ../../common-nixos/cfg-common-system-packages.nix
-    ../../common-nixos/cfg-my-user.nix
-    ../../common-nixos/cfg-plasma6.nix
-    ../../common-nixos/cfg-time-and-i18n.nix
-    ../../common-nixos/cfg-nix-homeserver-builder.nix
-    ../../common-nixos/cfg-sudo-config.nix
-    ../../common-nixos/cfg-shell-aliases.nix
-    ../../common-nixos/cfg-firefox.nix
-    ../../common-nixos/cfg-python-environment.nix
-    ../../common-nixos/cfg-neovim.nix
-    ../../common-nixos/cfg-zsh.nix
+    (r.common-nixos + /cfg-misc.nix)
+    (r.common-nixos + /cfg-common-system-packages.nix)
+    (r.common-nixos + /cfg-my-user.nix)
+    (r.common-nixos + /cfg-plasma6.nix)
+    (r.common-nixos + /cfg-time-and-i18n.nix)
+    (r.common-nixos + /cfg-nix-homeserver-builder.nix)
+    (r.common-nixos + /cfg-sudo-config.nix)
+    (r.common-nixos + /cfg-shell-aliases.nix)
+    (r.common-nixos + /cfg-firefox.nix)
+    (r.common-nixos + /cfg-python-environment.nix)
+    (r.common-nixos + /cfg-neovim.nix)
+    (r.common-nixos + /cfg-zsh.nix)
   ];
 
   boot = {

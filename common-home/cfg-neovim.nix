@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, r, ... }:
 
 {
   programs.neovim = {
@@ -20,6 +20,6 @@
       vim-markdown
       vim-auto-save
     ];
-    extraConfig = builtins.readFile ../extras/neovim-config.vim;
+    extraConfig = builtins.readFile (r.extras + /neovim-config.vim);
   };
 }

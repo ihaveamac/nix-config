@@ -1,18 +1,18 @@
-{ config, lib, pkgs, me, modulesPath, ... }:
+{ config, lib, pkgs, me, r, modulesPath, ... }:
 
 {
   imports = [
-    ../common-nixos/cfg-misc.nix
-    ../common-nixos/cfg-common-system-packages.nix
-    ../common-nixos/cfg-linux-kernel.nix
-    ../common-nixos/cfg-my-user.nix
-    ../common-nixos/cfg-podman.nix
-    ../common-nixos/cfg-shell-aliases.nix
-    ../common-nixos/cfg-sudo-config.nix
-    ../common-nixos/cfg-auto-optimise.nix
-    ../common-nixos/cfg-xdg.nix
-    ../common-nixos/cfg-neovim.nix
-    ../common-nixos/cfg-zsh.nix
+    (r.common-nixos + /cfg-misc.nix)
+    (r.common-nixos + /cfg-common-system-packages.nix)
+    (r.common-nixos + /cfg-linux-kernel.nix)
+    (r.common-nixos + /cfg-my-user.nix)
+    (r.common-nixos + /cfg-podman.nix)
+    (r.common-nixos + /cfg-shell-aliases.nix)
+    (r.common-nixos + /cfg-sudo-config.nix)
+    (r.common-nixos + /cfg-auto-optimise.nix)
+    (r.common-nixos + /cfg-xdg.nix)
+    (r.common-nixos + /cfg-neovim.nix)
+    (r.common-nixos + /cfg-zsh.nix)
     ./cfg-nginx.nix
     ./cfg-homebox.nix
     ./cfg-atticd.nix

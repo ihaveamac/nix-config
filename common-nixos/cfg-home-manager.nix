@@ -1,4 +1,4 @@
-{ config, lib, pkgs, me, inputs, my-inputs, ... }:
+{ config, lib, pkgs, me, r, inputs, my-inputs, ... }:
 
 let
   homedir = config.users.users.${me}.home;
@@ -8,7 +8,7 @@ in
     useUserPackages = true;
     useGlobalPkgs = true;
     backupFileExtension = "backup";
-    extraSpecialArgs = { inherit inputs my-inputs; };
+    extraSpecialArgs = { inherit inputs my-inputs r; };
 
     users.${me} = { pkgs, ... }: {
       # the order of this matters
@@ -25,7 +25,7 @@ in
     };
 
     users.root = { pkgs, ... }: {
-      imports = [ ../common-home/core-root.nix ];
+      imports = [ (r.common-home + /core-root.nix) ];
 
       home = {
         username = "root";

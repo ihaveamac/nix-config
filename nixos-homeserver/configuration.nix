@@ -1,26 +1,26 @@
-{ config, lib, pkgs, me, ... }:
+{ config, lib, pkgs, me, r, ... }:
 
 {
   imports = [
-    ../common-nixos/cfg-misc.nix
-    ../common-nixos/cfg-common-system-packages.nix
-    ../common-nixos/cfg-linux-kernel.nix
-    ../common-nixos/cfg-my-user.nix
-    ../common-nixos/cfg-pc-boot.nix
-    ../common-nixos/cfg-docker.nix
-    ../common-nixos/cfg-time-and-i18n.nix
-    ../common-nixos/cfg-disable-sleep.nix
-    ../common-nixos/cfg-sudo-config.nix
-    ../common-nixos/cfg-zfs.nix
-    ../common-nixos/cfg-avahi.nix
-    ../common-nixos/cfg-shell-aliases.nix
-    ../common-nixos/cfg-libvirt.nix
-    ../common-nixos/cfg-python-environment.nix
-    ../common-nixos/cfg-auto-optimise.nix
-    ../common-nixos/cfg-xdg.nix
-    ../common-nixos/cfg-neovim.nix
-    ../common-nixos/cfg-zsh.nix
-    ../common-nixos/cfg-syncthing.nix
+    (r.common-nixos + /cfg-misc.nix)
+    (r.common-nixos + /cfg-common-system-packages.nix)
+    (r.common-nixos + /cfg-linux-kernel.nix)
+    (r.common-nixos + /cfg-my-user.nix)
+    (r.common-nixos + /cfg-pc-boot.nix)
+    (r.common-nixos + /cfg-docker.nix)
+    (r.common-nixos + /cfg-time-and-i18n.nix)
+    (r.common-nixos + /cfg-disable-sleep.nix)
+    (r.common-nixos + /cfg-sudo-config.nix)
+    (r.common-nixos + /cfg-zfs.nix)
+    (r.common-nixos + /cfg-avahi.nix)
+    (r.common-nixos + /cfg-shell-aliases.nix)
+    (r.common-nixos + /cfg-libvirt.nix)
+    (r.common-nixos + /cfg-python-environment.nix)
+    (r.common-nixos + /cfg-auto-optimise.nix)
+    (r.common-nixos + /cfg-xdg.nix)
+    (r.common-nixos + /cfg-neovim.nix)
+    (r.common-nixos + /cfg-zsh.nix)
+    (r.common-nixos + /cfg-syncthing.nix)
     ./cfg-nextcloud.nix
     ./cfg-postgres.nix
     ./cfg-jellyfin.nix
@@ -99,7 +99,7 @@
         extraGroups = [ "networkmanager" ];
         # the main key is defined in common-nixos/cfg-ssh.nix; this is for remote building
         # maybe this should be a separate user?
-        openssh.authorizedKeys.keyFiles = [ ../extras/id_ed25519-nix-remote-build.pub ];
+        openssh.authorizedKeys.keyFiles = [ (r.extras + /id_ed25519-nix-remote-build.pub) ];
         packages = with pkgs; [
           virt-manager
         ];

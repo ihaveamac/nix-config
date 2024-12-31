@@ -50,8 +50,14 @@
   };
 
   outputs = inputs@{ self, nix-darwin, nixos-unstable, home-manager, nixos-apple-silicon, hax-nur, lix-module, ninfs, srcds-nix, ... }: let
+    r = {
+      root = ./.;
+      common-nixos = ./common-nixos;
+      common-home = ./common-home;
+      extras = ./extras;
+    };
     mkSpecialArgs = (me: system: {
-      inherit me inputs;
+      inherit me inputs r;
       my-inputs = {
         hax-nur = hax-nur.outputs.packages.${system};
         ninfs = ninfs.outputs.packages.${system};

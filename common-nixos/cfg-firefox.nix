@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, r, ... }:
 
 # https://discourse.nixos.org/t/declare-firefox-extensions-and-settings/36265
 
@@ -12,7 +12,7 @@
     preferences = {
       "widget.use-xdg-desktop-portal.file-picker" = 1;
     };
-    policies = import ../extras/firefox-policies.nix;
+    policies = import (r.extras + /firefox-policies.nix);
     package = pkgs.firefox-esr-128;
   };
 }

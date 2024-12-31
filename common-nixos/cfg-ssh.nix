@@ -1,9 +1,9 @@
-{ config, pkgs, me, ... }:
+{ config, pkgs, me, r, ... }:
 
 {
   users.users = {
-    root.openssh.authorizedKeys.keyFiles = [ ../extras/id_rsa.pub ];
-    ${me}.openssh.authorizedKeys.keyFiles = [ ../extras/id_rsa.pub ];
+    root.openssh.authorizedKeys.keyFiles = [ (r.extras + /id_rsa.pub) ];
+    ${me}.openssh.authorizedKeys.keyFiles = [ (r.extras + /id_rsa.pub) ];
   };
 
   # Enable the OpenSSH daemon.

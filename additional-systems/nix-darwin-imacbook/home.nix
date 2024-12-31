@@ -1,8 +1,8 @@
-{ config, lib, pkgs, osConfig, ... }:
+{ config, lib, pkgs, r, osConfig, ... }:
 
 {
   imports = [
-    ../../common-home/cfg-docker-aliases.nix
+    (r.common-home + /cfg-docker-aliases.nix)
   ];
 
   fonts.fontconfig.enable = lib.mkForce false;

@@ -1,12 +1,12 @@
-{ config, pkgs, lib, me, ... }:
+{ config, pkgs, lib, me, r, ... }:
 
 {
   imports = [
-    ../../common-nixos/cfg-sudo-config.nix
-    ../../common-nixos/cfg-nix-homeserver-builder.nix
-    ../../common-nixos/cfg-nix-settings.nix
-    ../../extras/shared-nix-settings.nix
-    ../../common-nixos/cfg-home-manager.nix
+    (r.common-nixos + /cfg-sudo-config.nix)
+    (r.common-nixos + /cfg-nix-homeserver-builder.nix)
+    (r.common-nixos + /cfg-nix-settings.nix)
+    (r.extras + /shared-nix-settings.nix)
+    (r.common-nixos + /cfg-home-manager.nix)
   ];
   environment.systemPackages = with pkgs; [
     vim
@@ -16,7 +16,7 @@
     name = "${me}";
     home = "/Users/${me}";
     shell = pkgs.zsh; # doesn't work yet: https://github.com/LnL7/nix-darwin/issues/811
-    openssh.authorizedKeys.keyFiles = [ ../../extras/id_rsa.pub ];
+    openssh.authorizedKeys.keyFiles = [ (r.extras + /id_rsa.pub) ];
   };
 
   environment.variables = {
@@ -48,8 +48,8 @@
   home-manager.users.${me} = {
     imports = [
       ./home.nix
-      ../../common-home/desktop.nix
-      ../../common-home/core.nix
+      (r.common-home + /desktop.nix)
+      (r.common-home + /core.nix)
     ];
     home.file.".zshenv".enable = false;
   };

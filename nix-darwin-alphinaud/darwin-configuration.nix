@@ -8,15 +8,15 @@
 # * in etc, move nix/nix.conf, zprofile, zshenv, and zshrc out of the way
 # maybe i should do a script for this
 
-{ config, pkgs, lib, me, ... }:
+{ config, pkgs, lib, me, r, ... }:
 
 let
   myjava = pkgs.zulu21;
 in
 {
   imports = [
-    ../common-nixos/cfg-sudo-config.nix
-    ../common-nixos/cfg-nix-homeserver-builder.nix
+    (r.common-nixos + /cfg-sudo-config.nix)
+    (r.common-nixos + /cfg-nix-homeserver-builder.nix)
     ./cfg-homebrew.nix
     ./cfg-jvms.nix
     #./cfg-linux-builder.nix
@@ -104,7 +104,7 @@ in
     name = "${me}";
     home = "/Users/${me}";
     shell = pkgs.zsh; # doesn't work yet: https://github.com/LnL7/nix-darwin/issues/811
-    openssh.authorizedKeys.keyFiles = [ ../extras/id_rsa.pub ];
+    openssh.authorizedKeys.keyFiles = [ (r.extras + /id_rsa.pub) ];
   };
 
   users.users.root = {

@@ -1,7 +1,7 @@
-{ config, lib, pkgs, me, ... }:
+{ config, lib, pkgs, me, r, ... }:
 
 let
-  zshShared = pkgs.callPackage ../extras/shared-zsh-settings.nix { inherit config; };
+  zshShared = pkgs.callPackage (r.extras + /shared-zsh-settings.nix) { inherit config; };
 in
 {
   programs.zsh = {

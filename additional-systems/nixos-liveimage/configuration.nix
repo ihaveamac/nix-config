@@ -1,13 +1,13 @@
-{ config, lib, pkgs, me, ... }:
+{ config, lib, pkgs, me, r, ... }:
 
 {
   imports = [
-    ../../common-nixos/cfg-misc.nix
-    ../../common-nixos/cfg-common-system-packages.nix
-    ../../common-nixos/cfg-linux-kernel.nix
-    ../../common-nixos/cfg-xdg.nix
-    ../../common-nixos/cfg-neovim.nix
-    ../../common-nixos/cfg-zsh.nix
+    (r.common-nixos + /cfg-misc.nix)
+    (r.common-nixos + /cfg-common-system-packages.nix)
+    (r.common-nixos + /cfg-linux-kernel.nix)
+    (r.common-nixos + /cfg-xdg.nix)
+    (r.common-nixos + /cfg-neovim.nix)
+    (r.common-nixos + /cfg-zsh.nix)
   ];
   isoImage.squashfsCompression = "zstd -Xcompression-level 1";
 

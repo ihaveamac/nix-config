@@ -1,8 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, r, ... }:
 
 {
   imports = [
-    ../common-home/cfg-docker-aliases.nix
+    (r.common-home + /cfg-docker-aliases.nix)
   ];
 
   programs = {
