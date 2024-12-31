@@ -1,10 +1,14 @@
-{ config, lib, pkgs, me, r, ... }:
+{ config, lib, pkgs, me, r, inputs, ... }:
 
 {
   imports = [
+    (r.extras + /shared-nix-settings.nix)
     (r.common-nixos + /cfg-misc.nix)
+    (r.common-nixos + /cfg-home-manager.nix)
     (r.common-nixos + /cfg-common-system-packages.nix)
     (r.common-nixos + /cfg-linux-kernel.nix)
+    (r.common-nixos + /cfg-ssh.nix)
+    (r.common-nixos + /cfg-nix-settings.nix)
     (r.common-nixos + /cfg-my-user.nix)
     (r.common-nixos + /cfg-pc-boot.nix)
     (r.common-nixos + /cfg-docker.nix)
@@ -21,6 +25,7 @@
     (r.common-nixos + /cfg-neovim.nix)
     (r.common-nixos + /cfg-zsh.nix)
     (r.common-nixos + /cfg-syncthing.nix)
+    ./hardware-configuration.nix
     ./cfg-nextcloud.nix
     ./cfg-postgres.nix
     ./cfg-jellyfin.nix
@@ -28,6 +33,16 @@
     ./cfg-discord-rolebot.nix
     ./cfg-discord-red-bot.nix
     ./cfg-discord-modmail-hax.nix
+    ./cfg-srcds.nix
+
+    inputs.hax-nur.nixosModules.overlay
+    inputs.lix-module.nixosModules.default
+  ];
+
+  home-manager.users.${me}.imports = [
+    ./home.nix
+    (r.common-home + /linux.nix)
+    (r.common-home + /core.nix)
   ];
 
   boot.loader.grub = {

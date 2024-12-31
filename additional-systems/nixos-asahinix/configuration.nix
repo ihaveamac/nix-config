@@ -2,12 +2,16 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, me, r, ... }:
+{ config, lib, pkgs, me, r, inputs, ... }:
 
 {
   imports = [
+    (r.extras + /shared-nix-settings.nix)
     (r.common-nixos + /cfg-misc.nix)
     (r.common-nixos + /cfg-common-system-packages.nix)
+    (r.common-nixos + /cfg-ssh.nix)
+    (r.common-nixos + /cfg-nix-settings.nix)
+    (r.common-nixos + /cfg-home-manager.nix)
     (r.common-nixos + /cfg-my-user.nix)
     (r.common-nixos + /cfg-plasma6.nix)
     (r.common-nixos + /cfg-time-and-i18n.nix)
@@ -18,6 +22,17 @@
     (r.common-nixos + /cfg-python-environment.nix)
     (r.common-nixos + /cfg-neovim.nix)
     (r.common-nixos + /cfg-zsh.nix)
+    ./hardware-configuration.nix
+    inputs.lix-module.nixosModules.default
+    inputs.home-manager.nixosModules.home-manager
+    inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
+  ];
+
+  home-manager.users.${me}.imports = [
+    ./home.nix
+    (r.common-home + /linux.nix)
+    (r.common-home + /desktop.nix)
+    (r.common-home + /core.nix)
   ];
 
   boot = {
@@ -41,6 +56,14 @@
   services = {
     tailscale.enable = true;
   };
+
+  hardware.asahi = {
+    enable = true;
+    useExperimentalGPUDriver = true;
+    setupAsahiSound = true;
+  };
+
+  #boot.kernelParams = [ "apple_dcp.show_notch=1" ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

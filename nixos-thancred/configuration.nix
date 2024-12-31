@@ -1,10 +1,14 @@
-{ config, lib, pkgs, me, r, my-inputs, ... }:
+{ config, lib, pkgs, me, r, inputs, my-inputs, ... }:
 
 {
   imports = [
+    (r.extras + /shared-nix-settings.nix)
     (r.common-nixos + /cfg-misc.nix)
     (r.common-nixos + /cfg-common-system-packages.nix)
     (r.common-nixos + /cfg-linux-kernel.nix)
+    (r.common-nixos + /cfg-home-manager.nix)
+    (r.common-nixos + /cfg-ssh.nix)
+    (r.common-nixos + /cfg-nix-settings.nix)
     (r.common-nixos + /cfg-my-user.nix)
     (r.common-nixos + /cfg-pc-boot.nix)
     (r.common-nixos + /cfg-docker.nix)
@@ -24,9 +28,21 @@
     (r.common-nixos + /cfg-neovim.nix)
     (r.common-nixos + /cfg-zsh.nix)
     (r.common-nixos + /cfg-syncthing.nix)
+    ./hardware-configuration.nix
     ./cfg-nvidia.nix
     #./cfg-specialisation-no-gui.nix
     ./cfg-java.nix
+
+    inputs.hax-nur.nixosModules.overlay
+    inputs.lix-module.nixosModules.default
+  ];
+
+  home-manager.users.${me}.imports = [
+    ./home.nix
+    (r.common-home + /linux.nix)
+    (r.common-home + /desktop.nix)
+    (r.common-home + /core.nix)
+    inputs.hax-nur.hmModules.lnshot
   ];
 
   system.nixos.tags = [ config.boot.kernelPackages.kernel.name ];

@@ -2,13 +2,27 @@
 
 {
   imports = [
+    "${nixos-unstable}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-plasma6.nix"
+
+    (r.extras + /shared-nix-settings.nix)
     (r.common-nixos + /cfg-misc.nix)
     (r.common-nixos + /cfg-common-system-packages.nix)
     (r.common-nixos + /cfg-linux-kernel.nix)
     (r.common-nixos + /cfg-xdg.nix)
     (r.common-nixos + /cfg-neovim.nix)
     (r.common-nixos + /cfg-zsh.nix)
+
+    inputs.hax-nur.nixosModules.overlay
+    inputs.lix-module.nixosModules.default
   ];
+
+  home-manager.users.${me}.imports = [
+    ./home.nix
+    (r.common-home + /cfg-neovim.nix)
+    (r.common-home + /linux.nix)
+    (r.common-home + /core.nix)
+  ];
+
   isoImage.squashfsCompression = "zstd -Xcompression-level 1";
 
   # force x11

@@ -4,6 +4,8 @@ let
   homedir = config.users.users.${me}.home;
 in
 {
+  imports = [ my-inputs.home-manager-module ];
+
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;

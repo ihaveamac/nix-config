@@ -8,7 +8,7 @@
 # * in etc, move nix/nix.conf, zprofile, zshenv, and zshrc out of the way
 # maybe i should do a script for this
 
-{ config, pkgs, lib, me, r, ... }:
+{ config, pkgs, lib, me, r, inputs, ... }:
 
 let
   myjava = pkgs.zulu21;
@@ -17,11 +17,24 @@ in
   imports = [
     (r.common-nixos + /cfg-sudo-config.nix)
     (r.common-nixos + /cfg-nix-homeserver-builder.nix)
+    (r.common-nixos + /cfg-nix-settings.nix)
+    (r.common-nixos + /cfg-home-manager.nix)
+    (r.extras + /shared-nix-settings.nix)
     ./cfg-homebrew.nix
+    ./cfg-masapps.nix
     ./cfg-jvms.nix
     #./cfg-linux-builder.nix
     ./cfg-applinker.nix
     ./cfg-persistent-apps.nix
+
+    inputs.hax-nur.nixosModules.overlay
+    inputs.lix-module.nixosModules.default
+  ];
+
+  home-manager.users.${me}.imports = [
+    ./home.nix
+    (r.common-home + /desktop.nix)
+    (r.common-home + /core.nix)
   ];
 
   # List packages installed in system profile. To search by name, run:

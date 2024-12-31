@@ -15,8 +15,6 @@
   };
 
   inputs = {
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    # this passes more tests for NixOS that nixpkgs does not need to
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-darwin = {
       url = "nix-darwin";
@@ -59,6 +57,10 @@
     mkSpecialArgs = (me: system: {
       inherit me inputs r;
       my-inputs = {
+        home-manager-module = if (system == "aarch64-darwin" || system == "x86_64-darwin") then
+          home-manager.darwinModules.home-manager
+        else
+          home-manager.nixosModules.home-manager;
         hax-nur = hax-nur.outputs.packages.${system};
         ninfs = ninfs.outputs.packages.${system};
       };
@@ -74,26 +76,7 @@
 
         specialArgs = mkSpecialArgs me system;
 
-        modules = [
-          ./nix-darwin-alphinaud/darwin-configuration.nix
-          ./nix-darwin-alphinaud/cfg-masapps.nix
-          ./common-nixos/cfg-nix-settings.nix
-          ./extras/shared-nix-settings.nix
-
-          hax-nur.nixosModules.overlay
-          lix-module.nixosModules.default
-
-          home-manager.darwinModules.home-manager
-          ./common-nixos/cfg-home-manager.nix
-
-          {
-            home-manager.users.${me}.imports = [
-              ./nix-darwin-alphinaud/home.nix
-              ./common-home/desktop.nix
-              ./common-home/core.nix
-            ];
-          }
-        ]; # modules
+        modules = [ ./nix-darwin-alphinaud/darwin-configuration.nix ];
       }); # alphinaud
 
       # for testing in macOS virtual machines (basically the same but lacking masapps)
@@ -107,25 +90,9 @@
 
         modules = [
           ./nix-darwin-alphinaud/darwin-configuration.nix
-          ./common-nixos/cfg-nix-settings.nix
-          ./common-nixos/cfg-home-manager.nix
-          ./extras/shared-nix-settings.nix
-
-          hax-nur.nixosModules.overlay
-          lix-module.nixosModules.default
-
-          home-manager.darwinModules.home-manager
-          ./common-nixos/cfg-home-manager.nix
-
-          {
-            home-manager.users.${me}.imports = [
-              ./nix-darwin-alphinaud/home.nix
-              ./common-home/desktop.nix
-              ./common-home/core.nix
-            ];
-          }
 
           ({ lib, ... }: {
+            homebrew.masApps = lib.mkForce {};
             # assuming i made my vm with "gordonfreeman"
             networking.hostName = lib.mkForce "Gordons-Virtual-Machine";
           })
@@ -141,12 +108,7 @@
 
         specialArgs = mkSpecialArgs me system;
 
-        modules = [
-          ./additional-systems/nix-darwin-imacbook/darwin-configuration.nix
-          hax-nur.nixosModules.overlay
-          lix-module.nixosModules.default
-          home-manager.darwinModules.home-manager
-        ];
+        modules = [ ./additional-systems/nix-darwin-imacbook/darwin-configuration.nix ];
       }); # Ians-MBP
     };
 
@@ -159,30 +121,7 @@
 
         specialArgs = mkSpecialArgs me system;
 
-        modules = [
-          ./nixos-thancred/configuration.nix
-          ./nixos-thancred/hardware-configuration.nix
-          ./common-nixos/cfg-ssh.nix
-          ./common-nixos/cfg-nix-settings.nix
-          ./extras/shared-nix-settings.nix
-
-          hax-nur.nixosModules.overlay
-
-          lix-module.nixosModules.default
-
-          home-manager.nixosModules.home-manager
-          ./common-nixos/cfg-home-manager.nix
-
-          {
-            home-manager.users.${me}.imports = [
-              ./nixos-thancred/home.nix
-              ./common-home/linux.nix
-              ./common-home/desktop.nix
-              ./common-home/core.nix
-              hax-nur.hmModules.lnshot
-            ];
-          }
-        ]; # modules
+        modules = [ ./nixos-thancred/configuration.nix ];
       }); # thancred
 
       "homeserver" = nixos-unstable.lib.nixosSystem (let
@@ -193,49 +132,7 @@
 
         specialArgs = mkSpecialArgs me system;
 
-        modules = [
-          ./nixos-homeserver/configuration.nix
-          ./nixos-homeserver/hardware-configuration.nix
-          ./common-nixos/cfg-ssh.nix
-          ./common-nixos/cfg-nix-settings.nix
-          ./extras/shared-nix-settings.nix
-
-          srcds-nix.nixosModules.default
-          {
-            services.srcds.enable = true;
-            services.srcds.openFirewall = true;
-            services.srcds.games = {
-              tf2 = {
-                appId = 232250;
-                gamePort = 27015;
-                startingMap = "pl_upward";
-                rcon = {
-                  enable = true;
-                  password = "ihaveahax";
-                };
-                config = {
-                  hostname = "NixOS srcds-nix test";
-                  sv_password = "ihaveahax";
-                };
-                extraConfig = ''
-                  echo extraConfig executed
-                '';
-              };
-            };
-          }
-
-          lix-module.nixosModules.default
-          home-manager.nixosModules.home-manager
-          ./common-nixos/cfg-home-manager.nix
-
-          {
-            home-manager.users.${me}.imports = [
-              ./nixos-homeserver/home.nix
-              ./common-home/linux.nix
-              ./common-home/core.nix
-            ];
-          }
-        ]; # modules
+        modules = [ ./nixos-homeserver/configuration.nix ];
       }); # homeserver
 
       "tataru" = nixos-unstable.lib.nixosSystem (let
@@ -246,27 +143,7 @@
 
         specialArgs = mkSpecialArgs me system;
 
-        modules = [
-          ./nixos-tataru/configuration.nix
-          ./nixos-tataru/hardware-configuration.nix
-          ./nixos-tataru/networking.nix
-          ./common-nixos/cfg-ssh.nix
-          ./common-nixos/cfg-nix-settings.nix
-          ./extras/shared-nix-settings.nix
-
-          hax-nur.nixosModules.overlay
-          lix-module.nixosModules.default
-          home-manager.nixosModules.home-manager
-          ./common-nixos/cfg-home-manager.nix
-
-          {
-            home-manager.users.${me}.imports = [
-              ./nixos-tataru/home.nix
-              ./common-home/linux.nix
-              ./common-home/core.nix
-            ];
-          }
-        ]; # modules
+        modules = [ ./nixos-tataru/configuration.nix ];
       }); # tataru
 
       # ADDITIONAL SYSTEMS (stuff that is not maintained as much)
@@ -279,37 +156,7 @@
 
         specialArgs = mkSpecialArgs me system;
 
-        modules = [
-          ./additional-systems/nixos-asahinix/configuration.nix
-          ./additional-systems/nixos-asahinix/hardware-configuration.nix
-          ./common-nixos/cfg-ssh.nix
-          ./common-nixos/cfg-nix-settings.nix
-          ./extras/shared-nix-settings.nix
-
-          lix-module.nixosModules.default
-          home-manager.nixosModules.home-manager
-          ./common-nixos/cfg-home-manager.nix
-
-          {
-            home-manager.users.${me}.imports = [
-              ./additional-systems/nixos-asahinix/home.nix
-              ./common-home/linux.nix
-              ./common-home/desktop.nix
-              ./common-home/core.nix
-            ];
-          }
-
-          nixos-apple-silicon.nixosModules.apple-silicon-support
-          {
-            hardware.asahi = {
-              enable = true;
-              useExperimentalGPUDriver = true;
-              setupAsahiSound = true;
-            };
-
-            #boot.kernelParams = [ "apple_dcp.show_notch=1" ];
-          }
-        ]; # modules
+        modules = [ ./additional-systems/nixos-asahinix/configuration.nix ];
       }); # asahinix
 
       "imacbooknix" = nixos-unstable.lib.nixosSystem (let
@@ -320,23 +167,7 @@
 
         specialArgs = mkSpecialArgs me system;
 
-        modules = [
-          ./additional-systems/nixos-imacbooknix/configuration.nix
-
-          lix-module.nixosModules.default
-
-          home-manager.nixosModules.home-manager
-          ./common-nixos/cfg-home-manager.nix
-
-          {
-            home-manager.users.${me}.imports = [
-              ./additional-systems/nixos-imacbooknix/home.nix
-              ./common-home/linux.nix
-              ./common-home/desktop.nix
-              ./common-home/core.nix
-            ];
-          }
-        ];
+        modules = [ ./additional-systems/nixos-imacbooknix/configuration.nix ];
       }); # imacbooknix
 
       "liveimage" = nixos-unstable.lib.nixosSystem (let
@@ -348,26 +179,8 @@
         specialArgs = mkSpecialArgs me system;
 
         modules = [
-          "${nixos-unstable}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-plasma6.nix"
           ./additional-systems/nixos-liveimage/configuration.nix
-          ./extras/shared-nix-settings.nix
-
-          lix-module.nixosModules.default
-          home-manager.nixosModules.home-manager
-          ./common-nixos/cfg-home-manager.nix
-
-          {
-            home-manager.users.${me}.imports = [
-              ./additional-systems/nixos-liveimage/home.nix
-              ./common-home/cfg-neovim.nix
-              ./common-home/linux.nix
-              ./common-home/core.nix
-            ];
-          }
-
-          {
-            environment.etc."nix-config".source = self;
-          }
+          { environment.etc."nix-config".source = self; }
         ];
       }); # liveimage
     }; # nixosConfigurations
@@ -379,16 +192,7 @@
         pkgs = import nixos-unstable { inherit system; };
       in {
         inherit pkgs;
-        modules = [
-          ./hm-krile/home.nix
-          ./common-home/linux.nix
-          ./common-home/desktop.nix
-          ./common-home/core.nix
-          ./common-home/non-nixos.nix
-          ./extras/shared-nix-settings.nix
-          hax-nur.hmModules.lnshot
-          lix-module.nixosModules.default
-        ];
+        modules = [ ./hm-krile/home.nix ];
         extraSpecialArgs = mkSpecialArgs "deck" system;
       });
     }; # homeConfigurations

@@ -1,10 +1,14 @@
-{ config, lib, pkgs, me, r, modulesPath, ... }:
+{ config, lib, pkgs, me, r, inputs, modulesPath, ... }:
 
 {
   imports = [
+    (r.extras + /shared-nix-settings.nix)
     (r.common-nixos + /cfg-misc.nix)
+    (r.common-nixos + /cfg-home-manager.nix)
     (r.common-nixos + /cfg-common-system-packages.nix)
     (r.common-nixos + /cfg-linux-kernel.nix)
+    (r.common-nixos + /cfg-ssh.nix)
+    (r.common-nixos + /cfg-nix-settings.nix)
     (r.common-nixos + /cfg-my-user.nix)
     (r.common-nixos + /cfg-podman.nix)
     (r.common-nixos + /cfg-shell-aliases.nix)
@@ -13,6 +17,8 @@
     (r.common-nixos + /cfg-xdg.nix)
     (r.common-nixos + /cfg-neovim.nix)
     (r.common-nixos + /cfg-zsh.nix)
+    ./hardware-configuration.nix
+    ./networking.nix
     ./cfg-nginx.nix
     ./cfg-homebox.nix
     ./cfg-atticd.nix
@@ -20,7 +26,15 @@
     ./cfg-znc.nix
     ./cfg-discord-ghfilter.nix
 
+    inputs.hax-nur.nixosModules.overlay
+    inputs.lix-module.nixosModules.default
     "${modulesPath}/profiles/minimal.nix"
+  ];
+
+  home-manager.users.${me}.imports = [
+    ./home.nix
+    (r.common-home + /linux.nix)
+    (r.common-home + /core.nix)
   ];
 
   boot = {

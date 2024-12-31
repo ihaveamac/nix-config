@@ -1,6 +1,16 @@
-{ config, lib, pkgs, r, ... }:
+{ config, lib, pkgs, r, inputs, ... }:
 
 {
+  imports = [
+    (r.common-home + /linux.nix)
+    (r.common-home + /desktop.nix)
+    (r.common-home + /core.nix)
+    (r.common-home + /non-nixos.nix)
+    (r.extras + /shared-nix-settings.nix)
+    inputs.hax-nur.hmModules.lnshot
+    inputs.lix-module.nixosModules.default
+  ];
+
   programs = {
     firefox = {
       enable = true;

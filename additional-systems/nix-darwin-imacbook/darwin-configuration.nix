@@ -1,13 +1,16 @@
-{ config, pkgs, lib, me, r, ... }:
+{ config, pkgs, lib, me, r, inputs, ... }:
 
 {
   imports = [
+    (r.extras + /shared-nix-settings.nix)
     (r.common-nixos + /cfg-sudo-config.nix)
     (r.common-nixos + /cfg-nix-homeserver-builder.nix)
     (r.common-nixos + /cfg-nix-settings.nix)
-    (r.extras + /shared-nix-settings.nix)
     (r.common-nixos + /cfg-home-manager.nix)
+    inputs.hax-nur.nixosModules.overlay
+    inputs.lix-module.nixosModules.default
   ];
+
   environment.systemPackages = with pkgs; [
     vim
   ];
