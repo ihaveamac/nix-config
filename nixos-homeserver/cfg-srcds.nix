@@ -3,7 +3,7 @@
 {
   imports = [ inputs.srcds-nix.nixosModules.default ];
 
-  services.srcds.enable = true;
+  services.srcds.enable = false;
   services.srcds.openFirewall = true;
   services.srcds.games = {
     tf2 = {
@@ -14,11 +14,11 @@
         enable = true;
         password = "ihaveahax";
       };
-      config = {
+      serverConfig = {
         hostname = "NixOS srcds-nix test";
         sv_password = "ihaveahax";
       };
-      extraConfig = ''
+      extraServerConfig = ''
         echo extraConfig executed
       '';
     };
