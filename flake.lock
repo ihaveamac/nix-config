@@ -286,11 +286,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1735706129,
-        "narHash": "sha256-Wx6mK5CMK5mjA52erMHVSkGs6E0uws452FWgcRDm6VA=",
+        "lastModified": 1735716817,
+        "narHash": "sha256-rCZbHkJsH1YszoeZ+h5B8hUED2G5rRti1PuOgoqnmbs=",
         "owner": "ihaveamac",
         "repo": "srcds-nix",
-        "rev": "53a7973b43e81021d558baeede1d5b7f6d5e0f8d",
+        "rev": "732d98acaaeb875fd7034c7a524ff3a3c05b4a0f",
         "type": "github"
       },
       "original": {
