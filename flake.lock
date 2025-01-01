@@ -73,11 +73,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1735272261,
-        "narHash": "sha256-uQ2JqhH9L+OMB0o3mquWV0B/JJEtdbojvLnhuQoRLc4=",
+        "lastModified": 1735704866,
+        "narHash": "sha256-qur/eh3Tl5NOvenQqdcwuMrZdm6PIru1SPD2oI5eVO0=",
         "owner": "ihaveamac",
         "repo": "nur-packages",
-        "rev": "1de6b1e93fb6af8a4de7b07aebca01a0f38aac5b",
+        "rev": "8e9f5b98f4456d529129d444c5e188a6f37a2482",
         "type": "github"
       },
       "original": {
@@ -94,11 +94,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1735053786,
-        "narHash": "sha256-Gm+0DcbUS338vvkwyYWms5jsWlx8z8MeQBzcnIDuIkw=",
+        "lastModified": 1735381016,
+        "narHash": "sha256-CyCZFhMUkuYbSD6bxB/r43EdmDE7hYeZZPTCv0GudO4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "35b98d20ca8f4ca1f6a2c30b8a2c8bb305a36d84",
+        "rev": "10e99c43cdf4a0713b4e81d90691d22c6a58bdf2",
         "type": "github"
       },
       "original": {
@@ -175,11 +175,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1735218083,
-        "narHash": "sha256-MoUAbmXz9TEr7zlKDRO56DBJHe30+7B5X7nhXm+Vpc8=",
+        "lastModified": 1735685839,
+        "narHash": "sha256-62xAPSs5VRZoPH7eRanUn5S5vZEd+8vM4bD5I+zxokc=",
         "owner": "LnL7",
         "repo": "nix-darwin",
-        "rev": "bc03f7818771a75716966ce8c23110b715eff2aa",
+        "rev": "6a1fdb2a1204c0de038847b601cff5012e162b5e",
         "type": "github"
       },
       "original": {
@@ -211,11 +211,11 @@
     },
     "nixos-unstable": {
       "locked": {
-        "lastModified": 1735291276,
-        "narHash": "sha256-NYVcA06+blsLG6wpAbSPTCyLvxD/92Hy4vlY9WxFI1M=",
+        "lastModified": 1735471104,
+        "narHash": "sha256-0q9NGQySwDQc7RhAV2ukfnu7Gxa5/ybJ2ANT8DQrQrs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "634fd46801442d760e09493a794c4f15db2d0cbb",
+        "rev": "88195a94f390381c6afcdaa933c2f6ff93959cb4",
         "type": "github"
       },
       "original": {
@@ -286,11 +286,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1735235488,
-        "narHash": "sha256-Mq5NJZ2JAMcy2Y1xuFL+F7MjXhjpU7BkNw8LCn03Fpk=",
+        "lastModified": 1735706129,
+        "narHash": "sha256-Wx6mK5CMK5mjA52erMHVSkGs6E0uws452FWgcRDm6VA=",
         "owner": "ihaveamac",
         "repo": "srcds-nix",
-        "rev": "bfc88043e8df0f7daa962c54d6c863b2c332827b",
+        "rev": "53a7973b43e81021d558baeede1d5b7f6d5e0f8d",
         "type": "github"
       },
       "original": {
