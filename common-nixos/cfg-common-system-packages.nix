@@ -23,6 +23,7 @@
         unzip
         ( _7zz.override { enableUnfree = true; } )
         tree
+        xxd
       ];
     })
     (lib.mkIf config.hax.packages.enableExtra {
