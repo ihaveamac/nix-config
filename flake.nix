@@ -45,7 +45,7 @@
     };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixos-unstable, home-manager, nixos-apple-silicon, hax-nur, lix-module, ninfs, srcds-nix, ... }: let
+  outputs = inputs@{ self, nix-darwin, nixos-unstable, home-manager, nixos-apple-silicon, hax-nur, lix-module, ninfs, srcds-nix }: let
     r = {
       root = ./.;
       common-nixos = ./common-nixos;
@@ -55,6 +55,7 @@
     mkSpecialArgs = (me: system: {
       inherit me inputs r;
       my-inputs = {
+        # putting this in cfg-home-manager.nix causes an infinite recursion error
         home-manager-module = if (system == "aarch64-darwin" || system == "x86_64-darwin") then
           home-manager.darwinModules.home-manager
         else
@@ -276,7 +277,6 @@
         };
         iso = let
           system = self.nixosConfigurations.liveimage;
-          toplevel = system.config.system.build.toplevel;
           isobase = system.config.system.build.isoImage;
         in pkgs.stdenvNoCC.mkDerivation {
           name = (isobase.name + "-static-name");
