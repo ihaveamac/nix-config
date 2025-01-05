@@ -48,7 +48,6 @@ in
 
       networking = {
         firewall.allowedTCPPorts = [ localPort ];
-        useHostResolvConf = lib.mkForce false;
       };
 
       system.stateVersion = "24.11";

@@ -56,7 +56,7 @@
     nat = {
       enable = true;
       internalInterfaces = ["ve-+"];
-      externalInterface = "ens3";
+      externalInterface = "eth0";
       # Lazy IPv6 connectivity for the container
       enableIPv6 = true;
     };
