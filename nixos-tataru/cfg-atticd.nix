@@ -14,7 +14,7 @@ in
       locations."/" = {
         recommendedProxySettings = true;
         #proxyPass = "http://${config.containers.atticd.localAddress}:${toString localPort}";
-        proxyPass = "http://127.0.0.1:${toString localPort}";
+        proxyPass = "http://atticd:${toString localPort}";
       };
     };
   };
@@ -22,19 +22,9 @@ in
   containers.atticd = {
     autoStart = true;
     ephemeral = true;
-    # this breaks internet connectivity, i need to figure out how to resolve that
-    #privateNetwork = true;
+    privateNetwork = true;
     hostAddress = "192.168.100.10";
     localAddress = "192.168.100.12";
-    hostAddress6 = "fc00::1";
-    localAddress6 = "fc00::3";
-    forwardPorts = [
-      {
-        hostPort = localPort;
-        containerPort = localPort;
-        protocol = "tcp";
-      }
-    ];
     bindMounts = {
       atticdEnv = {
         hostPath = "/var/keys/atticd";

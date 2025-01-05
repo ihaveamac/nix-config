@@ -10,7 +10,7 @@ in
       forceSSL = true;
       locations."/" = {
         recommendedProxySettings = true;
-        proxyPass = "http://${config.containers.homebox.localAddress}:${toString localPort}";
+        proxyPass = "http://homebox:${toString localPort}";
       };
     };
   };
@@ -22,20 +22,11 @@ in
     privateNetwork = true;
     hostAddress = "192.168.100.10";
     localAddress = "192.168.100.11";
-    hostAddress6 = "fc00::1";
-    localAddress6 = "fc00::2";
     bindMounts.dataDir = {
       hostPath = "/var/lib/homebox";
       mountPoint = "/var/lib/homebox";
       isReadOnly = false;
     };
-    forwardPorts = [
-      {
-        hostPort = localPort;
-        containerPort = localPort;
-        protocol = "tcp";
-      }
-    ];
     config = { config, pkgs, lib, ... }: {
       system.switch.enable = false;
       services.homebox = {
