@@ -39,12 +39,6 @@
     inputs.lix-module.nixosModules.default
   ];
 
-  home-manager.users.${me}.imports = [
-    ./home.nix
-    (r.common-home + /linux.nix)
-    (r.common-home + /core.nix)
-  ];
-
   boot.loader.grub = {
     extraFiles."efi/netbootxyz/netboot.xyz.efi" = "${pkgs.netbootxyz-efi}";
     extraEntries = ''
@@ -138,6 +132,8 @@
       };
     };
   };
+
+  home-manager.users.${me}.imports = [ ./home.nix ];
 
   system.stateVersion = "24.05"; # Did you read the comment?
 }

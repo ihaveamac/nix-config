@@ -2,6 +2,8 @@
 
 {
   imports = [
+    (r.common-home + /core.nix)
+    (r.common-home + /linux.nix)
     (r.common-home + /cfg-docker-aliases.nix)
   ];
 

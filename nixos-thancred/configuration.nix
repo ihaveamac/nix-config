@@ -37,14 +37,6 @@
     inputs.lix-module.nixosModules.default
   ];
 
-  home-manager.users.${me}.imports = [
-    ./home.nix
-    (r.common-home + /linux.nix)
-    (r.common-home + /desktop.nix)
-    (r.common-home + /core.nix)
-    inputs.hax-nur.hmModules.lnshot
-  ];
-
   system.nixos.tags = [ config.boot.kernelPackages.kernel.name ];
 
   specialisation = {
@@ -233,6 +225,8 @@
   };
 
   hax.homeserverHostName = "192.168.1.10";
+
+  home-manager.users.${me}.imports = [ ./home.nix ];
 
   system.stateVersion = "24.05";
 }

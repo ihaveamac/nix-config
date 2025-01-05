@@ -141,14 +141,9 @@ in
   # since ZDOTDIR is set globally, i don't need this useless .zshenv file (hopefully)
   home-manager.users.root.home.file.".zshenv".enable = false;
   home-manager.users.${me} = {
-    imports = [
-      ./home.nix
-      (r.common-home + /desktop.nix)
-      (r.common-home + /core.nix)
-    ];
+    imports = [ ./home.nix ];
     home.file.".zshenv".enable = false;
   };
-
 
   programs.tmux.enable = true;
 

@@ -31,12 +31,6 @@
     "${modulesPath}/profiles/minimal.nix"
   ];
 
-  home-manager.users.${me}.imports = [
-    ./home.nix
-    (r.common-home + /linux.nix)
-    (r.common-home + /core.nix)
-  ];
-
   boot = {
     tmp.cleanOnBoot = true;
     # normally disabled by minimal.nix
@@ -101,6 +95,8 @@
       shell = pkgs.bashInteractive;
     };
   };
+
+  home-manager.users.${me}.imports = [ ./home.nix ];
 
   system.stateVersion = "24.05";
 }

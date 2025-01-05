@@ -13,6 +13,8 @@ let
 in
 {
   imports = [
+    (r.common-home + /desktop.nix)
+    (r.common-home + /core.nix)
     (r.common-home + /cfg-docker-aliases.nix)
     ./cfg-home-applinker.nix
   ];
