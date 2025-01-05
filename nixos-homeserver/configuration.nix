@@ -65,6 +65,14 @@
         8000  # Python http.server
       ];
     };
+    # https://wiki.nixos.org/wiki/NixOS_Containers
+    nat = {
+      enable = true;
+      internalInterfaces = ["ve-+"];
+      externalInterface = "eno1";
+      # Lazy IPv6 connectivity for the container
+      enableIPv6 = true;
+    };
   };
 
   services = {
