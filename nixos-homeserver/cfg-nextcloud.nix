@@ -36,6 +36,8 @@ let
     ${config.services.nextcloud.occ}/bin/nextcloud-occ files:scan --all
     ${config.services.nextcloud.occ}/bin/nextcloud-occ preview:pre-generate -vvv
   '';
+  collaboraLocalPort = 9980;
+  collaboraLocalAddress = "http://127.0.0.1:${toString collaboraLocalPort}";
 in
 {
   # When setting up on a new system, set services.nextcloud.config.adminpassFile
@@ -48,7 +50,7 @@ in
     maxUploadSize = "16G";
     extraApps = {
       # contacts fails to build due to a hash change
-      inherit (config.services.nextcloud.package.packages.apps) calendar notes music mail bookmarks previewgenerator;
+      inherit (config.services.nextcloud.package.packages.apps) calendar notes music mail bookmarks previewgenerator richdocuments;
       contacts = pkgs.fetchNextcloudApp {
         hash = "sha256-Slk10WZfUQGsYnruBR5APSiuBd3jh3WG1GIqKhTUdfU=";
         url = "https://github.com/nextcloud-releases/contacts/releases/download/v6.1.2/contacts-v6.1.2.tar.gz";
@@ -89,19 +91,66 @@ in
   };
 
   # i might be able to put this behind a reverse proxy again...
-  #services.collabora-online = {
-  #  enable = true;
-  #  port = 8443;
-  #  settings = {
-  #    server_name = "homeserver.tail08e9a.ts.net";
-  #  };
-  #  aliasGroups = [
-  #    {
-  #      host = "https://homeserver.tail08e9a.ts.net";
-  #      aliases = [ "https://localhost" "https://127.0.0.1" ];
-  #    }
-  #  ];
-  #};
+  services.collabora-online = {
+    enable = true;
+    port = collaboraLocalPort;
+    settings = {
+      server_name = "homeserver.tail08e9a.ts.net";
+      ssl.enable = false;
+      ssl.termination = true;
+    };
+    aliasGroups = [
+      {
+        host = "https://homeserver.tail08e9a.ts.net";
+        aliases = [ "https://localhost" "https://homeserver" "https://127.0.0.1" ];
+      }
+    ];
+  };
+
+  # NixOS nginx module defaults to 60s proxy timeout
+  # but collabora seems to suggest 36000s
+  # maybe i should manually override it for this module?
+  services.nginx.virtualHosts."homeserver.tail08e9a.ts.net" = {
+    locations = {
+      # static files
+      "^~ /browser" = {
+        recommendedProxySettings = true;
+        proxyPass = collaboraLocalAddress;
+      };
+
+      # WOPI discovery URL
+      "^~ /hosting/discovery" = {
+        recommendedProxySettings = true;
+        proxyPass = collaboraLocalAddress;
+      };
+
+      # Capabilities
+      "^~ /hosting/capabilities" = {
+        recommendedProxySettings = true;
+        proxyPass = collaboraLocalAddress;
+      };
+
+      # main websocket
+      "~ ^/cool/(.*)/ws$" = {
+        recommendedProxySettings = true;
+        proxyPass = collaboraLocalAddress;
+        proxyWebsockets = true;
+      };
+
+      # download, presentation and image upload
+      "~ ^/(c|l)ool" = {
+        recommendedProxySettings = true;
+        proxyPass = collaboraLocalAddress;
+      };
+
+      # Admin Console websocket
+      "^~ /cool/adminws" = {
+        recommendedProxySettings = true;
+        proxyPass = collaboraLocalAddress;
+        proxyWebsockets = true;
+      };
+    };
+  };
 
   #networking.firewall.allowedTCPPorts = [
   #  8443
