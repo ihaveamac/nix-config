@@ -64,6 +64,27 @@
       X11Forwarding = lib.mkForce false;
       PasswordAuthentication = false;
     };
+    collabora-online = {
+      enable = true;
+      port = 9980;
+      settings = {
+        server_name = "coolwsd.ihaveahax.net";
+        ssl.enable = false;
+        ssl.termination = true;
+      };
+      aliasGroups = [ {
+        host = "https://homeserver.tail08e9a.ts.net";
+      } ];
+    };
+    nginx.virtualHosts."coolwsd.ihaveahax.net" = {
+      useACMEHost = "ihaveahax.net";
+      forceSSL = true;
+      locations."/" = {
+        recommendedProxySettings = true;
+        proxyPass = "http://127.0.0.1:9980";
+        proxyWebsockets = true;
+      };
+    };
   };
 
   hax.packages.enableExtra = false;

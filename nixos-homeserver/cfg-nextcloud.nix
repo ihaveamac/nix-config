@@ -48,7 +48,7 @@ in
     maxUploadSize = "16G";
     extraApps = {
       # contacts fails to build due to a hash change
-      inherit (config.services.nextcloud.package.packages.apps) calendar notes music mail bookmarks previewgenerator;
+      inherit (config.services.nextcloud.package.packages.apps) calendar notes music mail bookmarks previewgenerator richdocuments;
       contacts = pkgs.fetchNextcloudApp {
         hash = "sha256-Slk10WZfUQGsYnruBR5APSiuBd3jh3WG1GIqKhTUdfU=";
         url = "https://github.com/nextcloud-releases/contacts/releases/download/v6.1.2/contacts-v6.1.2.tar.gz";
