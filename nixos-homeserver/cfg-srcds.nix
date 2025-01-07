@@ -3,7 +3,7 @@
 {
   imports = [ inputs.srcds-nix.nixosModules.default ];
 
-  services.srcds.enable = false;
+  services.srcds.enable = true;
   services.srcds.openFirewall = true;
   services.srcds.games = {
     tf2 = {
@@ -12,7 +12,6 @@
       startingMap = "pl_upward";
       rcon = {
         enable = true;
-        password = "ihaveahax";
       };
       serverConfig = {
         hostname = "NixOS srcds-nix test";
