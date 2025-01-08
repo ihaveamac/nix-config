@@ -206,7 +206,7 @@
       # ffmpeg override: https://github.com/NixOS/nixpkgs/issues/358765
       # https://github.com/NixOS/nixpkgs/pull/366880
       # crashes immediately on launch in wayland, so i also have to force xwayland
-      ( ( subtitlecomposer.override { ffmpeg = ffmpeg_6; } ).overrideAttrs (final: prev: {
+      ( subtitlecomposer.overrideAttrs (final: prev: {
         postInstall = ''
           substituteInPlace $out/share/applications/org.kde.subtitlecomposer.desktop \
             --replace-fail "Exec=subtitlecomposer %f" "Exec=WAYLAND_DISPLAY="" subtitlecomposer %f"
