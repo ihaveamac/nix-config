@@ -18,11 +18,9 @@ in
     };
   };
 
-  sops = {
-    secrets."atticd/atticd.env" = {
-      sopsFile = ../secrets/atticd.env;
-      format = "dotenv";
-    };
+  sops.secrets."atticd/atticd.env" = {
+    sopsFile = ../secrets/atticd.env;
+    format = "dotenv";
   };
 
   containers.atticd = {

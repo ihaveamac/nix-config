@@ -5,11 +5,12 @@ let
   ghfilter-env = pythonPackages.python.buildEnv.override {
     extraLibs = [ pythonPackages.aiohttp ];
   };
-  webhookUrlPath = "/opt/ghfilter/webhook-url";
   localPort = "9124";
   listenUrl = "/nocrowdin";
 in
 {
+  sops.secrets."ghfilter-webhook-url" = {};
+
   systemd.services.ghfilter = {
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
@@ -21,7 +22,7 @@ in
     serviceConfig = {
       Type = "exec";
       PrivateTmp = true;
-      ExecStart = "${ghfilter-env}/bin/python3 ${./ghfilter/filter.py} ${webhookUrlPath} ${localPort} ${listenUrl}";
+      ExecStart = "${ghfilter-env}/bin/python3 ${./ghfilter/filter.py} ${config.sops.secrets.ghfilter-webhook-url.path} ${localPort} ${listenUrl}";
       Restart = "on-failure";
     };
   };
