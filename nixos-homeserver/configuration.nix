@@ -37,6 +37,7 @@
 
     inputs.hax-nur.nixosModules.overlay
     inputs.lix-module.nixosModules.default
+    inputs.sops-nix.nixosModules.sops
   ];
 
   boot.loader.grub = {
@@ -84,6 +85,7 @@
   environment.systemPackages = with pkgs; [
     ffmpeg_7-full
     steamcmd
+    sops
   ];
 
   programs = {

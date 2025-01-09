@@ -27,6 +27,10 @@
       url = "github:tpwrules/nixos-apple-silicon";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
     hax-nur = {
       url = "github:ihaveamac/nur-packages/staging";
       inputs.nixpkgs.follows = "nixos-unstable";
@@ -45,7 +49,7 @@
     };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixos-unstable, home-manager, nixos-apple-silicon, hax-nur, lix-module, ninfs, srcds-nix }: let
+  outputs = inputs@{ self, nix-darwin, nixos-unstable, home-manager, nixos-apple-silicon, hax-nur, lix-module, ninfs, srcds-nix, sops-nix }: let
     r = {
       root = ./.;
       common-nixos = ./common-nixos;

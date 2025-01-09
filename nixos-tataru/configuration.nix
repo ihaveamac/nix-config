@@ -28,8 +28,16 @@
 
     inputs.hax-nur.nixosModules.overlay
     inputs.lix-module.nixosModules.default
+    inputs.sops-nix.nixosModules.sops
     "${modulesPath}/profiles/minimal.nix"
   ];
+
+  sops = {
+    age = {
+      keyFile = "/etc/sops-key.txt";
+      generateKey = true;
+    };
+  };
 
   boot = {
     tmp.cleanOnBoot = true;
