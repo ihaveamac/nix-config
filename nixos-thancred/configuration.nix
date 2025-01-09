@@ -101,6 +101,7 @@
     groff
     my-inputs.ninfs.ninfs
     ffmpeg_7-full
+    sops
   ];
 
   environment.sessionVariables = {
