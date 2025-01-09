@@ -1,9 +1,11 @@
 keys:
   - &admin_hax age1eeu3yzn0ede69f5s65mch8g3a48q9z5km2c0p0sv5we5vd7wxpvqsyeysm
   - &server_tataru age1nqu38lhygvytw63kuvekxvznjj6yvqecy7pddq5p29g05vau0afq03nugm
+  - &server_homeserver age1ya07cln520kx27jq944ezpnr9azgxuhw8tjpzdqs9xa7vekeuppqf9lkh3
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
       - age:
         - *admin_hax
         - *server_tataru
+        - *server_homeserver

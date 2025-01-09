@@ -40,6 +40,14 @@
     inputs.sops-nix.nixosModules.sops
   ];
 
+  sops = {
+    defaultSopsFile = ../secrets/homeserver.yaml;
+    age = {
+      keyFile = "/etc/sops-key.txt";
+      generateKey = true;
+    };
+  };
+
   boot.loader.grub = {
     extraFiles."efi/netbootxyz/netboot.xyz.efi" = "${pkgs.netbootxyz-efi}";
     extraEntries = ''

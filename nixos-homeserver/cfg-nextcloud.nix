@@ -38,6 +38,11 @@ let
   '';
 in
 {
+  sops.secrets.nextcloud-admin-pass = {
+    owner = config.users.users.nextcloud.name;
+    group = config.users.users.nextcloud.group;
+  };
+
   # When setting up on a new system, set services.nextcloud.config.adminpassFile
   # https://wiki.nixos.org/wiki/Nextcloud
   services.nextcloud = {
@@ -72,7 +77,7 @@ in
     extraAppsEnable = true;
     configureRedis = true;
     config = {
-      adminpassFile = "/var/nextcloud-admin-pass";
+      adminpassFile = config.sops.secrets.nextcloud-admin-pass.path;
       dbtype = "pgsql";
     };
     settings = {
