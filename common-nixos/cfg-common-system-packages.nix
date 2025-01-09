@@ -35,6 +35,7 @@
         squashfuse # useful since i can use it as non-root, and override uid/gid
         attic-client
         ( p7zip.override { enableUnfree = true; } )
+        nixpkgs-manual
       ];
     })
   ];
