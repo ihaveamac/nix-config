@@ -33,7 +33,7 @@
   ];
 
   sops = {
-    defaultSopsFile = ../secrets/tataru.yaml;
+    defaultSopsFile = ../secrets/tataru/default.yaml;
     age = {
       keyFile = "/etc/sops-key.txt";
       generateKey = true;

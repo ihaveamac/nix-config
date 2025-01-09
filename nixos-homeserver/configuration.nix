@@ -41,7 +41,7 @@
   ];
 
   sops = {
-    defaultSopsFile = ../secrets/homeserver.yaml;
+    defaultSopsFile = ../secrets/homeserver/default.yaml;
     age = {
       keyFile = "/etc/sops-key.txt";
       generateKey = true;

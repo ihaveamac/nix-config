@@ -9,3 +9,13 @@ creation_rules:
         - *admin_hax
         - *server_tataru
         - *server_homeserver
+  - path_regex: secrets/tataru/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+        - *admin_hax
+        - *server_tataru
+  - path_regex: secrets/homeserver/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+        - *admin_hax
+        - *server_tataru

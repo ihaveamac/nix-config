@@ -19,7 +19,7 @@ in
   };
 
   sops.secrets."atticd/atticd.env" = {
-    sopsFile = ../secrets/atticd.env;
+    sopsFile = ../secrets/tataru/atticd.env;
     format = "dotenv";
   };
 
