@@ -81,6 +81,23 @@ in
       dbtype = "pgsql";
     };
     settings = {
+      preview_ffmpeg_path = "${pkgs.ffmpeg}/bin/ffmpeg";
+      enable_previews = true;
+      enabledPreviewProviders = [
+        "OC\\Preview\\TXT"
+        "OC\\Preview\\MarkDown"
+        "OC\\Preview\\OpenDocument"
+        "OC\\Preview\\PDF"
+        "OC\\Preview\\MSOffice2003"
+        "OC\\Preview\\MSOfficeDoc"
+        "OC\\Preview\\Image"
+        "OC\\Preview\\Photoshop"
+        "OC\\Preview\\TIFF"
+        "OC\\Preview\\SVG"
+        "OC\\Preview\\Font"
+        "OC\\Preview\\MP3"
+        "OC\\Preview\\Movie"
+      ];
       trusted_domains = [
         "homeserver" # tailscale
         "192.168.1.10" # local ip address on the spectrum router
