@@ -247,6 +247,8 @@
           "nixos-apple-silicon.nixpkgs" = nixos-apple-silicon.inputs.nixpkgs;
           "nixos-apple-silicon.rust-overlay" = nixos-apple-silicon.inputs.rust-overlay;
           "nixos-unstable" = nixos-unstable;
+          "sops-nix" = sops-nix;
+          "sops-nix.nixpkgs" = sops-nix.inputs.nixpkgs;
           "srcds-nix" = srcds-nix;
           "srcds-nix.nixpkgs" = srcds-nix.inputs.nixpkgs;
         });
