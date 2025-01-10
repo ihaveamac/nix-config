@@ -45,6 +45,7 @@ in
     ( _7zz.override { enableUnfree = true; useUasm = false; } ) # https://github.com/NixOS/nixpkgs/pull/353272
     btop
     smartmontools
+    sops
   ];
 
   environment.variables = {
