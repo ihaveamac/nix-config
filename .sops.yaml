@@ -26,4 +26,4 @@ creation_rules:
         - *admin_homeserver
         - *admin_thancred
         - *admin_alphinaud
-        - *server_tataru
+        - *server_homeserver
