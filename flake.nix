@@ -218,7 +218,6 @@
         dontFixup = true;
 
         installPhase = ''
-          echo testing
           mkdir $out
         '' + p.lib.concatStringsSep "\n" (p.lib.mapAttrsToList (k: v: ''
           echo "Linking input ${k}"

@@ -73,11 +73,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1736825454,
-        "narHash": "sha256-40nrUECWYU6J+c1AyA8xa59XyWhKqJgGX2xLqRamakc=",
+        "lastModified": 1736885883,
+        "narHash": "sha256-QQ0qtLLTJRg0vOSjKut2BN71zvRdjYBgQT3A/VZ29bk=",
         "owner": "ihaveamac",
         "repo": "nur-packages",
-        "rev": "7fffa7164541e98717fc12270b52abad6be8e797",
+        "rev": "b00bdf8f2657eee936bd05b38b7bb7341e26f73b",
         "type": "github"
       },
       "original": {
