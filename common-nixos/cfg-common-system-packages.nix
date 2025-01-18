@@ -34,6 +34,7 @@
         pciutils
         squashfuse # useful since i can use it as non-root, and override uid/gid
         attic-client
+        nixfmt-rfc-style
         ( p7zip.override { enableUnfree = true; } )
       ];
     })
