@@ -73,11 +73,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737213509,
-        "narHash": "sha256-tU5rQHbH8VuxnTi38w3fcLTgpJB7OKNYVlvZJhQtWaw=",
+        "lastModified": 1737219150,
+        "narHash": "sha256-6Q4Umq/qW7OCAz3l2Kacao2aD5O7/bui9ZQdGU+psl0=",
         "owner": "ihaveamac",
         "repo": "nur-packages",
-        "rev": "11cd14dff67a88f9070640eb02e760b92af8e598",
+        "rev": "d4d20c9820f55dc33cf09595d61f94dcea06bd5d",
         "type": "github"
       },
       "original": {
@@ -94,11 +94,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737188535,
-        "narHash": "sha256-O2ttwW1/dUc/Y+Rf48Njtr4tZpRJhy8FhafikekIjMY=",
+        "lastModified": 1737299337,
+        "narHash": "sha256-0NBrY2A7buujKmeCbieopOMSbLxTu8TFcTLqAbTnQDw=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "1e36429705f9af2d00a517ba46a4f21ef8a8194f",
+        "rev": "f8ef4541bb8a54a8b52f19b52912119e689529b3",
         "type": "github"
       },
       "original": {
@@ -155,11 +155,11 @@
         "pyctr": "pyctr"
       },
       "locked": {
-        "lastModified": 1736721475,
-        "narHash": "sha256-W7qhAYZP4jPJpkU5cB9aXhSzQo9WFw+1YoOBMNU+fBY=",
+        "lastModified": 1737230007,
+        "narHash": "sha256-GumIWSpVJhvoB8J/2cAJntfpSY0VtKlBLo/qhCC2e8U=",
         "owner": "ihaveamac",
         "repo": "ninfs",
-        "rev": "7675cf7eeea35d68afb629f6e110f3c81a1ec08e",
+        "rev": "78461945f0edf1245b134cc46c5b09f93418d0ea",
         "type": "github"
       },
       "original": {
