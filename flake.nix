@@ -36,7 +36,7 @@
       inputs.nixpkgs.follows = "nixos-unstable";
     };
     lix-module = {
-      url = "git+https://git.lix.systems/lix-project/nixos-module?ref=refs/heads/release-2.91";
+      url = "git+https://git.lix.systems/lix-project/nixos-module?ref=refs/heads/release-2.92";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
     ninfs = {
