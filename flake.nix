@@ -234,8 +234,6 @@
           "lix-module.lix" = lix-module.inputs.lix;
           "lix-module.nixpkgs" = lix-module.inputs.nixpkgs;
           "ninfs" = ninfs;
-          "ninfs.flake-utils" = ninfs.inputs.flake-utils;
-          "ninfs.flake-utils.systems" = ninfs.inputs.flake-utils.inputs.systems;
           "ninfs.nixpkgs" = ninfs.inputs.nixpkgs;
           "ninfs.pyctr" = ninfs.inputs.pyctr;
           "ninfs.pyctr.nixpkgs" = ninfs.inputs.pyctr.inputs.nixpkgs;
