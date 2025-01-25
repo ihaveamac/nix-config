@@ -14,7 +14,7 @@ in
   # this would add the multiple environments to every system,
   # i only really need this on thancred, but i'll maybe figure it out later...
   environment.systemPackages = [
-    (mkPythonEnv pkgs.python312Packages (p: [ p.requests ]) {})
+    #(mkPythonEnv pkgs.python312Packages (p: [ p.requests ]) {})
     (mkPythonEnv pkgs.python313Packages (p: [ p.requests ]) {})
     # python314Packages.requests has failing dependencies
     (mkPythonEnv pkgs.python314Packages (p: []) {})

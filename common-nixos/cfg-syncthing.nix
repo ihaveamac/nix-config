@@ -9,4 +9,7 @@
   };
 
   networking.firewall.allowedTCPPorts = [ 8384 ];
+
+  # maybe this is a bad idea?
+  users.users.ihaveahax.extraGroups = [ "syncthing" ];
 }

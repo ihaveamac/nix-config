@@ -37,7 +37,16 @@
 
     inputs.hax-nur.nixosModules.overlay
     inputs.lix-module.nixosModules.default
+    inputs.sops-nix.nixosModules.sops
   ];
+
+  sops = {
+    defaultSopsFile = ../secrets/homeserver/default.yaml;
+    age = {
+      keyFile = "/etc/sops-key.txt";
+      generateKey = true;
+    };
+  };
 
   boot.loader.grub = {
     extraFiles."efi/netbootxyz/netboot.xyz.efi" = "${pkgs.netbootxyz-efi}";
@@ -84,6 +93,7 @@
   environment.systemPackages = with pkgs; [
     ffmpeg_7-full
     steamcmd
+    sops
   ];
 
   programs = {

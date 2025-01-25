@@ -1,0 +1,29 @@
+keys:
+  - &admin_homeserver age1eeu3yzn0ede69f5s65mch8g3a48q9z5km2c0p0sv5we5vd7wxpvqsyeysm
+  - &admin_thancred age1y7mcpnhdwr7x4ar3vwuydckvrx3juuejn32lpk4gfvruwv0s997q4cmef8
+  - &admin_alphinaud age1fngvwa570g6efw2jk9etd2rf7mp2jtk9u6ppsndljwp9c44lkavqn68jgj
+  - &server_tataru age1nqu38lhygvytw63kuvekxvznjj6yvqecy7pddq5p29g05vau0afq03nugm
+  - &server_homeserver age1ya07cln520kx27jq944ezpnr9azgxuhw8tjpzdqs9xa7vekeuppqf9lkh3
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+        - *admin_homeserver
+        - *admin_thancred
+        - *admin_alphinaud
+        - *server_tataru
+        - *server_homeserver
+  - path_regex: secrets/tataru/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+        - *admin_homeserver
+        - *admin_thancred
+        - *admin_alphinaud
+        - *server_tataru
+  - path_regex: secrets/homeserver/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+        - *admin_homeserver
+        - *admin_thancred
+        - *admin_alphinaud
+        - *server_homeserver

@@ -123,6 +123,17 @@ in
     };
   };
 
+  sops.secrets = {
+    "do-auth-token" = {
+      owner = config.users.users.acme.name;
+      group = config.users.users.acme.group;
+    };
+    "do-auth-token-nintendohomebrew" = {
+      owner = config.users.users.acme.name;
+      group = config.users.users.acme.group;
+    };
+  };
+
   security.acme = {
     acceptTerms = true;
     defaults = {
@@ -130,7 +141,7 @@ in
       dnsProvider = "digitalocean";
       dnsPropagationCheck = true;
       credentialFiles = {
-        "DO_AUTH_TOKEN_FILE" = "/var/do-auth-token";
+        "DO_AUTH_TOKEN_FILE" = config.sops.secrets.do-auth-token.path;
       };
     };
     certs = {
@@ -146,7 +157,7 @@ in
         domain = "switchgui.de";
         extraDomainNames = [ "*.switchgui.de" ];
         credentialFiles = {
-          "DO_AUTH_TOKEN_FILE" = "/var/do-auth-token-nintendohomebrew";
+          "DO_AUTH_TOKEN_FILE" = config.sops.secrets.do-auth-token-nintendohomebrew.path;
         };
       };
     };

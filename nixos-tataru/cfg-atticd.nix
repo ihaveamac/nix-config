@@ -2,7 +2,6 @@
 
 let
   localPort = 8909;
-  keyDir = "/var/keys/atticd";
   envFile = "atticd.env";
 in
 {
@@ -19,6 +18,11 @@ in
     };
   };
 
+  sops.secrets."atticd/atticd.env" = {
+    sopsFile = ../secrets/tataru/atticd.env;
+    format = "dotenv";
+  };
+
   containers.atticd = {
     autoStart = true;
     ephemeral = true;
@@ -27,8 +31,8 @@ in
     localAddress = "192.168.100.12";
     bindMounts = {
       atticdEnv = {
-        hostPath = "/var/keys/atticd";
-        mountPoint = "/var/keys/atticd";
+        hostPath = "/run/secrets/atticd";
+        mountPoint = "/run/secrets/atticd";
         isReadOnly = true;
       };
       postgresql = {
@@ -41,7 +45,7 @@ in
       system.switch.enable = false;
       services.atticd = {
         enable = true;
-        environmentFile = "/var/keys/atticd/atticd.env";
+        environmentFile = "/run/secrets/atticd/atticd.env";
         settings = {
           listen = "[::]:${toString localPort}";
           database.url = "postgresql:///atticd?host=/run/postgresql";

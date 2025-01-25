@@ -38,6 +38,11 @@ let
   '';
 in
 {
+  sops.secrets.nextcloud-admin-pass = {
+    owner = config.users.users.nextcloud.name;
+    group = config.users.users.nextcloud.group;
+  };
+
   # When setting up on a new system, set services.nextcloud.config.adminpassFile
   # https://wiki.nixos.org/wiki/Nextcloud
   services.nextcloud = {
@@ -48,7 +53,7 @@ in
     maxUploadSize = "16G";
     extraApps = {
       # contacts fails to build due to a hash change
-      inherit (config.services.nextcloud.package.packages.apps) calendar notes music mail bookmarks previewgenerator;
+      inherit (config.services.nextcloud.package.packages.apps) calendar notes music mail bookmarks previewgenerator richdocuments;
       contacts = pkgs.fetchNextcloudApp {
         hash = "sha256-Slk10WZfUQGsYnruBR5APSiuBd3jh3WG1GIqKhTUdfU=";
         url = "https://github.com/nextcloud-releases/contacts/releases/download/v6.1.2/contacts-v6.1.2.tar.gz";
@@ -72,10 +77,27 @@ in
     extraAppsEnable = true;
     configureRedis = true;
     config = {
-      adminpassFile = "/var/nextcloud-admin-pass";
+      adminpassFile = config.sops.secrets.nextcloud-admin-pass.path;
       dbtype = "pgsql";
     };
     settings = {
+      preview_ffmpeg_path = "${pkgs.ffmpeg}/bin/ffmpeg";
+      enable_previews = true;
+      enabledPreviewProviders = [
+        "OC\\Preview\\TXT"
+        "OC\\Preview\\MarkDown"
+        "OC\\Preview\\OpenDocument"
+        "OC\\Preview\\PDF"
+        "OC\\Preview\\MSOffice2003"
+        "OC\\Preview\\MSOfficeDoc"
+        "OC\\Preview\\Image"
+        "OC\\Preview\\Photoshop"
+        "OC\\Preview\\TIFF"
+        "OC\\Preview\\SVG"
+        "OC\\Preview\\Font"
+        "OC\\Preview\\MP3"
+        "OC\\Preview\\Movie"
+      ];
       trusted_domains = [
         "homeserver" # tailscale
         "192.168.1.10" # local ip address on the spectrum router

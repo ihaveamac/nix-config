@@ -28,8 +28,17 @@
 
     inputs.hax-nur.nixosModules.overlay
     inputs.lix-module.nixosModules.default
+    inputs.sops-nix.nixosModules.sops
     "${modulesPath}/profiles/minimal.nix"
   ];
+
+  sops = {
+    defaultSopsFile = ../secrets/tataru/default.yaml;
+    age = {
+      keyFile = "/etc/sops-key.txt";
+      generateKey = true;
+    };
+  };
 
   boot = {
     tmp.cleanOnBoot = true;
@@ -63,6 +72,27 @@
     openssh.settings = {
       X11Forwarding = lib.mkForce false;
       PasswordAuthentication = false;
+    };
+    collabora-online = {
+      enable = true;
+      port = 9980;
+      settings = {
+        server_name = "coolwsd.ihaveahax.net";
+        ssl.enable = false;
+        ssl.termination = true;
+      };
+      aliasGroups = [ {
+        host = "https://homeserver.tail08e9a.ts.net";
+      } ];
+    };
+    nginx.virtualHosts."coolwsd.ihaveahax.net" = {
+      useACMEHost = "ihaveahax.net";
+      forceSSL = true;
+      locations."/" = {
+        recommendedProxySettings = true;
+        proxyPass = "http://127.0.0.1:9980";
+        proxyWebsockets = true;
+      };
     };
   };
 

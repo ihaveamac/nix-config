@@ -27,12 +27,16 @@
       url = "github:tpwrules/nixos-apple-silicon";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
     hax-nur = {
       url = "github:ihaveamac/nur-packages/staging";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
     lix-module = {
-      url = "git+https://git.lix.systems/lix-project/nixos-module?ref=refs/heads/release-2.91";
+      url = "git+https://git.lix.systems/lix-project/nixos-module?ref=refs/heads/release-2.92";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
     ninfs = {
@@ -45,7 +49,7 @@
     };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixos-unstable, home-manager, nixos-apple-silicon, hax-nur, lix-module, ninfs, srcds-nix }: let
+  outputs = inputs@{ self, nix-darwin, nixos-unstable, home-manager, nixos-apple-silicon, hax-nur, lix-module, ninfs, srcds-nix, sops-nix }: let
     r = {
       root = ./.;
       common-nixos = ./common-nixos;
@@ -214,7 +218,6 @@
         dontFixup = true;
 
         installPhase = ''
-          echo testing
           mkdir $out
         '' + p.lib.concatStringsSep "\n" (p.lib.mapAttrsToList (k: v: ''
           echo "Linking input ${k}"
@@ -231,8 +234,6 @@
           "lix-module.lix" = lix-module.inputs.lix;
           "lix-module.nixpkgs" = lix-module.inputs.nixpkgs;
           "ninfs" = ninfs;
-          "ninfs.flake-utils" = ninfs.inputs.flake-utils;
-          "ninfs.flake-utils.systems" = ninfs.inputs.flake-utils.inputs.systems;
           "ninfs.nixpkgs" = ninfs.inputs.nixpkgs;
           "ninfs.pyctr" = ninfs.inputs.pyctr;
           "ninfs.pyctr.nixpkgs" = ninfs.inputs.pyctr.inputs.nixpkgs;
@@ -243,6 +244,8 @@
           "nixos-apple-silicon.nixpkgs" = nixos-apple-silicon.inputs.nixpkgs;
           "nixos-apple-silicon.rust-overlay" = nixos-apple-silicon.inputs.rust-overlay;
           "nixos-unstable" = nixos-unstable;
+          "sops-nix" = sops-nix;
+          "sops-nix.nixpkgs" = sops-nix.inputs.nixpkgs;
           "srcds-nix" = srcds-nix;
           "srcds-nix.nixpkgs" = srcds-nix.inputs.nixpkgs;
         });
