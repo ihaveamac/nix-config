@@ -207,7 +207,11 @@
     packages = let
       # this is a derivation in part so i can easily nix-copy-closure this
       # in case i need to, which there was at least one time i did...
-      buildInputs = p: p.stdenvNoCC.mkDerivation {
+      buildInputs = p: let
+        flattenAttrs = with p.lib; pfx: attrs: (flatten (mapAttrsToList (k: v: if k == "self" then [] else let subInputs = v.inputs or null; in [ { name = "${pfx}${k}"; value = v.outPath; } ] ++ (optional (subInputs != null) (flattenAttrs "${pfx}${k}." subInputs))) attrs));
+        inputsAttrs = flattenAttrs "" inputs;
+      in
+      p.stdenvNoCC.mkDerivation {
         name = "flake-inputs";
 
         dontUnpack = true;
@@ -217,38 +221,14 @@
         dontBuild = true;
         dontFixup = true;
 
+        passthru.inputsAttrs = inputsAttrs;
+
         installPhase = ''
           mkdir $out
         '' + p.lib.concatStringsSep "\n" (p.lib.mapAttrsToList (k: v: ''
           echo "Linking input ${k}"
           ln -s ${v} $out/${k}
-        '') {
-          "hax-nur" = hax-nur;
-          "hax-nur.nixpkgs" = hax-nur.inputs.nixpkgs;
-          "home-manager" = home-manager;
-          "home-manager.inputs.nixpkgs" = home-manager.inputs.nixpkgs;
-          "lix-module" = lix-module;
-          "lix-module.flake-utils" = lix-module.inputs.flake-utils;
-          "lix-module.flake-utils.systems" = lix-module.inputs.flake-utils.inputs.systems;
-          "lix-module.flakey-profile" = lix-module.inputs.flakey-profile;
-          "lix-module.lix" = lix-module.inputs.lix;
-          "lix-module.nixpkgs" = lix-module.inputs.nixpkgs;
-          "ninfs" = ninfs;
-          "ninfs.nixpkgs" = ninfs.inputs.nixpkgs;
-          "ninfs.pyctr" = ninfs.inputs.pyctr;
-          "ninfs.pyctr.nixpkgs" = ninfs.inputs.pyctr.inputs.nixpkgs;
-          "nix-darwin" = nix-darwin;
-          "nix-darwin.nixpkgs" = nix-darwin.inputs.nixpkgs;
-          "nixos-apple-silicon" = nixos-apple-silicon;
-          "nixos-apple-silicon.flake-compat" = nixos-apple-silicon.inputs.flake-compat;
-          "nixos-apple-silicon.nixpkgs" = nixos-apple-silicon.inputs.nixpkgs;
-          "nixos-apple-silicon.rust-overlay" = nixos-apple-silicon.inputs.rust-overlay;
-          "nixos-unstable" = nixos-unstable;
-          "sops-nix" = sops-nix;
-          "sops-nix.nixpkgs" = sops-nix.inputs.nixpkgs;
-          "srcds-nix" = srcds-nix;
-          "srcds-nix.nixpkgs" = srcds-nix.inputs.nixpkgs;
-        });
+        '') inputsAttrs);
       };
     in {
       x86_64-linux = let 

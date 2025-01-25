@@ -36,6 +36,7 @@
         attic-client
         nixfmt-rfc-style
         ( p7zip.override { enableUnfree = true; } )
+        nixpkgs-manual
       ];
     })
   ];

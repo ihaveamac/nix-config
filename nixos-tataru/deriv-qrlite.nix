@@ -2,12 +2,12 @@
 
 php.buildComposerProject (finalAttrs: rec {
   pname = "QRLite";
-  version = "1.0.0-alpha3";
+  version = "f04910ecc43f4db3b61c8c37fcca02edc18f1595";
   src = fetchFromGitHub {
     owner = "gesinn-it";
     repo = "QRLite";
     rev = version;
-    hash = "sha256-Edz2vPJuMnYY2pPQsxyc8Qj8FCOTnV1/oE32949jiKw=";
+    hash = "sha256-Qdi+ZVUSz7jN2lHkdMrEd99dD/Zpb65D/agDGzF07sI=";
   };
   nativeBuildInputs = [ wrapComposerPackage ];
   vendorHash = "sha256-a8t6TqGK8QEXwaS6EgxJuWWp7bt3fKlsjBCiwHPf0EM=";
