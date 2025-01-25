@@ -49,273 +49,361 @@
     };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixos-unstable, home-manager, nixos-apple-silicon, hax-nur, lix-module, ninfs, srcds-nix, sops-nix }: let
-    r = {
-      root = ./.;
-      common-nixos = ./common-nixos;
-      common-home = ./common-home;
-      extras = ./extras;
-    };
-    mkSpecialArgs = (me: system: {
-      inherit me inputs r;
-      my-inputs = {
-        # putting this in cfg-home-manager.nix causes an infinite recursion error
-        home-manager-module = if (system == "aarch64-darwin" || system == "x86_64-darwin") then
-          home-manager.darwinModules.home-manager
-        else
-          home-manager.nixosModules.home-manager;
-        hax-nur = hax-nur.outputs.packages.${system};
-        ninfs = ninfs.outputs.packages.${system};
+  outputs =
+    inputs@{
+      self,
+      nix-darwin,
+      nixos-unstable,
+      home-manager,
+      nixos-apple-silicon,
+      hax-nur,
+      lix-module,
+      ninfs,
+      srcds-nix,
+      sops-nix,
+    }:
+    let
+      r = {
+        root = ./.;
+        common-nixos = ./common-nixos;
+        common-home = ./common-home;
+        extras = ./extras;
       };
-    });
-  in {
-    darwinConfigurations = {
-      # MacBook Pro
-      "alphinaud" = nix-darwin.lib.darwinSystem (let
-        me = "ianburgwin";
-        system = "aarch64-darwin";
-      in rec {
-        inherit system;
+      mkSpecialArgs = (
+        me: system: {
+          inherit me inputs r;
+          my-inputs = {
+            # putting this in cfg-home-manager.nix causes an infinite recursion error
+            home-manager-module =
+              if (system == "aarch64-darwin" || system == "x86_64-darwin") then
+                home-manager.darwinModules.home-manager
+              else
+                home-manager.nixosModules.home-manager;
+            hax-nur = hax-nur.outputs.packages.${system};
+            ninfs = ninfs.outputs.packages.${system};
+          };
+        }
+      );
+    in
+    {
+      darwinConfigurations = {
+        # MacBook Pro
+        "alphinaud" = nix-darwin.lib.darwinSystem (
+          let
+            me = "ianburgwin";
+            system = "aarch64-darwin";
+          in
+          rec {
+            inherit system;
 
-        specialArgs = mkSpecialArgs me system;
+            specialArgs = mkSpecialArgs me system;
 
-        modules = [ ./nix-darwin-alphinaud/darwin-configuration.nix ];
-      }); # alphinaud
+            modules = [ ./nix-darwin-alphinaud/darwin-configuration.nix ];
+          }
+        ); # alphinaud
 
-      # for testing in macOS virtual machines (basically the same but lacking masapps)
-      "MacVM" = nix-darwin.lib.darwinSystem (let
-        me = "gordonfreeman";
-        system = "aarch64-darwin";
-      in rec {
-        inherit system;
+        # for testing in macOS virtual machines (basically the same but lacking masapps)
+        "MacVM" = nix-darwin.lib.darwinSystem (
+          let
+            me = "gordonfreeman";
+            system = "aarch64-darwin";
+          in
+          rec {
+            inherit system;
 
-        specialArgs = mkSpecialArgs me system;
+            specialArgs = mkSpecialArgs me system;
 
-        modules = [
-          ./nix-darwin-alphinaud/darwin-configuration.nix
+            modules = [
+              ./nix-darwin-alphinaud/darwin-configuration.nix
 
-          ({ lib, ... }: {
-            homebrew.masApps = lib.mkForce {};
-            # assuming i made my vm with "gordonfreeman"
-            networking.hostName = lib.mkForce "Gordons-Virtual-Machine";
-          })
-        ]; # modules
-      }); # MacVM
+              (
+                { lib, ... }:
+                {
+                  homebrew.masApps = lib.mkForce { };
+                  # assuming i made my vm with "gordonfreeman"
+                  networking.hostName = lib.mkForce "Gordons-Virtual-Machine";
+                }
+              )
+            ]; # modules
+          }
+        ); # MacVM
 
-      # ADDITIONAL SYSTEMS (stuff that is not maintained as much)
-      "Ians-MBP" = nix-darwin.lib.darwinSystem (let
-        me = "ihaveahax";
-        system = "x86_64-darwin";
-      in rec {
-        inherit system;
+        # ADDITIONAL SYSTEMS (stuff that is not maintained as much)
+        "Ians-MBP" = nix-darwin.lib.darwinSystem (
+          let
+            me = "ihaveahax";
+            system = "x86_64-darwin";
+          in
+          rec {
+            inherit system;
 
-        specialArgs = mkSpecialArgs me system;
+            specialArgs = mkSpecialArgs me system;
 
-        modules = [ ./additional-systems/nix-darwin-imacbook/darwin-configuration.nix ];
-      }); # Ians-MBP
-    };
-
-    nixosConfigurations = {
-      "thancred" = nixos-unstable.lib.nixosSystem (let
-        me = "ihaveahax";
-        system = "x86_64-linux";
-      in {
-        inherit system;
-
-        specialArgs = mkSpecialArgs me system;
-
-        modules = [ ./nixos-thancred/configuration.nix ];
-      }); # thancred
-
-      "homeserver" = nixos-unstable.lib.nixosSystem (let
-        me = "ihaveahax";
-        system = "x86_64-linux";
-      in {
-        inherit system;
-
-        specialArgs = mkSpecialArgs me system;
-
-        modules = [ ./nixos-homeserver/configuration.nix ];
-      }); # homeserver
-
-      "tataru" = nixos-unstable.lib.nixosSystem (let
-        me = "ihaveahax";
-        system = "x86_64-linux";
-      in {
-        inherit system;
-
-        specialArgs = mkSpecialArgs me system;
-
-        modules = [ ./nixos-tataru/configuration.nix ];
-      }); # tataru
-
-      # ADDITIONAL SYSTEMS (stuff that is not maintained as much)
-
-      "asahinix" = nixos-unstable.lib.nixosSystem (let
-        me = "ihaveahax";
-        system = "aarch64-linux";
-      in {
-        inherit system;
-
-        specialArgs = mkSpecialArgs me system;
-
-        modules = [ ./additional-systems/nixos-asahinix/configuration.nix ];
-      }); # asahinix
-
-      "imacbooknix" = nixos-unstable.lib.nixosSystem (let
-        me = "ihaveahax";
-        system = "x86_64-linux";
-      in {
-        inherit system;
-
-        specialArgs = mkSpecialArgs me system;
-
-        modules = [ ./additional-systems/nixos-imacbooknix/configuration.nix ];
-      }); # imacbooknix
-
-      "liveimage" = nixos-unstable.lib.nixosSystem (let
-        me = "nixos";
-        system = "x86_64-linux";
-      in {
-        inherit system;
-
-        specialArgs = mkSpecialArgs me system;
-
-        modules = [
-          ./additional-systems/nixos-liveimage/configuration.nix
-          { environment.etc."nix-config".source = self; }
-        ];
-      }); # liveimage
-    }; # nixosConfigurations
-
-    homeConfigurations = {
-      # Steam Deck (SteamOS)
-      "deck@krile" = home-manager.lib.homeManagerConfiguration (let
-        system = "x86_64-linux";
-        pkgs = import nixos-unstable { inherit system; };
-      in {
-        inherit pkgs;
-
-        extraSpecialArgs = mkSpecialArgs "deck" system;
-
-        modules = [ ./hm-krile/home.nix ];
-      });
-    }; # homeConfigurations
-
-    devShells.x86_64-linux.default = import ./shell.nix { pkgs = import nixos-unstable { system = "x86_64-linux"; }; };
-
-    packages = let
-      # this is a derivation in part so i can easily nix-copy-closure this
-      # in case i need to, which there was at least one time i did...
-      buildInputs = p: let
-        flattenAttrs = with p.lib; pfx: attrs: (flatten (mapAttrsToList (k: v: if k == "self" then [] else let subInputs = v.inputs or null; in [ { name = "${pfx}${k}"; value = v.outPath; } ] ++ (optional (subInputs != null) (flattenAttrs "${pfx}${k}." subInputs))) attrs));
-        inputsAttrs = flattenAttrs "" inputs;
-      in
-      p.stdenvNoCC.mkDerivation {
-        name = "flake-inputs";
-
-        dontUnpack = true;
-        dontPatch = true;
-        dontUpdateAutotoolsGnuConfigScripts = true;
-        dontConfigure = true;
-        dontBuild = true;
-        dontFixup = true;
-
-        passthru.inputsAttrs = inputsAttrs;
-
-        installPhase = ''
-          mkdir $out
-        '' + p.lib.concatStringsSep "\n" (p.lib.mapAttrsToList (k: v: ''
-          echo "Linking input ${k}"
-          ln -s ${v} $out/${k}
-        '') inputsAttrs);
+            modules = [ ./additional-systems/nix-darwin-imacbook/darwin-configuration.nix ];
+          }
+        ); # Ians-MBP
       };
-    in {
-      x86_64-linux = let 
+
+      nixosConfigurations = {
+        "thancred" = nixos-unstable.lib.nixosSystem (
+          let
+            me = "ihaveahax";
+            system = "x86_64-linux";
+          in
+          {
+            inherit system;
+
+            specialArgs = mkSpecialArgs me system;
+
+            modules = [ ./nixos-thancred/configuration.nix ];
+          }
+        ); # thancred
+
+        "homeserver" = nixos-unstable.lib.nixosSystem (
+          let
+            me = "ihaveahax";
+            system = "x86_64-linux";
+          in
+          {
+            inherit system;
+
+            specialArgs = mkSpecialArgs me system;
+
+            modules = [ ./nixos-homeserver/configuration.nix ];
+          }
+        ); # homeserver
+
+        "tataru" = nixos-unstable.lib.nixosSystem (
+          let
+            me = "ihaveahax";
+            system = "x86_64-linux";
+          in
+          {
+            inherit system;
+
+            specialArgs = mkSpecialArgs me system;
+
+            modules = [ ./nixos-tataru/configuration.nix ];
+          }
+        ); # tataru
+
+        # ADDITIONAL SYSTEMS (stuff that is not maintained as much)
+
+        "asahinix" = nixos-unstable.lib.nixosSystem (
+          let
+            me = "ihaveahax";
+            system = "aarch64-linux";
+          in
+          {
+            inherit system;
+
+            specialArgs = mkSpecialArgs me system;
+
+            modules = [ ./additional-systems/nixos-asahinix/configuration.nix ];
+          }
+        ); # asahinix
+
+        "imacbooknix" = nixos-unstable.lib.nixosSystem (
+          let
+            me = "ihaveahax";
+            system = "x86_64-linux";
+          in
+          {
+            inherit system;
+
+            specialArgs = mkSpecialArgs me system;
+
+            modules = [ ./additional-systems/nixos-imacbooknix/configuration.nix ];
+          }
+        ); # imacbooknix
+
+        "liveimage" = nixos-unstable.lib.nixosSystem (
+          let
+            me = "nixos";
+            system = "x86_64-linux";
+          in
+          {
+            inherit system;
+
+            specialArgs = mkSpecialArgs me system;
+
+            modules = [
+              ./additional-systems/nixos-liveimage/configuration.nix
+              { environment.etc."nix-config".source = self; }
+            ];
+          }
+        ); # liveimage
+      }; # nixosConfigurations
+
+      homeConfigurations = {
+        # Steam Deck (SteamOS)
+        "deck@krile" = home-manager.lib.homeManagerConfiguration (
+          let
+            system = "x86_64-linux";
+            pkgs = import nixos-unstable { inherit system; };
+          in
+          {
+            inherit pkgs;
+
+            extraSpecialArgs = mkSpecialArgs "deck" system;
+
+            modules = [ ./hm-krile/home.nix ];
+          }
+        );
+      }; # homeConfigurations
+
+      devShells.x86_64-linux.default = import ./shell.nix {
         pkgs = import nixos-unstable { system = "x86_64-linux"; };
-      in rec {
-        default = all-systems;
-        flake-inputs = buildInputs pkgs;
-        all-systems = pkgs.stdenvNoCC.mkDerivation {
-          name = "all-systems-x86_64-linux";
-
-          dontUnpack = true;
-          dontPatch = true;
-          dontUpdateAutotoolsGnuConfigScripts = true;
-          dontConfigure = true;
-          dontBuild = true;
-          dontFixup = true;
-
-          installPhase = ''
-            mkdir $out
-
-            ln -s ${pkgs.lib.info "evaluating thancred" self.nixosConfigurations.thancred.config.system.build.toplevel} $out/nixos-thancred
-            ln -s ${pkgs.lib.info "evaluating tataru" self.nixosConfigurations.tataru.config.system.build.toplevel} $out/nixos-tataru
-            ln -s ${pkgs.lib.info "evaluating homeserver" self.nixosConfigurations.homeserver.config.system.build.toplevel} $out/nixos-homeserver
-
-            ln -s ${pkgs.lib.info "evaluating hm-krile" self.homeConfigurations."deck@krile".activationPackage} $out/hm-krile
-
-            ln -s ${flake-inputs} $out/.flake-inputs
-          '';
-        };
-        iso = let
-          system = self.nixosConfigurations.liveimage;
-          isobase = system.config.system.build.isoImage;
-        in pkgs.stdenvNoCC.mkDerivation {
-          name = (isobase.name + "-static-name");
-
-          dontUnpack = true;
-          dontPatch = true;
-          dontUpdateAutotoolsGnuConfigScripts = true;
-          dontConfigure = true;
-          dontBuild = true;
-          dontFixup = true;
-
-          installPhase = ''
-            mkdir $out
-            isoname=${isobase}/iso/${isobase.name}
-            ln -s $isoname $out/nixos.iso
-            cat >$out/copy-to-thancred.sh <<EOF
-            ${pkgs.rsync}/bin/rsync -avzLI --progress $isoname thancred:nixos.iso
-            EOF
-
-            cat >$out/copy-to-macbook.sh <<EOF
-            ${pkgs.rsync}/bin/rsync -avzLI --progress $isoname alphinaud:nixos.iso
-            EOF
-
-            cat >$out/copy-to-libvirt-images.sh <<EOF
-            sudo cp -v $isoname /var/lib/libvirt/images
-            EOF
-
-            chmod +x $out/*.sh
-          '';
-        };
       };
 
-      aarch64-darwin = let
-        pkgs = import nixos-unstable { system = "aarch64-darwin"; };
-      in rec {
-        default = all-systems;
-        flake-inputs = buildInputs pkgs;
-        all-systems = pkgs.stdenvNoCC.mkDerivation {
-          name = "all-systems-aarch64-darwin";
+      packages =
+        let
+          # this is a derivation in part so i can easily nix-copy-closure this
+          # in case i need to, which there was at least one time i did...
+          buildInputs =
+            p:
+            let
+              flattenAttrs =
+                with p.lib;
+                pfx: attrs:
+                (flatten (
+                  mapAttrsToList (
+                    k: v:
+                    if k == "self" then
+                      [ ]
+                    else
+                      let
+                        subInputs = v.inputs or null;
+                      in
+                      [
+                        {
+                          name = "${pfx}${k}";
+                          value = v.outPath;
+                        }
+                      ]
+                      ++ (optional (subInputs != null) (flattenAttrs "${pfx}${k}." subInputs))
+                  ) attrs
+                ));
+              inputsAttrs = flattenAttrs "" inputs;
+            in
+            p.stdenvNoCC.mkDerivation {
+              name = "flake-inputs";
 
-          dontUnpack = true;
-          dontPatch = true;
-          dontUpdateAutotoolsGnuConfigScripts = true;
-          dontConfigure = true;
-          dontBuild = true;
-          dontFixup = true;
+              dontUnpack = true;
+              dontPatch = true;
+              dontUpdateAutotoolsGnuConfigScripts = true;
+              dontConfigure = true;
+              dontBuild = true;
+              dontFixup = true;
 
-          installPhase = ''
-            mkdir $out
+              passthru.inputsAttrs = inputsAttrs;
 
-            ln -s ${self.darwinConfigurations.alphinaud.system} $out/nix-darwin-alphinaud
+              installPhase =
+                ''
+                  mkdir $out
+                ''
+                + p.lib.concatStringsSep "\n" (
+                  p.lib.mapAttrsToList (k: v: ''
+                    echo "Linking input ${k}"
+                    ln -s ${v} $out/${k}
+                  '') inputsAttrs
+                );
+            };
+        in
+        {
+          x86_64-linux =
+            let
+              pkgs = import nixos-unstable { system = "x86_64-linux"; };
+            in
+            rec {
+              default = all-systems;
+              flake-inputs = buildInputs pkgs;
+              all-systems = pkgs.stdenvNoCC.mkDerivation {
+                name = "all-systems-x86_64-linux";
 
-            ln -s ${flake-inputs} $out/.flake-inputs
-          '';
+                dontUnpack = true;
+                dontPatch = true;
+                dontUpdateAutotoolsGnuConfigScripts = true;
+                dontConfigure = true;
+                dontBuild = true;
+                dontFixup = true;
+
+                installPhase = ''
+                  mkdir $out
+
+                  ln -s ${pkgs.lib.info "evaluating thancred" self.nixosConfigurations.thancred.config.system.build.toplevel} $out/nixos-thancred
+                  ln -s ${pkgs.lib.info "evaluating tataru" self.nixosConfigurations.tataru.config.system.build.toplevel} $out/nixos-tataru
+                  ln -s ${pkgs.lib.info "evaluating homeserver" self.nixosConfigurations.homeserver.config.system.build.toplevel} $out/nixos-homeserver
+
+                  ln -s ${
+                    pkgs.lib.info "evaluating hm-krile" self.homeConfigurations."deck@krile".activationPackage
+                  } $out/hm-krile
+
+                  ln -s ${flake-inputs} $out/.flake-inputs
+                '';
+              };
+              iso =
+                let
+                  system = self.nixosConfigurations.liveimage;
+                  isobase = system.config.system.build.isoImage;
+                in
+                pkgs.stdenvNoCC.mkDerivation {
+                  name = (isobase.name + "-static-name");
+
+                  dontUnpack = true;
+                  dontPatch = true;
+                  dontUpdateAutotoolsGnuConfigScripts = true;
+                  dontConfigure = true;
+                  dontBuild = true;
+                  dontFixup = true;
+
+                  installPhase = ''
+                    mkdir $out
+                    isoname=${isobase}/iso/${isobase.name}
+                    ln -s $isoname $out/nixos.iso
+                    cat >$out/copy-to-thancred.sh <<EOF
+                    ${pkgs.rsync}/bin/rsync -avzLI --progress $isoname thancred:nixos.iso
+                    EOF
+
+                    cat >$out/copy-to-macbook.sh <<EOF
+                    ${pkgs.rsync}/bin/rsync -avzLI --progress $isoname alphinaud:nixos.iso
+                    EOF
+
+                    cat >$out/copy-to-libvirt-images.sh <<EOF
+                    sudo cp -v $isoname /var/lib/libvirt/images
+                    EOF
+
+                    chmod +x $out/*.sh
+                  '';
+                };
+            };
+
+          aarch64-darwin =
+            let
+              pkgs = import nixos-unstable { system = "aarch64-darwin"; };
+            in
+            rec {
+              default = all-systems;
+              flake-inputs = buildInputs pkgs;
+              all-systems = pkgs.stdenvNoCC.mkDerivation {
+                name = "all-systems-aarch64-darwin";
+
+                dontUnpack = true;
+                dontPatch = true;
+                dontUpdateAutotoolsGnuConfigScripts = true;
+                dontConfigure = true;
+                dontBuild = true;
+                dontFixup = true;
+
+                installPhase = ''
+                  mkdir $out
+
+                  ln -s ${self.darwinConfigurations.alphinaud.system} $out/nix-darwin-alphinaud
+
+                  ln -s ${flake-inputs} $out/.flake-inputs
+                '';
+              };
+            };
         };
-      };
     };
-  };
 }
