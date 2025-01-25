@@ -284,7 +284,7 @@
                       ++ (optional (subInputs != null) (flattenAttrs "${pfx}${k}." subInputs))
                   ) attrs
                 ));
-              inputsAttrs = flattenAttrs "" inputs;
+              inputsAttrs = p.lib.listToAttrs (flattenAttrs "" inputs);
             in
             p.stdenvNoCC.mkDerivation {
               name = "flake-inputs";
