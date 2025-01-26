@@ -256,22 +256,29 @@
         pkgs = import nixos-unstable { system = "x86_64-linux"; };
       };
 
-      packages =
-        let
-          # this is a derivation in part so i can easily nix-copy-closure this
-          # in case i need to, which there was at least one time i did...
-          buildInputs = p: p.callPackage ./extras/deriv-flake-inputs.nix { flakeInputs = inputs; };
-        in
-        {
-          x86_64-linux =
-            let
-              pkgs = import nixos-unstable { system = "x86_64-linux"; };
-            in
-            rec {
-              default = all-systems;
-              flake-inputs = buildInputs pkgs;
-              all-systems = pkgs.stdenvNoCC.mkDerivation {
-                name = "all-systems-x86_64-linux";
+      packages = {
+        x86_64-linux =
+          let
+            pkgs = import nixos-unstable { system = "x86_64-linux"; };
+          in
+          rec {
+            default = all-systems;
+            all-systems = pkgs.callPackage ./extras/deriv-all-systems.nix {
+              flakeConfigurations = {
+                nixos-thancred = self.nixosConfigurations.thancred.config.system.build.toplevel;
+                nixos-tataru = self.nixosConfigurations.thancred.config.system.build.toplevel;
+                nixos-homeserver = self.nixosConfigurations.thancred.config.system.build.toplevel;
+                hm-krile = self.homeConfigurations."deck@krile".activationPackage;
+              };
+              flakeInputs = self.inputs;
+            };
+            iso =
+              let
+                system = self.nixosConfigurations.liveimage;
+                isobase = system.config.system.build.isoImage;
+              in
+              pkgs.stdenvNoCC.mkDerivation {
+                name = (isobase.name + "-static-name");
 
                 dontUnpack = true;
                 dontPatch = true;
@@ -282,80 +289,38 @@
 
                 installPhase = ''
                   mkdir $out
+                  isoname=${isobase}/iso/${isobase.name}
+                  ln -s $isoname $out/nixos.iso
+                  cat >$out/copy-to-thancred.sh <<EOF
+                  ${pkgs.rsync}/bin/rsync -avzLI --progress $isoname thancred:nixos.iso
+                  EOF
 
-                  ln -s ${pkgs.lib.info "evaluating thancred" self.nixosConfigurations.thancred.config.system.build.toplevel} $out/nixos-thancred
-                  ln -s ${pkgs.lib.info "evaluating tataru" self.nixosConfigurations.tataru.config.system.build.toplevel} $out/nixos-tataru
-                  ln -s ${pkgs.lib.info "evaluating homeserver" self.nixosConfigurations.homeserver.config.system.build.toplevel} $out/nixos-homeserver
+                  cat >$out/copy-to-macbook.sh <<EOF
+                  ${pkgs.rsync}/bin/rsync -avzLI --progress $isoname alphinaud:nixos.iso
+                  EOF
 
-                  ln -s ${
-                    pkgs.lib.info "evaluating hm-krile" self.homeConfigurations."deck@krile".activationPackage
-                  } $out/hm-krile
+                  cat >$out/copy-to-libvirt-images.sh <<EOF
+                  sudo cp -v $isoname /var/lib/libvirt/images
+                  EOF
 
-                  ln -s ${flake-inputs} $out/.flake-inputs
+                  chmod +x $out/*.sh
                 '';
               };
-              iso =
-                let
-                  system = self.nixosConfigurations.liveimage;
-                  isobase = system.config.system.build.isoImage;
-                in
-                pkgs.stdenvNoCC.mkDerivation {
-                  name = (isobase.name + "-static-name");
+          };
 
-                  dontUnpack = true;
-                  dontPatch = true;
-                  dontUpdateAutotoolsGnuConfigScripts = true;
-                  dontConfigure = true;
-                  dontBuild = true;
-                  dontFixup = true;
-
-                  installPhase = ''
-                    mkdir $out
-                    isoname=${isobase}/iso/${isobase.name}
-                    ln -s $isoname $out/nixos.iso
-                    cat >$out/copy-to-thancred.sh <<EOF
-                    ${pkgs.rsync}/bin/rsync -avzLI --progress $isoname thancred:nixos.iso
-                    EOF
-
-                    cat >$out/copy-to-macbook.sh <<EOF
-                    ${pkgs.rsync}/bin/rsync -avzLI --progress $isoname alphinaud:nixos.iso
-                    EOF
-
-                    cat >$out/copy-to-libvirt-images.sh <<EOF
-                    sudo cp -v $isoname /var/lib/libvirt/images
-                    EOF
-
-                    chmod +x $out/*.sh
-                  '';
-                };
-            };
-
-          aarch64-darwin =
-            let
-              pkgs = import nixos-unstable { system = "aarch64-darwin"; };
-            in
-            rec {
-              default = all-systems;
-              flake-inputs = buildInputs pkgs;
-              all-systems = pkgs.stdenvNoCC.mkDerivation {
-                name = "all-systems-aarch64-darwin";
-
-                dontUnpack = true;
-                dontPatch = true;
-                dontUpdateAutotoolsGnuConfigScripts = true;
-                dontConfigure = true;
-                dontBuild = true;
-                dontFixup = true;
-
-                installPhase = ''
-                  mkdir $out
-
-                  ln -s ${self.darwinConfigurations.alphinaud.system} $out/nix-darwin-alphinaud
-
-                  ln -s ${flake-inputs} $out/.flake-inputs
-                '';
+        aarch64-darwin =
+          let
+            pkgs = import nixos-unstable { system = "aarch64-darwin"; };
+          in
+          rec {
+            default = all-systems;
+            all-systems = pkgs.callPackage ./extras/deriv-all-systems.nix {
+              flakeConfigurations = {
+                nix-darwin-alphinaud = self.darwinConfigurations.alphinaud.system;
               };
+              flakeInputs = self.inputs;
             };
-        };
+          };
+      };
     };
 }
