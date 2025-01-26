@@ -260,55 +260,7 @@
         let
           # this is a derivation in part so i can easily nix-copy-closure this
           # in case i need to, which there was at least one time i did...
-          buildInputs =
-            p:
-            let
-              flattenAttrs =
-                with p.lib;
-                pfx: attrs:
-                (flatten (
-                  mapAttrsToList (
-                    k: v:
-                    if k == "self" then
-                      [ ]
-                    else
-                      let
-                        subInputs = v.inputs or null;
-                      in
-                      [
-                        {
-                          name = "${pfx}${k}";
-                          value = v.outPath;
-                        }
-                      ]
-                      ++ (optional (subInputs != null) (flattenAttrs "${pfx}${k}." subInputs))
-                  ) attrs
-                ));
-              inputsAttrs = flattenAttrs "" inputs;
-            in
-            p.stdenvNoCC.mkDerivation {
-              name = "flake-inputs";
-
-              dontUnpack = true;
-              dontPatch = true;
-              dontUpdateAutotoolsGnuConfigScripts = true;
-              dontConfigure = true;
-              dontBuild = true;
-              dontFixup = true;
-
-              passthru.inputsAttrs = inputsAttrs;
-
-              installPhase =
-                ''
-                  mkdir $out
-                ''
-                + p.lib.concatStringsSep "\n" (
-                  p.lib.mapAttrsToList (k: v: ''
-                    echo "Linking input ${k}"
-                    ln -s ${v} $out/${k}
-                  '') inputsAttrs
-                );
-            };
+          buildInputs = p: p.callPackage ./extras/deriv-flake-inputs.nix { flakeInputs = inputs; };
         in
         {
           x86_64-linux =
