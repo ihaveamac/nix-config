@@ -46,6 +46,28 @@
         type = "github";
       };
     };
+    ninfs = {
+      from = {
+        id = "ninfs";
+        type = "indirect";
+      };
+      to = {
+        owner = "ihaveamac";
+        repo = "ninfs";
+        type = "github";
+      };
+    };
+    pyctr = {
+      from = {
+        id = "pyctr";
+        type = "indirect";
+      };
+      to = {
+        owner = "ihaveamac";
+        repo = "pyctr";
+        type = "github";
+      };
+    };
   };
   nix.settings = {
     # this was originally set by nix-darwin
