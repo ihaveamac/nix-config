@@ -1,4 +1,10 @@
-{ config, lib, pkgs, me, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  ...
+}:
 
 {
   options.hax.packages = with lib; {
@@ -10,7 +16,7 @@
   };
 
   config = lib.mkMerge [
-    ({ 
+    ({
       environment.systemPackages = with pkgs; [
         wget
         pv
@@ -21,7 +27,7 @@
         btop
         zip
         unzip
-        ( _7zz.override { enableUnfree = true; } )
+        (_7zz.override { enableUnfree = true; })
         tree
         xxd
       ];
@@ -35,7 +41,7 @@
         squashfuse # useful since i can use it as non-root, and override uid/gid
         attic-client
         nixfmt-rfc-style
-        ( p7zip.override { enableUnfree = true; } )
+        (p7zip.override { enableUnfree = true; })
         nixpkgs-manual
       ];
     })

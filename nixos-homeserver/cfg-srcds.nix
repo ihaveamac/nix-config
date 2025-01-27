@@ -1,4 +1,11 @@
-{ config, lib, pkgs, me, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  inputs,
+  ...
+}:
 
 {
   imports = [ inputs.srcds-nix.nixosModules.default ];

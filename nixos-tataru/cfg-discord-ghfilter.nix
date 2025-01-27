@@ -1,4 +1,10 @@
-{ config, lib, pkgs, me, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  ...
+}:
 
 let
   pythonPackages = pkgs.python3Packages;
@@ -9,7 +15,7 @@ let
   listenUrl = "/nocrowdin";
 in
 {
-  sops.secrets."ghfilter-webhook-url" = {};
+  sops.secrets."ghfilter-webhook-url" = { };
 
   systemd.services.ghfilter = {
     wantedBy = [ "multi-user.target" ];

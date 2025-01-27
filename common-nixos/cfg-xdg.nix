@@ -1,4 +1,10 @@
-{ config, lib, pkgs, me, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  ...
+}:
 
 {
   environment.sessionVariables = {

@@ -1,4 +1,10 @@
-{ lib, stdenvNoCC, fetchFromGitHub, wrapComposerPackage, php }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  wrapComposerPackage,
+  php,
+}:
 
 php.buildComposerProject (finalAttrs: rec {
   pname = "QRLite";

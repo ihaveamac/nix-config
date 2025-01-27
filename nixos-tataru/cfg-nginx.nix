@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
 in
@@ -43,7 +48,8 @@ in
           # older sites
           "/ez3ds".extraConfig = "return 302 https://ihaveahax.net/wiki/ez3ds;";
           "/old/ez3ds.html".extraConfig = "return 302 https://ihaveahax.net/wiki/ez3ds;";
-          "~* ^/3dsflow-downloader-(.*)\\.zip$".extraConfig = "return 302 https://ihaveahax.net/view/3DSFlow;";
+          "~* ^/3dsflow-downloader-(.*)\\.zip$".extraConfig =
+            "return 302 https://ihaveahax.net/view/3DSFlow;";
           "= /3dsflow".extraConfig = "return 302 https://ihaveahax.net/view/3DSFlow;";
           "= /3dsflow/".extraConfig = "return 302 https://ihaveahax.net/view/3DSFlow;";
           "/ctr/dump".extraConfig = "return 302 https://wiki.hacks.guide/wiki/3DS:Dump_system_files;";
@@ -91,7 +97,7 @@ in
         forceSSL = true;
         root = "/var/www/default";
         locations = {
-          "/" = {};
+          "/" = { };
         };
       };
       "*.ianburgwin.net" = {
@@ -99,7 +105,7 @@ in
         forceSSL = true;
         root = "/var/www/default";
         locations = {
-          "/" = {};
+          "/" = { };
         };
       };
     };

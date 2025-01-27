@@ -1,4 +1,10 @@
-{ config, lib, pkgs, me, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  ...
+}:
 
 {
   # i don't currently feel like turning this into a NixOS service

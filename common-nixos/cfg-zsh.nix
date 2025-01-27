@@ -1,4 +1,11 @@
-{ config, lib, pkgs, me, r, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  r,
+  ...
+}:
 
 let
   zshShared = pkgs.callPackage (r.extras + /shared-zsh-settings.nix) { inherit config; };
@@ -6,27 +13,27 @@ in
 {
   programs.zsh = {
     enable = true;
-  #  histFile = "$HOME/.local/state/zsh_history";
-  #  histSize = 10000;
-  #  autosuggestions.enable = true;
-  #  syntaxHighlighting.enable = true;
-  #  setOptions = zshShared.options;
-  #  shellAliases = {
-  #    nvl = "nix -v -L";
-  #  } // config.home-manager.users.${me}.programs.zsh.shellAliases;
-  #  ohMyZsh = {
-  #    enable = true;
-  #    plugins = zshShared.ohMyZsh.plugins;
-  #  };
-  #  shellInit = zshShared.shellInit;
-  #  interactiveShellInit = ''
-  #    # oh-my-zsh config
-  #    ${zshShared.ohMyZsh.config};
+    #  histFile = "$HOME/.local/state/zsh_history";
+    #  histSize = 10000;
+    #  autosuggestions.enable = true;
+    #  syntaxHighlighting.enable = true;
+    #  setOptions = zshShared.options;
+    #  shellAliases = {
+    #    nvl = "nix -v -L";
+    #  } // config.home-manager.users.${me}.programs.zsh.shellAliases;
+    #  ohMyZsh = {
+    #    enable = true;
+    #    plugins = zshShared.ohMyZsh.plugins;
+    #  };
+    #  shellInit = zshShared.shellInit;
+    #  interactiveShellInit = ''
+    #    # oh-my-zsh config
+    #    ${zshShared.ohMyZsh.config};
 
-  #    # global config
-  #    ${zshShared.interactiveShellInit}
-  #  '';
-  #  loginShellInit = zshShared.loginShellInit;
+    #    # global config
+    #    ${zshShared.interactiveShellInit}
+    #  '';
+    #  loginShellInit = zshShared.loginShellInit;
   };
 
   environment.variables.ZDOTDIR = "$HOME/.config/zsh";
@@ -36,7 +43,7 @@ in
   #environment.systemPackages = with pkgs; [ eza ];
 
   users.users = {
-  #  root.shell = pkgs.zsh;
+    #  root.shell = pkgs.zsh;
     ${me}.shell = pkgs.zsh;
   };
 

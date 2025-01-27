@@ -1,7 +1,12 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  wrapComposerPackage = pkgs.callPackage ./wrap-composer-package.nix {};
+  wrapComposerPackage = pkgs.callPackage ./wrap-composer-package.nix { };
   mkExtensionWithComposer = file: pkgs.callPackage file { inherit wrapComposerPackage; };
   php = pkgs.php83;
 in
@@ -15,7 +20,9 @@ in
     webserver = "nginx";
     package = pkgs.hax.mediawiki_1_39;
     passwordFile = "/run/keys/mediawiki-password";
-    phpPackage = php.withExtensions ({ enabled, all }: enabled ++ [ ( pkgs.callPackage ./deriv-luasandbox.nix { inherit php; } ) ]);
+    phpPackage = php.withExtensions (
+      { enabled, all }: enabled ++ [ (pkgs.callPackage ./deriv-luasandbox.nix { inherit php; }) ]
+    );
     nginx.hostName = "ihaveahax.net";
     extensions = {
       Interwiki = null;
@@ -30,7 +37,7 @@ in
       Scribunto = null;
       SyntaxHighlight_GeSHi = null;
       PageImages = null;
-      
+
       # simple extensions not included in the base package are in cfg-mediawiki-extensions.nix
       # others that require composer should go here and need manual updating from time to time
       # (until i make some better tooling...)

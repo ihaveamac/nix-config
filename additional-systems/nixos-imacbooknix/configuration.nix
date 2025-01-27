@@ -1,4 +1,12 @@
-{ config, lib, pkgs, me, r, my-inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  r,
+  my-inputs,
+  ...
+}:
 
 {
   imports = [
@@ -7,7 +15,7 @@
     (r.common-nixos + /cfg-common-system-packages.nix)
     (r.common-nixos + /cfg-home-manager.nix)
     (r.common-nixos + /cfg-linux-kernel.nix)
-    (r.common-nixos + /cfg-ssh.nix
+    (r.common-nixos + /cfg-ssh.nix)
     (r.common-nixos + /cfg-linux-kernel.nix)
     (r.common-nixos + /cfg-my-user.nix)
     (r.common-nixos + /cfg-docker.nix)
@@ -54,7 +62,10 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${me} = {
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
       vesktop
       discord

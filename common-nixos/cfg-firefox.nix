@@ -1,4 +1,10 @@
-{ config, lib, pkgs, r, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  r,
+  ...
+}:
 
 # https://discourse.nixos.org/t/declare-firefox-extensions-and-settings/36265
 

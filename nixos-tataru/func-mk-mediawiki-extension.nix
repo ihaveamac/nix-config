@@ -6,12 +6,18 @@
   pname,
   version,
   vendorHash ? lib.fakeHash,
-  composerLock ? null
+  composerLock ? null,
 }:
 
 let
   wrapped-extension = php.buildComposerProject (finalAttrs: rec {
-    inherit pname version src vendorHash composerLock;
+    inherit
+      pname
+      version
+      src
+      vendorHash
+      composerLock
+      ;
     composerNoPlugins = false;
     composerStrictValidation = false;
   });

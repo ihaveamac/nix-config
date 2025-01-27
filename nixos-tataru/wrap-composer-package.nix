@@ -1,4 +1,4 @@
-{ makeSetupHook}:
+{ makeSetupHook }:
 
 makeSetupHook {
   name = "wrap-composer-package";

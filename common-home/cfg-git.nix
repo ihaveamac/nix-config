@@ -64,9 +64,15 @@ in
     ];
     extraConfig = {
       # taken from my mac gitconfig
-      push = { default = "current"; };
-      pull = { rebase = false; };
-      init = { defaultBranch = "main"; };
+      push = {
+        default = "current";
+      };
+      pull = {
+        rebase = false;
+      };
+      init = {
+        defaultBranch = "main";
+      };
       gpg = {
         format = "ssh";
         ssh.allowedSignersFile = allowedSignersPath;

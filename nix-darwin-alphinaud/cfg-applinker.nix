@@ -1,4 +1,10 @@
-{ config, lib, pkgs, my-inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  my-inputs,
+  ...
+}:
 
 {
   nixpkgs.config.allowUnsupportedSystem = true;
@@ -10,24 +16,26 @@
     utm
     prismlauncher
     (hexfiend.overrideAttrs (oldAttrs: {
-      installPhase = oldAttrs.installPhase + ''
+      installPhase =
+        oldAttrs.installPhase
+        + ''
 
-        mkdir -p $out/bin
-        ln -s "$out/Applications/Hex Fiend.app/Contents/Resources/hexf" $out/bin/hexf
-      '';
+          mkdir -p $out/bin
+          ln -s "$out/Applications/Hex Fiend.app/Contents/Resources/hexf" $out/bin/hexf
+        '';
     }))
     localsend
     audacity
   ];
   system.activationScripts.applications.text = lib.mkForce ''
     # Set up applications but better.
-    
+
     appDirPath="/Applications/Nix Apps"
     echo "setting up ''${appDirPath}..."
 
     tempPath=$(mktemp -d)
     chmod 755 "$tempPath"
-    
+
     # "find" is used here because "*.app" will not work properly if there are no apps, so it returns "*.app" literally
     find -L "${config.system.build.applications}/Applications" -maxdepth 1 -type d -iname '*.app' -print0 | while read -r -d $'\0' app; do
       echo " - $app"

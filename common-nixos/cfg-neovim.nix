@@ -1,4 +1,11 @@
-{ config, lib, pkgs, me, r, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  r,
+  ...
+}:
 
 {
   programs.neovim = {

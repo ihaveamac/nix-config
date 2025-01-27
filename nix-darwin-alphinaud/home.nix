@@ -1,9 +1,20 @@
-{ config, lib, pkgs, r, my-inputs, osConfig, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  r,
+  my-inputs,
+  osConfig,
+  ...
+}:
 
 let
   nix-channel-and-index-update = pkgs.writeShellApplication {
     name = "nix-channel-and-index-update";
-    runtimeInputs = with pkgs; [ nix-index osConfig.nix.package ];
+    runtimeInputs = with pkgs; [
+      nix-index
+      osConfig.nix.package
+    ];
     text = ''
       set -x
       nix-channel --update
@@ -24,7 +35,9 @@ in
   # don't like having this over system man on mac
   programs = {
     man.enable = false;
-    ssh.extraOptionOverrides = { UseKeychain = "yes"; };
+    ssh.extraOptionOverrides = {
+      UseKeychain = "yes";
+    };
     zsh = {
       oh-my-zsh.plugins = [
         "macos"
@@ -110,7 +123,9 @@ in
       FXDefaultSearchScope = "SCsp";
       ShowHardDrivesOnDesktop = false;
     };
-    "com.apple.WindowManager" = { EnableStandardClickToShowDesktop = 0; };
+    "com.apple.WindowManager" = {
+      EnableStandardClickToShowDesktop = 0;
+    };
     "com.apple.universalaccess" = {
       showWindowTitlebarIcons = true;
       showToolbarButtonShapes = true;
@@ -134,7 +149,9 @@ in
       # https://support.apple.com/en-us/HT208209
       DSDontWriteNetworkStores = true;
     };
-    "com.apple.DiskUtility" = { SidebarShowAllDevices = true; };
+    "com.apple.DiskUtility" = {
+      SidebarShowAllDevices = true;
+    };
     "NSGlobalDomain" = {
       AppleAccentColor = 5;
       AppleHighlightColor = "0.968627 0.831373 1.000000 Purple";

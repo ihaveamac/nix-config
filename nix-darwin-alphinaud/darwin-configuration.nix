@@ -8,7 +8,15 @@
 # * in etc, move nix/nix.conf, zprofile, zshenv, and zshrc out of the way
 # maybe i should do a script for this
 
-{ config, pkgs, lib, me, r, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  me,
+  r,
+  inputs,
+  ...
+}:
 
 let
   myjava = pkgs.zulu21;
@@ -38,11 +46,17 @@ in
     myjava # also update JAVA_HOME
     powershell
     # singleBinary is false since symlinks doesn't work with withPrefix, and shebangs starts a shell (this is probably an unnecessary fear)
-    (coreutils-full.override { withPrefix = true; singleBinary = false; })
+    (coreutils-full.override {
+      withPrefix = true;
+      singleBinary = false;
+    })
     qemu
     squashfuse
-    ( p7zip.override { enableUnfree = true; } )
-    ( _7zz.override { enableUnfree = true; useUasm = false; } ) # https://github.com/NixOS/nixpkgs/pull/353272
+    (p7zip.override { enableUnfree = true; })
+    (_7zz.override {
+      enableUnfree = true;
+      useUasm = false;
+    }) # https://github.com/NixOS/nixpkgs/pull/353272
     btop
     smartmontools
     sops
@@ -66,7 +80,9 @@ in
   environment.shells = with pkgs; [ zsh ];
 
   # https://github.com/LnL7/nix-darwin/issues/784
-  environment.etc."pam.d/sudo_local" = { text = "auth       sufficient     pam_tid.so"; };
+  environment.etc."pam.d/sudo_local" = {
+    text = "auth       sufficient     pam_tid.so";
+  };
 
   environment.extraInit = ''
     # special case for free-threading python
@@ -91,7 +107,12 @@ in
     };
     optimise = {
       automatic = true;
-      interval = [ { Hour = 4; Minute = 0; } ];
+      interval = [
+        {
+          Hour = 4;
+          Minute = 0;
+        }
+      ];
     };
   };
 
@@ -102,9 +123,11 @@ in
     /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
   '';
 
-  system.darwinLabel = let
-    cfg = config.system;
-  in "${config.networking.hostName}-${cfg.nixpkgsVersion}+${cfg.darwinVersion}";
+  system.darwinLabel =
+    let
+      cfg = config.system;
+    in
+    "${config.networking.hostName}-${cfg.nixpkgsVersion}+${cfg.darwinVersion}";
 
   networking.hostName = "alphinaud";
 

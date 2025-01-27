@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   # https://new.reddit.com/r/NixOS/comments/1cf74pp/enable_sudo_password_feedback_nixos/

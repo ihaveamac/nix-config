@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # https://wiki.nixos.org/wiki/Distributed_build
 {
@@ -10,16 +15,26 @@
   };
 
   config.nix = {
-    buildMachines = [ {
-      hostName = config.hax.homeserverHostName;
-      sshUser = "ihaveahax";
-      systems = [ "x86_64-linux" "i686-linux" ];
-      protocol = "ssh-ng";
-      maxJobs = 4;
-      #speedFactor = 2;
-      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-      mandatoryFeatures = [ ];
-    } ];
+    buildMachines = [
+      {
+        hostName = config.hax.homeserverHostName;
+        sshUser = "ihaveahax";
+        systems = [
+          "x86_64-linux"
+          "i686-linux"
+        ];
+        protocol = "ssh-ng";
+        maxJobs = 4;
+        #speedFactor = 2;
+        supportedFeatures = [
+          "nixos-test"
+          "benchmark"
+          "big-parallel"
+          "kvm"
+        ];
+        mandatoryFeatures = [ ];
+      }
+    ];
 
     distributedBuilds = true;
 

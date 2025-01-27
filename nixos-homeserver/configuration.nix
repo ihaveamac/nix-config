@@ -1,4 +1,12 @@
-{ config, lib, pkgs, me, r, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  r,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -65,13 +73,13 @@
     hostName = "homeserver"; # Define your hostname.
     firewall = {
       allowedTCPPorts = [
-        8000  # Python http.server
+        8000 # Python http.server
       ];
     };
     # https://wiki.nixos.org/wiki/NixOS_Containers
     nat = {
       enable = true;
-      internalInterfaces = ["ve-+"];
+      internalInterfaces = [ "ve-+" ];
       externalInterface = "eno1";
       # Lazy IPv6 connectivity for the container
       enableIPv6 = true;

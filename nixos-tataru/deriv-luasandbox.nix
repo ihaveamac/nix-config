@@ -1,4 +1,10 @@
-{ lib, php, pkg-config, lua51Packages, fetchFromGitHub }:
+{
+  lib,
+  php,
+  pkg-config,
+  lua51Packages,
+  fetchFromGitHub,
+}:
 
 php.buildPecl rec {
   pname = "luasandbox";

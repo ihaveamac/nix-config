@@ -1,4 +1,11 @@
-{ config, lib, pkgs, r, osConfig, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  r,
+  osConfig,
+  ...
+}:
 
 {
   imports = [
@@ -10,7 +17,9 @@
   # don't like having this over system man on mac
   programs = {
     man.enable = false;
-    ssh.extraOptionOverrides = { UseKeychain = "yes"; };
+    ssh.extraOptionOverrides = {
+      UseKeychain = "yes";
+    };
     zsh = {
       oh-my-zsh.plugins = [
         "macos"
@@ -61,7 +70,9 @@
       FXDefaultSearchScope = "SCsp";
       ShowHardDrivesOnDesktop = false;
     };
-    "com.apple.WindowManager" = { EnableStandardClickToShowDesktop = 0; };
+    "com.apple.WindowManager" = {
+      EnableStandardClickToShowDesktop = 0;
+    };
     "com.apple.universalaccess" = {
       showWindowTitlebarIcons = true;
       showToolbarButtonShapes = true;
@@ -85,7 +96,9 @@
       # https://support.apple.com/en-us/HT208209
       DSDontWriteNetworkStores = true;
     };
-    "com.apple.DiskUtility" = { SidebarShowAllDevices = true; };
+    "com.apple.DiskUtility" = {
+      SidebarShowAllDevices = true;
+    };
     "NSGlobalDomain" = {
       AppleAccentColor = 5;
       AppleHighlightColor = "0.968627 0.831373 1.000000 Purple";

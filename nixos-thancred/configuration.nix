@@ -1,4 +1,13 @@
-{ config, lib, pkgs, me, r, inputs, my-inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  r,
+  inputs,
+  my-inputs,
+  ...
+}:
 
 {
   imports = [
@@ -120,14 +129,17 @@
   };
 
   fonts = {
-    packages = pkgs.callPackage (r.extras + /fonts.nix) {};
+    packages = pkgs.callPackage (r.extras + /fonts.nix) { };
     enableDefaultPackages = true;
   };
 
   programs = {
     steam = {
       enable = true;
-      extraCompatPackages = with pkgs; [ proton-ge-bin steamtinkerlaunch ];
+      extraCompatPackages = with pkgs; [
+        proton-ge-bin
+        steamtinkerlaunch
+      ];
       remotePlay.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
       dedicatedServer.openFirewall = true;
@@ -167,63 +179,74 @@
   };
 
   users.users.${me} = {
-    extraGroups = [ "networkmanager" "gamemode" ];
-    packages = (with pkgs; [
-      keepassxc
-      ( xivlauncher.overrideAttrs (final: prev: {
-        postFixup = prev.postFixup + ''
-          substituteInPlace $out/share/applications/xivlauncher.desktop \
-            --replace-fail "Exec=XIVLauncher.Core" "Exec=gamemoderun XIVLauncher.Core"
-        '';
-      } ) )
-      vesktop
-      discord
-      telegram-desktop
-      libreoffice-qt6
-      krita
-      barrier
-      localsend
-      okteta
-      jetbrains.pycharm-professional
-      jetbrains.phpstorm
-      vlc
-      wineWow64Packages.unstableFull
-      ( lutris.override { extraPkgs = pkgs: [ pkgs.wineWow64Packages.unstableFull ]; } )
-      remmina
-      hax.kwin-move-window
-      virt-manager
-      nextcloud-client
-      handbrake
-      makemkv
-      gimp
-      # build failure
-      #dvdisaster
-      audacity
-      prismlauncher
-      steamtinkerlaunch
-      signal-desktop
-      finamp
-      imhex
-      # ffmpeg override: https://github.com/NixOS/nixpkgs/issues/358765
-      # https://github.com/NixOS/nixpkgs/pull/366880
-      # crashes immediately on launch in wayland, so i also have to force xwayland
-      ( subtitlecomposer.overrideAttrs (final: prev: {
-        postInstall = ''
-          substituteInPlace $out/share/applications/org.kde.subtitlecomposer.desktop \
-            --replace-fail "Exec=subtitlecomposer %f" "Exec=WAYLAND_DISPLAY="" subtitlecomposer %f"
-        '';
-      }) )
-    ]) ++ (with pkgs.kdePackages; [
-      filelight
-      tokodon
-      kcalc
-      # doesn't work when launched from the menu: "execve: No such file or directory"
-      #ksystemlog
-      isoimagewriter
-      yakuake
-      kdenlive
-      kpat
-    ]);
+    extraGroups = [
+      "networkmanager"
+      "gamemode"
+    ];
+    packages =
+      (with pkgs; [
+        keepassxc
+        (xivlauncher.overrideAttrs (
+          final: prev: {
+            postFixup =
+              prev.postFixup
+              + ''
+                substituteInPlace $out/share/applications/xivlauncher.desktop \
+                  --replace-fail "Exec=XIVLauncher.Core" "Exec=gamemoderun XIVLauncher.Core"
+              '';
+          }
+        ))
+        vesktop
+        discord
+        telegram-desktop
+        libreoffice-qt6
+        krita
+        barrier
+        localsend
+        okteta
+        jetbrains.pycharm-professional
+        jetbrains.phpstorm
+        vlc
+        wineWow64Packages.unstableFull
+        (lutris.override { extraPkgs = pkgs: [ pkgs.wineWow64Packages.unstableFull ]; })
+        remmina
+        hax.kwin-move-window
+        virt-manager
+        nextcloud-client
+        handbrake
+        makemkv
+        gimp
+        # build failure
+        #dvdisaster
+        audacity
+        prismlauncher
+        steamtinkerlaunch
+        signal-desktop
+        finamp
+        imhex
+        # ffmpeg override: https://github.com/NixOS/nixpkgs/issues/358765
+        # https://github.com/NixOS/nixpkgs/pull/366880
+        # crashes immediately on launch in wayland, so i also have to force xwayland
+        (subtitlecomposer.overrideAttrs (
+          final: prev: {
+            postInstall = ''
+              substituteInPlace $out/share/applications/org.kde.subtitlecomposer.desktop \
+                --replace-fail "Exec=subtitlecomposer %f" "Exec=WAYLAND_DISPLAY="" subtitlecomposer %f"
+            '';
+          }
+        ))
+      ])
+      ++ (with pkgs.kdePackages; [
+        filelight
+        tokodon
+        kcalc
+        # doesn't work when launched from the menu: "execve: No such file or directory"
+        #ksystemlog
+        isoimagewriter
+        yakuake
+        kdenlive
+        kpat
+      ]);
   };
 
   hax.homeserverHostName = "192.168.1.10";

@@ -1,4 +1,10 @@
-{ config, pkgs, me, r, ... }:
+{
+  config,
+  pkgs,
+  me,
+  r,
+  ...
+}:
 
 {
   users.users = {

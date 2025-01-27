@@ -1,4 +1,11 @@
-{ config, lib, pkgs, me, my-inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  my-inputs,
+  ...
+}:
 
 let
   refresh-nextcloud-files = pkgs.writeShellScriptBin "refresh-nextcloud-files" ''
@@ -21,7 +28,7 @@ let
     for p in {0..1}; do
 
       path="''${paths[$p,0]}"
-    
+
       echo "$path"
       echo "Changing ownership"
       chown -R nextcloud:nextcloud "$path"
@@ -53,7 +60,15 @@ in
     maxUploadSize = "16G";
     extraApps = {
       # contacts fails to build due to a hash change
-      inherit (config.services.nextcloud.package.packages.apps) calendar notes music mail bookmarks previewgenerator richdocuments;
+      inherit (config.services.nextcloud.package.packages.apps)
+        calendar
+        notes
+        music
+        mail
+        bookmarks
+        previewgenerator
+        richdocuments
+        ;
       contacts = pkgs.fetchNextcloudApp {
         hash = "sha256-Slk10WZfUQGsYnruBR5APSiuBd3jh3WG1GIqKhTUdfU=";
         url = "https://github.com/nextcloud-releases/contacts/releases/download/v6.1.2/contacts-v6.1.2.tar.gz";
@@ -64,16 +79,18 @@ in
     phpOptions = {
       "opcache.interned_strings_buffer" = "23";
     };
-    phpExtraExtensions = all: [ (all.smbclient.overrideAttrs (oldAttrs: {
-      #version = "1.1.1";
-      #sha256 = lib.fakeHash;
-      src = pkgs.fetchFromGitHub {
-        owner = "eduardok";
-        repo = "libsmbclient-php";
-        rev = "1.1.1";
-        sha256 = "sha256-BK3eNN+rstcRPVdANpTScz/ZdXfGk0nDLoOU7Q1qCi8=";
-      };
-    } )) ];
+    phpExtraExtensions = all: [
+      (all.smbclient.overrideAttrs (oldAttrs: {
+        #version = "1.1.1";
+        #sha256 = lib.fakeHash;
+        src = pkgs.fetchFromGitHub {
+          owner = "eduardok";
+          repo = "libsmbclient-php";
+          rev = "1.1.1";
+          sha256 = "sha256-BK3eNN+rstcRPVdANpTScz/ZdXfGk0nDLoOU7Q1qCi8=";
+        };
+      }))
+    ];
     extraAppsEnable = true;
     configureRedis = true;
     config = {

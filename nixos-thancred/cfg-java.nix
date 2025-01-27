@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   javas = {
@@ -10,10 +15,14 @@ let
     name = "javas-mostly-for-minecraft";
     dontUnpack = true;
 
-    buildPhase = ''
-      OUTDIR=$out/share/javas
-      mkdir -p $OUTDIR
-    '' + (lib.concatStringsSep "\n" (lib.mapAttrsToList (name: jdk: "ln -s ${jdk} $OUTDIR/${name}") javas));
+    buildPhase =
+      ''
+        OUTDIR=$out/share/javas
+        mkdir -p $OUTDIR
+      ''
+      + (lib.concatStringsSep "\n" (
+        lib.mapAttrsToList (name: jdk: "ln -s ${jdk} $OUTDIR/${name}") javas
+      ));
   };
 in
 {

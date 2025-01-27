@@ -1,4 +1,13 @@
-{ config, lib, pkgs, me, r, inputs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  r,
+  inputs,
+  modulesPath,
+  ...
+}:
 
 {
   imports = [
@@ -58,13 +67,12 @@
     # https://wiki.nixos.org/wiki/NixOS_Containers
     nat = {
       enable = true;
-      internalInterfaces = ["ve-+"];
+      internalInterfaces = [ "ve-+" ];
       externalInterface = "eth0";
       # Lazy IPv6 connectivity for the container
       enableIPv6 = true;
     };
   };
-
 
   services = {
     tailscale.enable = true;
@@ -81,9 +89,11 @@
         ssl.enable = false;
         ssl.termination = true;
       };
-      aliasGroups = [ {
-        host = "https://homeserver.tail08e9a.ts.net";
-      } ];
+      aliasGroups = [
+        {
+          host = "https://homeserver.tail08e9a.ts.net";
+        }
+      ];
     };
     nginx.virtualHosts."coolwsd.ihaveahax.net" = {
       useACMEHost = "ihaveahax.net";

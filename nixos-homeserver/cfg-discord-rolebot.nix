@@ -1,4 +1,10 @@
-{ config, lib, pkgs, me, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  ...
+}:
 
 {
   # maybe this could become a proper derivation at some point,

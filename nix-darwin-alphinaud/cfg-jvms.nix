@@ -1,10 +1,19 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   jvms = pkgs.stdenvNoCC.mkDerivation {
     name = "java-virtual-machines";
     dontUnpack = true;
-    buildInputs = with pkgs; [ zulu21 zulu17 zulu8 ];
+    buildInputs = with pkgs; [
+      zulu21
+      zulu17
+      zulu8
+    ];
 
     buildPhase = ''
       mkdir $out

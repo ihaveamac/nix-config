@@ -1,4 +1,12 @@
-{ config, pkgs, lib, me, r, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  me,
+  r,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -43,9 +51,11 @@
   programs.zsh.enable = true;
   programs.tmux.enable = true;
 
-  system.darwinLabel = let
-    cfg = config.system;
-  in "${config.networking.hostName}-${cfg.nixpkgsVersion}+${cfg.darwinVersion}";
+  system.darwinLabel =
+    let
+      cfg = config.system;
+    in
+    "${config.networking.hostName}-${cfg.nixpkgsVersion}+${cfg.darwinVersion}";
 
   # since ZDOTDIR is set globally, i don't need this useless .zshenv file (hopefully)
   home-manager.users.${me} = {

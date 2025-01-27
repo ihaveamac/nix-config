@@ -2,7 +2,15 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, me, r, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  r,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -42,7 +50,11 @@
     };
     tmp.cleanOnBoot = true;
     # allow build for x86_64-linux architecture through emulation
-    binfmt.emulatedSystems = [ "x86_64-linux" "i686-linux" "riscv64-linux" ];
+    binfmt.emulatedSystems = [
+      "x86_64-linux"
+      "i686-linux"
+      "riscv64-linux"
+    ];
   };
 
   networking = {
@@ -82,14 +94,16 @@
 
   users.users.${me} = {
     extraGroups = [ "networkmanager" ];
-    packages = (with pkgs; [
-      firefox
-      keepassxc
-      telegram-desktop
-      vesktop
-    ]);
+    packages = (
+      with pkgs;
+      [
+        firefox
+        keepassxc
+        telegram-desktop
+        vesktop
+      ]
+    );
   };
 
   system.stateVersion = "24.05"; # Did you read the comment?
 }
-

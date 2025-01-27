@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   nix.settings.netrc-file = lib.mkForce "${config.home.homeDirectory}/.config/nix/netrc";

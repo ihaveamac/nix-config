@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   localPort = 7745;
@@ -27,21 +32,28 @@ in
       mountPoint = "/var/lib/homebox";
       isReadOnly = false;
     };
-    config = { config, pkgs, lib, ... }: {
-      system.switch.enable = false;
-      services.homebox = {
-        enable = true;
-        settings = {
-          HBOX_WEB_PORT = toString localPort;
-          TZ = "America/Chicago";
+    config =
+      {
+        config,
+        pkgs,
+        lib,
+        ...
+      }:
+      {
+        system.switch.enable = false;
+        services.homebox = {
+          enable = true;
+          settings = {
+            HBOX_WEB_PORT = toString localPort;
+            TZ = "America/Chicago";
+          };
         };
-      };
 
-      networking = {
-        firewall.allowedTCPPorts = [ localPort ];
-      };
+        networking = {
+          firewall.allowedTCPPorts = [ localPort ];
+        };
 
-      system.stateVersion = "24.11";
-    };
+        system.stateVersion = "24.11";
+      };
   };
 }

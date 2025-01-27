@@ -1,4 +1,10 @@
-{ config, lib, pkgs, r, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  r,
+  ...
+}:
 
 let
   zshShared = pkgs.callPackage (r.extras + /shared-zsh-settings.nix) { inherit config; };
@@ -30,7 +36,7 @@ in
     envExtra = zshShared.shellInit;
     initExtra = ''
       # manually set options
-      ${lib.optionalString (zshShared.options != []) ''
+      ${lib.optionalString (zshShared.options != [ ]) ''
         # Set zsh options.
         setopt ${builtins.concatStringsSep " " zshShared.options}
       ''}

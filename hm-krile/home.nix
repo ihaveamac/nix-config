@@ -1,4 +1,11 @@
-{ config, lib, pkgs, r, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  r,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -16,7 +23,7 @@
       enable = true;
       nativeMessagingHosts = with pkgs; [
         libsForQt5.plasma-browser-integration
-        keepassxc  # remember to configure KeePassXC to not update this file
+        keepassxc # remember to configure KeePassXC to not update this file
       ];
       policies = import (r.extras + /firefox-policies.nix);
       package = pkgs.firefox-esr-128;

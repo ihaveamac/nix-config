@@ -1,4 +1,12 @@
-{ config, lib, pkgs, me, r, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  r,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -22,7 +30,10 @@
   # force x11
   services.displayManager.defaultSession = "plasmax11";
 
-  system.nixos.tags = [ "liveimage" config.boot.kernelPackages.kernel.name ];
+  system.nixos.tags = [
+    "liveimage"
+    config.boot.kernelPackages.kernel.name
+  ];
 
   boot = {
     zfs.package = pkgs.zfs_unstable;

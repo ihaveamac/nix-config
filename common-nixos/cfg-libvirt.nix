@@ -1,4 +1,10 @@
-{ config, lib, pkgs, me, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  ...
+}:
 
 {
   virtualisation.libvirtd = {
@@ -9,5 +15,8 @@
     };
   };
 
-  users.users.${me}.extraGroups = [ "libvirtd" "qemu-libvirtd" ];
+  users.users.${me}.extraGroups = [
+    "libvirtd"
+    "qemu-libvirtd"
+  ];
 }

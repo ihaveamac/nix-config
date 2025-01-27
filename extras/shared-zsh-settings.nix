@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # THIS IS NOT A DERIVATION OR AN IMPORTABLE MODULE
 # this gets called with pkgs.callPackage so I can use pkgs
@@ -17,8 +22,7 @@ in
   # zshenv
   # NixOS: programs.zsh.shellInit
   # Home Manager: programs.zsh.envExtra
-  shellInit = ''
-  '';
+  shellInit = '''';
 
   # zshrc
   # NixOS: programs.zsh.interactiveShellInit
@@ -93,7 +97,12 @@ in
   ];
 
   ohMyZsh = {
-    plugins = [ "git" "docker" "docker-compose" "python" ] ++ (if config.programs.tmux.enable then [ "tmux" ] else [ ]);
+    plugins = [
+      "git"
+      "docker"
+      "docker-compose"
+      "python"
+    ] ++ (if config.programs.tmux.enable then [ "tmux" ] else [ ]);
     config = ''
       # no need for automatic updates with nix managing it
       zstyle ':omz:update' mode disabled
