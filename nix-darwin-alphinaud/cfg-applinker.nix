@@ -26,6 +26,7 @@
     }))
     localsend
     audacity
+    (feishin.override { electron_31 = electron_32; })
   ];
   system.activationScripts.applications.text = lib.mkForce ''
     # Set up applications but better.
