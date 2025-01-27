@@ -23,8 +23,7 @@
     };
     bat = {
       enable = true;
-      # all of them are broken
-      #extraPackages = with pkgs.bat-extras; [ batdiff batman batgrep batwatch ];
+      extraPackages = with pkgs.bat-extras; [ batdiff batman batgrep batwatch ];
     };
     nix-index = {
       enable = true;
