@@ -43,6 +43,9 @@
         nixfmt-rfc-style
         (p7zip.override { enableUnfree = true; })
         nixpkgs-manual
+        linux-manual
+        man-pages
+        man-pages-posix
       ];
     })
   ];
