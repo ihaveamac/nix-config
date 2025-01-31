@@ -4,8 +4,8 @@
 {
   hax.services.mediawiki.extensions = {
     CodeMirror = pkgs.fetchzip {
-      url = "https://extdist.wmflabs.org/dist/extensions/CodeMirror-REL1_39-a4fae18.tar.gz";
-      sha256 = "13fckkd4i8dqhm2hp4dii7ndp93sarjxfxnhgv5w3lnx7624ylgj";
+      url = "https://extdist.wmflabs.org/dist/extensions/CodeMirror-REL1_39-06dab41.tar.gz";
+      sha256 = "109v1wp0hm3c6ga5gcn688iwbv69vx060idrr8ghn4nirypbaz8p";
     };
     Loops = pkgs.fetchzip {
       url = "https://extdist.wmflabs.org/dist/extensions/Loops-REL1_39-83cd81d.tar.gz";
@@ -20,16 +20,16 @@
       sha256 = "05j6waina8w57z6im0n5vf3dvs7klhp8ijyiymdx9iwd5zm4gnw4";
     };
     TemplateStyles = pkgs.fetchzip {
-      url = "https://extdist.wmflabs.org/dist/extensions/TemplateStyles-REL1_39-b7b9067.tar.gz";
-      sha256 = "12jfdqqj6f78g6mll69wm6pizabli6pxxrzw08mykg7w2hd0sl8a";
+      url = "https://extdist.wmflabs.org/dist/extensions/TemplateStyles-REL1_39-12d1717.tar.gz";
+      sha256 = "1zv0hp8sxjym4nal9w8n30wcj97lxp3yd5b5xwd8m75m3a0ccxqs";
     };
     DynamicSidebar = pkgs.fetchzip {
       url = "https://extdist.wmflabs.org/dist/extensions/DynamicSidebar-REL1_39-cb47238.tar.gz";
       sha256 = "0zjhx15askmg5il5y0qddyf2frz6dikwg9905vhmfi8rz3pljfl3";
     };
     MobileFrontend = pkgs.fetchzip {
-      url = "https://extdist.wmflabs.org/dist/extensions/MobileFrontend-REL1_39-d6969a0.tar.gz";
-      sha256 = "15vkzi55823rmh747r1ynhwwy3w32x31z3xd50ixh8q7fip4nkff";
+      url = "https://extdist.wmflabs.org/dist/extensions/MobileFrontend-REL1_39-8667a44.tar.gz";
+      sha256 = "00485fyyc7dgjcrac9cd18w35dlpsf9bz22ia2lk1b0y96s6aw3v";
     };
     SecureLinkFixer = pkgs.fetchzip {
       url = "https://extdist.wmflabs.org/dist/extensions/SecureLinkFixer-REL1_39-b67e07c.tar.gz";
