@@ -74,6 +74,7 @@ in
     # this fixed building rust crates that use the fuser crate for x86_64 while on arm64
     PKG_CONFIG_SYSROOT_DIR = "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk";
     ZDOTDIR = "$HOME/.config/zsh"; # so hopefully i can remove ~/.zshenv
+    NIXPKGS_CONFIG = "/etc/nix/nixpkgs-config.nix";
   };
   # "launchd.user.envVariables" does not work after a reboot...
 
