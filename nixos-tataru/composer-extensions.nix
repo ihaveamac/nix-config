@@ -1,7 +1,9 @@
-{ pkgs ? import <nixpkgs> {} }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 let
-  wrapComposerPackage = pkgs.callPackage ./wrap-composer-package.nix {};
+  wrapComposerPackage = pkgs.callPackage ./wrap-composer-package.nix { };
   mkExtensionWithComposer = file: pkgs.callPackage file { inherit wrapComposerPackage; };
 in
 {

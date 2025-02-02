@@ -27,6 +27,10 @@
       url = "github:tpwrules/nixos-apple-silicon";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixos-unstable";
@@ -34,6 +38,7 @@
     hax-nur = {
       url = "github:ihaveamac/nur-packages/staging";
       inputs.nixpkgs.follows = "nixos-unstable";
+      inputs.treefmt-nix.follows = "treefmt-nix";
     };
     lix-module = {
       url = "git+https://git.lix.systems/lix-project/nixos-module?ref=refs/heads/release-2.92";
@@ -56,6 +61,7 @@
       nixos-unstable,
       home-manager,
       nixos-apple-silicon,
+      treefmt-nix,
       hax-nur,
       lix-module,
       ninfs,
@@ -83,6 +89,24 @@
             ninfs = ninfs.outputs.packages.${system};
           };
         }
+      );
+      # these next ones are mainly for treefmt-nix
+      systems = [
+        "x86_64-linux"
+        "i686-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+        "aarch64-linux"
+        "armv6l-linux"
+        "armv7l-linux"
+      ];
+      forAllSystems = f: nixos-unstable.lib.genAttrs systems (system: f system);
+      treefmtEval = forAllSystems (
+        system:
+        let
+          pkgs = import nixos-unstable { inherit system; };
+        in
+        treefmt-nix.lib.evalModule pkgs ./treefmt.nix
       );
     in
     {
@@ -289,5 +313,10 @@
             };
           };
       };
+
+      formatter = forAllSystems (system: treefmtEval.${system}.config.build.wrapper);
+      checks = forAllSystems (system: {
+        formatting = treefmtEval.${system}.config.build.check self;
+      });
     };
 }
