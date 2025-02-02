@@ -6,8 +6,7 @@
 }:
 
 let
-  wrapComposerPackage = pkgs.callPackage ./wrap-composer-package.nix { };
-  mkExtensionWithComposer = file: pkgs.callPackage file { inherit wrapComposerPackage; };
+  composerExtensions = import ./composer-extensions.nix { inherit pkgs; };
   php = pkgs.php83;
 in
 {
@@ -24,7 +23,9 @@ in
       { enabled, all }: enabled ++ [ (pkgs.callPackage ./deriv-luasandbox.nix { inherit php; }) ]
     );
     nginx.hostName = "ihaveahax.net";
-    extensions = {
+    extensions = with composerExtensions; {
+      inherit QRLite;
+
       Interwiki = null;
       Nuke = null;
       ReplaceText = null;
@@ -41,8 +42,6 @@ in
       # simple extensions not included in the base package are in cfg-mediawiki-extensions.nix
       # others that require composer should go here and need manual updating from time to time
       # (until i make some better tooling...)
-
-      #QRLite = mkExtensionWithComposer ./deriv-qrlite.nix;
     };
     extraConfig = ''
       # hax.services.mediawiki.extraConfig
