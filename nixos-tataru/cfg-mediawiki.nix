@@ -6,7 +6,7 @@
 }:
 
 let
-  composerExtensions = import ./composer-extensions.nix { inherit pkgs; };
+  composerExtensions = import ./composer-extensions { inherit pkgs; };
   php = pkgs.php83;
 in
 {
@@ -23,8 +23,8 @@ in
       { enabled, all }: enabled ++ [ (pkgs.callPackage ./deriv-luasandbox.nix { inherit php; }) ]
     );
     nginx.hostName = "ihaveahax.net";
-    extensions = with composerExtensions; {
-      inherit QRLite;
+    extensions = {
+      inherit (composerExtensions) QRLite;
 
       Interwiki = null;
       Nuke = null;
