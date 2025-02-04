@@ -2,9 +2,12 @@
 { extname }:
 let
   exts = import ./. { };
+  ext = exts.${extname};
 in
-with exts.${extname};
 {
-  composerLock = toString composerLock;
-  gitRepoUrl = src.gitRepoUrl;
+  composerLock = toString ext.composerLock;
+  gitRepoUrl = ext.src.gitRepoUrl;
+  currentRev = ext.src.rev;
+  fileWithSrc = (builtins.unsafeGetAttrPos "src" ext).file;
+  preferredBranch = ext.passthru.preferredBranch or null;
 }
