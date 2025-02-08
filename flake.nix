@@ -290,8 +290,8 @@
             all-systems = pkgs.callPackage ./extras/deriv-all-systems.nix {
               flakeConfigurations = {
                 nixos-thancred = self.nixosConfigurations.thancred.config.system.build.toplevel;
-                nixos-tataru = self.nixosConfigurations.thancred.config.system.build.toplevel;
-                nixos-homeserver = self.nixosConfigurations.thancred.config.system.build.toplevel;
+                nixos-tataru = self.nixosConfigurations.tataru.config.system.build.toplevel;
+                nixos-homeserver = self.nixosConfigurations.homeserver.config.system.build.toplevel;
                 hm-krile = self.homeConfigurations."deck@krile".activationPackage;
               };
               flakeInputs = self.inputs;
