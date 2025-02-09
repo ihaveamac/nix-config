@@ -33,6 +33,7 @@
     (r.common-nixos + /cfg-neovim.nix)
     (r.common-nixos + /cfg-zsh.nix)
     (r.common-nixos + /cfg-syncthing.nix)
+    (r.common-nixos + /cfg-delete-old-hm-profiles.nix)
     ./hardware-configuration.nix
     ./cfg-nextcloud.nix
     ./cfg-postgres.nix
