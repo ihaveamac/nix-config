@@ -27,6 +27,7 @@ in
       amke = "make";
       mkae = "make";
       nvl = "nix -v -L";
+      nixgc = "nix-env --delete-generations --profile ${config.xdg.stateHome}/nix/profiles/home-manager old; sudo nix-collect-garbage -d;";
     };
     oh-my-zsh = {
       enable = true;
