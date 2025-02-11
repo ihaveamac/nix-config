@@ -49,22 +49,11 @@
   system.nixos.tags = [ config.boot.kernelPackages.kernel.name ];
 
   specialisation = {
-    #nouveau.configuration = {
-    #  system.nixos.tags = [ "nouveau" ];
-    #  # remove nvidia from the list
-    #  services.xserver.videoDrivers = lib.mkForce [ ];
-    #};
-    #nvidia-560.configuration = {
-    #  system.nixos.tags = [ "nvidia-560" ];
-    #  hardware.nvidia.package = lib.mkForce (config.boot.kernelPackages.nvidiaPackages.mkDriver {
-    #    version = "560.35.03";
-    #    sha256_64bit = "sha256-8pMskvrdQ8WyNBvkU/xPc/CtcYXCa7ekP73oGuKfH+M=";
-    #    sha256_aarch64 = lib.fakeHash;
-    #    openSha256 = "sha256-/32Zf0dKrofTmPZ3Ratw4vDM7B+OgpC4p7s+RHUjCrg=";
-    #    settingsSha256 = "sha256-kQsvDgnxis9ANFmwIwB7HX5MkIAcpEEAHc8IBOLdXvk=";
-    #    persistencedSha256 = "sha256-E2J2wYYyRu7Kc3MMZz/8ZIemcZg68rkzvqEwFAL3fFs=";
-    #  });
-    #};
+    nouveau.configuration = {
+      system.nixos.tags = [ "nouveau" ];
+      # remove nvidia from the list
+      services.xserver.videoDrivers = lib.mkForce [ ];
+    };
   };
 
   boot = {
