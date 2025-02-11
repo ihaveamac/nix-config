@@ -53,10 +53,7 @@ in
     qemu
     squashfuse
     (p7zip.override { enableUnfree = true; })
-    (_7zz.override {
-      enableUnfree = true;
-      useUasm = false;
-    }) # https://github.com/NixOS/nixpkgs/pull/353272
+    (_7zz.override { enableUnfree = true; })
     btop
     smartmontools
     sops

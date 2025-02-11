@@ -213,8 +213,6 @@
         signal-desktop
         finamp
         imhex
-        # ffmpeg override: https://github.com/NixOS/nixpkgs/issues/358765
-        # https://github.com/NixOS/nixpkgs/pull/366880
         # crashes immediately on launch in wayland, so i also have to force xwayland
         (subtitlecomposer.overrideAttrs (
           final: prev: {

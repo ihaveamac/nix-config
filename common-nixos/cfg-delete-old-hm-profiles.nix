@@ -3,7 +3,13 @@
 # as my user and as root to get them all
 # we don't need them since Home Manager is managed with the NixOS system
 
-{ config, lib, pkgs, me, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  me,
+  ...
+}:
 
 {
   systemd = {
