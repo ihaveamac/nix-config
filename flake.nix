@@ -13,7 +13,9 @@
   };
 
   inputs = {
-    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # TODO: switch back after this is merged:
+    # https://nixpk.gs/pr-tracker.html?pr=372458
+    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nix-darwin = {
       url = "nix-darwin";
       # to fix some dependency of keepassxc
