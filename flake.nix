@@ -13,9 +13,11 @@
   };
 
   inputs = {
+    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     # TODO: switch back after this is merged:
     # https://nixpk.gs/pr-tracker.html?pr=372458
-    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    # only thancred is using this
+    nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nix-darwin = {
       url = "nix-darwin";
       # to fix some dependency of keepassxc
@@ -61,6 +63,7 @@
       self,
       nix-darwin,
       nixos-unstable,
+      nixos-unstable-small,
       home-manager,
       nixos-apple-silicon,
       treefmt-nix,
@@ -171,7 +174,7 @@
       };
 
       nixosConfigurations = {
-        "thancred" = nixos-unstable.lib.nixosSystem (
+        "thancred" = nixos-unstable-small.lib.nixosSystem (
           let
             me = "ihaveahax";
             system = "x86_64-linux";
