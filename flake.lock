@@ -195,11 +195,27 @@
     },
     "nixos-unstable": {
       "locked": {
-        "lastModified": 1739303263,
-        "narHash": "sha256-c/Z/6gZLN8BIpYh1B3qMzEn0TArjf4F2lmy59lDLVBM=",
+        "lastModified": 1739214665,
+        "narHash": "sha256-26L8VAu3/1YRxS8MHgBOyOM8xALdo6N0I04PgorE7UM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6cc4213488e886db863878a1e3dc26cc932d38b8",
+        "rev": "64e75cd44acf21c7933d61d7721e812eac1b5a0a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixos-unstable-small": {
+      "locked": {
+        "lastModified": 1739346810,
+        "narHash": "sha256-RNNghMmVysP8+zpmlFK3fMfrFOK5ZUtPCCi5nW7yZS4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "696f2000ad7ad6f600159d49647a88bdf0e42f9f",
         "type": "github"
       },
       "original": {
@@ -240,6 +256,7 @@
         "nix-darwin": "nix-darwin",
         "nixos-apple-silicon": "nixos-apple-silicon",
         "nixos-unstable": "nixos-unstable",
+        "nixos-unstable-small": "nixos-unstable-small",
         "sops-nix": "sops-nix",
         "srcds-nix": "srcds-nix",
         "treefmt-nix": "treefmt-nix"
