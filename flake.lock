@@ -289,11 +289,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1739489452,
-        "narHash": "sha256-628xsVr56v/7Yy/NZSUD+CBOwEEPp6KQSQ5dcsB2yXU=",
+        "lastModified": 1739576881,
+        "narHash": "sha256-zudD0ycB1cOwvqFBlAwSKwjO9cZir2qzA4f43ixNYCQ=",
         "owner": "ihaveamac",
         "repo": "srcds-nix",
-        "rev": "671f9743a80667403a0755edc06c2de4111218f1",
+        "rev": "ad8a719fa97b26dfc0b3b6f0ba0f468036c549e1",
         "type": "github"
       },
       "original": {
