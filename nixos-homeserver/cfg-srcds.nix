@@ -10,7 +10,7 @@
 {
   imports = [ inputs.srcds-nix.nixosModules.default ];
 
-  services.srcds.enable = true;
+  services.srcds.enable = false;
   services.srcds.openFirewall = true;
   services.srcds.games = {
     tf2 = {
