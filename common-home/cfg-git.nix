@@ -74,11 +74,15 @@ in
         defaultBranch = "main";
       };
       gpg = {
-        format = "ssh";
-        ssh.allowedSignersFile = allowedSignersPath;
+        ssh = {
+          allowedSignersFile = allowedSignersPath;
+        };
       };
     };
-    signing.key = "${config.home.homeDirectory}/.ssh/id_rsa.pub";
+    signing = {
+      format = "ssh";
+      key = "${config.home.homeDirectory}/.ssh/id_rsa.pub";
+    };
   };
 
   home.file.${allowedSignersPath}.source = ./allowed_signers;
