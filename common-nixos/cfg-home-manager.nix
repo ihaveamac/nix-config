@@ -35,6 +35,9 @@ in
         programs.home-manager.enable = lib.mkForce false;
         # I think this should be managed system-wide?
         fonts.fontconfig.enable = lib.mkForce false;
+
+        # cannot be set when useGlobalPkgs is true
+        nixpkgs.config = lib.mkForce null;
       };
 
     users.root =
@@ -48,6 +51,9 @@ in
         };
 
         programs.home-manager.enable = lib.mkForce false;
+
+        # cannot be set when useGlobalPkgs is true
+        nixpkgs.config = lib.mkForce null;
       };
   };
 }
