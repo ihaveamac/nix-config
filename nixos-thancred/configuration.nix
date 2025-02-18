@@ -81,6 +81,14 @@
       8000 # Python http.server
       17491 # 3dslink server
     ];
+    # https://wiki.nixos.org/wiki/NixOS_Containers
+    nat = {
+      enable = true;
+      internalInterfaces = [ "ve-+" ];
+      externalInterface = "wlp0s20u5"; # i feel like this is unstable
+      # Lazy IPv6 connectivity for the container
+      enableIPv6 = true;
+    };
   };
 
   services = {
