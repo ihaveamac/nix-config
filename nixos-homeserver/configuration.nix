@@ -20,6 +20,7 @@
     (r.common-nixos + /cfg-my-user.nix)
     (r.common-nixos + /cfg-pc-boot.nix)
     (r.common-nixos + /cfg-docker.nix)
+    (r.common-nixos + /cfg-podman.nix)
     (r.common-nixos + /cfg-time-and-i18n.nix)
     (r.common-nixos + /cfg-disable-sleep.nix)
     (r.common-nixos + /cfg-sudo-config.nix)
