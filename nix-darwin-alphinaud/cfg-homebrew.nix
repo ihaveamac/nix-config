@@ -100,7 +100,6 @@
           "betterzip"
           "nova"
           "transmission"
-          "qbittorrent"
           "daisydisk"
           "wordpresscom"
           #"playcover-community"
