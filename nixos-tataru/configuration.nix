@@ -82,7 +82,8 @@
       PasswordAuthentication = false;
     };
     collabora-online = {
-      enable = true;
+      # TODO: re-enable once libreoffice-collabora is fixed
+      enable = false;
       port = 9980;
       settings = {
         server_name = "coolwsd.ihaveahax.net";
@@ -95,15 +96,15 @@
         }
       ];
     };
-    nginx.virtualHosts."coolwsd.ihaveahax.net" = {
-      useACMEHost = "ihaveahax.net";
-      forceSSL = true;
-      locations."/" = {
-        recommendedProxySettings = true;
-        proxyPass = "http://127.0.0.1:9980";
-        proxyWebsockets = true;
-      };
-    };
+    #nginx.virtualHosts."coolwsd.ihaveahax.net" = {
+    #  useACMEHost = "ihaveahax.net";
+    #  forceSSL = true;
+    #  locations."/" = {
+    #    recommendedProxySettings = true;
+    #    proxyPass = "http://127.0.0.1:9980";
+    #    proxyWebsockets = true;
+    #  };
+    #};
   };
 
   hax.packages.enableExtra = false;

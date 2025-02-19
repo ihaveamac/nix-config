@@ -21,6 +21,7 @@
     (r.common-nixos + /cfg-my-user.nix)
     (r.common-nixos + /cfg-pc-boot.nix)
     (r.common-nixos + /cfg-docker.nix)
+    (r.common-nixos + /cfg-podman.nix)
     (r.common-nixos + /cfg-plasma6.nix)
     (r.common-nixos + /cfg-time-and-i18n.nix)
     (r.common-nixos + /cfg-sound.nix)
@@ -81,6 +82,14 @@
       8000 # Python http.server
       17491 # 3dslink server
     ];
+    # https://wiki.nixos.org/wiki/NixOS_Containers
+    nat = {
+      enable = true;
+      internalInterfaces = [ "ve-+" ];
+      externalInterface = "wlp0s20u5"; # i feel like this is unstable
+      # Lazy IPv6 connectivity for the container
+      enableIPv6 = true;
+    };
   };
 
   services = {
