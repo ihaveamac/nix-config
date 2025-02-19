@@ -46,10 +46,11 @@ in
     myjava # also update JAVA_HOME
     powershell
     # singleBinary is false since symlinks doesn't work with withPrefix, and shebangs starts a shell (this is probably an unnecessary fear)
-    (coreutils-full.override {
-      withPrefix = true;
-      singleBinary = false;
-    })
+    #(coreutils-full.override {
+    #  withPrefix = true;
+    #  singleBinary = false;
+    #})
+    uutils-coreutils
     qemu
     squashfuse
     (p7zip.override { enableUnfree = true; })
