@@ -187,8 +187,6 @@ in
     };
   };
 
-  services.syncthing.enable = true;
-
   home.packages = with pkgs; [
     hax._3dstool
     hax.save3ds

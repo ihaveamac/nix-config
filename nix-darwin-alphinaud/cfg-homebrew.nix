@@ -58,6 +58,7 @@
         "nextcloud"
         "signal"
         "iterm2"
+        "syncthing" # moved from services.syncthing due to technical issues on macOS
 
         # no auto updates
         # CU: checks for updates but doesn't auto-download
