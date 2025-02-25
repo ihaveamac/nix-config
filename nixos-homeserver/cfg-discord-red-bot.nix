@@ -6,9 +6,12 @@
   ...
 }:
 
+let
+  redbot-info = builtins.fromJSON (builtins.readFile ./redbot-info.json);
+in
 {
-  virtualisation.oci-containers.containers.redbot-gbatemp = {
-    image = "ianburgwin/red-discordbot:latest";
+  virtualisation.oci-containers.containers.redbot-gbatemp = with redbot-info; {
+    image = "${imagename}:${version}";
     cmd = [
       "redbot"
       "GBAtemp"
