@@ -6,11 +6,7 @@
 }:
 
 let
-  # SET defaultBranch IN THE OTHER FILE TOO!!!
-  simpleExtensions = import ./simple-extensions {
-    inherit pkgs;
-    defaultBranch = "REL1_39";
-  };
+  simpleExtensions = import ./simple-extensions { inherit pkgs; };
   composerExtensions = import ./composer-extensions { inherit pkgs; };
   php = pkgs.php83;
 in
