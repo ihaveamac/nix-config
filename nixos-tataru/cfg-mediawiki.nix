@@ -13,7 +13,6 @@ in
 {
   imports = [
     ./module-mediawiki.nix
-    ./cfg-mediawiki-extensions.nix
   ];
   hax.services.mediawiki = {
     enable = true;
@@ -33,7 +32,7 @@ in
         MobileFrontend
         SecureLinkFixer
         ;
-      inherit (composerExtensions) QRLite;
+      inherit (composerExtensions) QRLite TemplateStyles Variables;
 
       Interwiki = null;
       Nuke = null;

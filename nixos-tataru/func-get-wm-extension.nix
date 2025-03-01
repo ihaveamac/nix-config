@@ -10,11 +10,13 @@
 let
   mediawiki-info = builtins.fromJSON (builtins.readFile ./mediawiki-info.json);
   defaultBranch = mediawiki-info.defaultBranch;
-  ext = pkgs.fetchFromGitHub {
+  ext = pkgs.fetchFromGitHub rec {
     inherit rev hash;
     owner = "wikimedia";
-    repo = "mediawiki-${if skin then "skin" else "extension"}-${name}";
+    repo = "mediawiki-${if skin then "skins" else "extensions"}-${name}";
     passthru = {
+      # this should be provided by default, but is not for some reason
+      gitRepoUrl = "https://github.com/${owner}/${repo}.git";
       branch = if branch == null then defaultBranch else branch;
       # this is kind of a hack
       src = ext;

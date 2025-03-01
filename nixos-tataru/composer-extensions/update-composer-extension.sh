@@ -16,7 +16,8 @@ echo $details | jq
 composerLock=$(echo $details | jq -r .composerLock)
 gitRepoUrl=$(echo $details | jq -r .gitRepoUrl)
 currentRev=$(echo $details | jq -r .currentRev)
-fileWithSrc=$(echo $details | jq -r .fileWithSrc)
+#fileWithSrc=$(echo $details | jq -r .fileWithSrc)
+fileWithSrc=$curdir/default.nix
 preferredBranch=$(echo $details | jq -r .preferredBranch)
 
 tmpdir=$(mktemp -d --suffix=-composer-lock-updater)
@@ -37,4 +38,4 @@ cd $curdir
 rm -rf $tmpdir
 
 sed -i -e "s/$currentRev/$newRev/g" $fileWithSrc
-nix-update --version=skip $ext
+nix-update --override-filename=$fileWithSrc --version=skip $ext
