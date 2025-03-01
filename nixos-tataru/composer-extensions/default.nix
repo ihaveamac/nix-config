@@ -42,20 +42,20 @@ in
     pname = "TemplateStyles";
     src = getWMExtension {
       name = pname;
-      rev = "ed31fd5b2cc7f0de7b2b4082b67cdc68d2f5df59";
-      hash = "sha256-Q7wjabC1EahpOAKmGXDU3m/X2lYgVUjbAuuSK+t/LO8=";
+      rev = "fa2a9473eea9918545879901faf628d17fd4d48a";
+      hash = "sha256-kwe41Ix/GHbGiFUCXQGEjdmhzGuUoRQgj3UGCRIV7NA=";
     };
-    vendorHash = "sha256-K6hWWEIh0lfxOB6hIn+M5YtBVf5k8Q840TopJMq5gB8=";
+    vendorHash = "sha256-fS2NnHtVldDoUCMwo2ujTNUzTt/KTt6YEeWjXLPn6eg=";
     composerLock = ./templatestyles.lock;
   };
   Variables = mkMWExtension rec {
     pname = "Variables";
     src = getWMExtension {
       name = pname;
-      rev = "c1dea981c86b4077a82cfa15fe404006e9aeb045";
-      hash = "sha256-S2hgKLfIg/DdNSGSouJIqJVPFlxI0iUzrSncGLPMaII=";
+      rev = "81115fae09d0a219078d2a2511de83474fd2eb8f";
+      hash = "sha256-DZfd/ip/i9QneO6rgCD8dhriW0Kld2Prz/Ve7eo8dhY=";
     };
-    vendorHash = "sha256-gJO+FBauSID98XvOVW0Q/E31LRj8Fxv4ly/jDLOJih4=";
+    vendorHash = "sha256-tCCy6pxO8+agiOWr1zEtG5Uq97iCHNF0RgLJL2iigDM=";
     composerLock = ./variables.lock;
   };
 }

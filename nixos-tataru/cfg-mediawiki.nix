@@ -17,7 +17,7 @@ in
   hax.services.mediawiki = {
     enable = true;
     webserver = "nginx";
-    package = pkgs.hax.mediawiki_1_39;
+    package = pkgs.hax.mediawiki_1_43;
     passwordFile = "/run/keys/mediawiki-password";
     phpPackage = php.withExtensions (
       { enabled, all }: enabled ++ [ (pkgs.callPackage ./deriv-luasandbox.nix { inherit php; }) ]

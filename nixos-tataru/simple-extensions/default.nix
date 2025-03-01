@@ -10,32 +10,32 @@ in
 {
   CodeMirror = getWMExtension {
     name = "CodeMirror";
-    rev = "6b52309fa9a1b3641f7ec0c51c6316e6a3313584";
-    hash = "sha256-+D5NYR51Vdkszh5/Lfj7+6bX2OsD5VeL6zTYWLW4pe0=";
+    rev = "3def77c029ea8d5c74856710f5e231fd2d9185ae";
+    hash = "sha256-TFA0CtLiLr6abjmVeu8m89xEI7jMLPJy7AO1kDS3AOY=";
   };
   Loops = getWMExtension {
     name = "Loops";
-    rev = "83cd81d53ad49d1d46050203d74836f6d3534fea";
-    hash = "sha256-mJL5SRjGKrNz9SKeMEByshDf6N4rcb+WJAFRPF/UqUc=";
+    rev = "dee5dd131110a73ebcb3c09cad9eec0e130f9315";
+    hash = "sha256-oNuHQhr9p5rs+gWufooNE6UCf7TSJiY13R8DkLEf7S0=";
   };
   MagicNoCache = getWMExtension {
     name = "MagicNoCache";
-    rev = "6cd009edb302f33fb04f9f011ad3495dabe65285";
-    hash = "sha256-Qar2K0T9zxIzmaiPmxJWy8GeL8VNfOYqMZTlsnlRmks=";
+    rev = "7315339c97c0eb7d528a8f6b14d055812a85fdb2";
+    hash = "sha256-5GKLmffFa1uSq+sLNusgzRzc9CplBW6z4gk3+MUjBxY=";
   };
   DynamicSidebar = getWMExtension {
     name = "DynamicSidebar";
-    rev = "cb47238cb06fec2a554be36b519cc413af3b65cd";
-    hash = "sha256-vRlHw9jlvQHY58MyyAut2xA1Yeslto4DlD3u5fsxj8E=";
+    rev = "17edfd771950ffe035176daa6d0058bd942e8497";
+    hash = "sha256-VOYCcgjYGsAJ1g2QCP06EsHX6qmM9hUTtOF95Pkpm7c=";
   };
   MobileFrontend = getWMExtension {
     name = "MobileFrontend";
-    rev = "7d52772552f59542f7fc37485d322855faafd01f";
-    hash = "sha256-R82BXNq9TcmlaVEqFqecweEpXPRVHPumNmpWz0WMeD8=";
+    rev = "aae56d488072b725c8df9126567f1c068bbc4e59";
+    hash = "sha256-ZKsDFzC10bwvVm7IQfY+uEzXInPq5WR49C/jVm0jVtk=";
   };
   SecureLinkFixer = getWMExtension {
     name = "SecureLinkFixer";
-    rev = "b67e07ca51cd7d9c7d7d2adb5a8bba74e1550d9a";
-    hash = "sha256-yMIxgqRFBe1NIuTWR01dZOoNcwDBk4H9sGR3+XCwdPo=";
+    rev = "2435a55c6bee4c23b8face5d53b6cb9c2d2680d2";
+    hash = "sha256-pur43ljY+gTojkfIdPVha/D5JvhrhGz35mGdOcANyTE=";
   };
 }
