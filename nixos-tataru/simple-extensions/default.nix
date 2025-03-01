@@ -1,23 +1,34 @@
 # TODO: move branch stuff to separate file?
-{ pkgs ? import <nixpkgs> { }, defaultBranch ? "REL1_39" }:
+{
+  pkgs ? import <nixpkgs> { },
+  defaultBranch ? "REL1_39",
+}:
 
 let
   inherit (pkgs) fetchFromGitHub;
   # Get Wikimedia Extension
-  getWMExtension = { name, rev, hash, branch ? null }: let
-    ext = fetchFromGitHub {
-      inherit rev hash;
-      owner = "wikimedia";
-      repo = "mediawiki-extensions-${name}";
-      passthru = {
-        branch = if branch == null then defaultBranch else branch;
-        # this is kind of a hack
-        src = ext;
-        # this is also kind of a hack (prevent nix-update from updating the useless version
-        version = "0" + "0";
+  getWMExtension =
+    {
+      name,
+      rev,
+      hash,
+      branch ? null,
+    }:
+    let
+      ext = fetchFromGitHub {
+        inherit rev hash;
+        owner = "wikimedia";
+        repo = "mediawiki-extensions-${name}";
+        passthru = {
+          branch = if branch == null then defaultBranch else branch;
+          # this is kind of a hack
+          src = ext;
+          # this is also kind of a hack (prevent nix-update from updating the useless version
+          version = "0" + "0";
+        };
       };
-    };
-  in ext;
+    in
+    ext;
 in
 {
   CodeMirror = getWMExtension {
