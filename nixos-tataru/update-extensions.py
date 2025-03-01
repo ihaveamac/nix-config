@@ -11,14 +11,8 @@ import requests
 
 extensions = {
     "REL1_39": [
-        "CodeMirror",
-        "Loops",
         "Variables",
-        "MagicNoCache",
         "TemplateStyles",
-        "DynamicSidebar",
-        "MobileFrontend",
-        "SecureLinkFixer",
     ]
 }
 

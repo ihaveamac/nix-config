@@ -6,6 +6,11 @@
 }:
 
 let
+  # SET defaultBranch IN THE OTHER FILE TOO!!!
+  simpleExtensions = import ./simple-extensions {
+    inherit pkgs;
+    defaultBranch = "REL1_39";
+  };
   composerExtensions = import ./composer-extensions { inherit pkgs; };
   php = pkgs.php83;
 in
@@ -24,6 +29,14 @@ in
     );
     nginx.hostName = "ihaveahax.net";
     extensions = {
+      inherit (simpleExtensions)
+        CodeMirror
+        Loops
+        MagicNoCache
+        DynamicSidebar
+        MobileFrontend
+        SecureLinkFixer
+        ;
       inherit (composerExtensions) QRLite;
 
       Interwiki = null;
