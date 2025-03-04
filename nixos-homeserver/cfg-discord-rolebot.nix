@@ -13,6 +13,7 @@
     image = "ghcr.io/eibex/reaction-light:latest";
     volumes = [
       "/opt/docker/rolebot-hax/config.ini:/bot/config.ini"
+      "/opt/docker/rolebot-hax/config:/bot/config"
       "/opt/docker/rolebot-hax/files:/bot/files"
     ];
   };
