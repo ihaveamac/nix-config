@@ -62,6 +62,7 @@ in
       ".stfolder"
       ".stversions"
     ];
+    lfs.enable = true;
     extraConfig = {
       # taken from my mac gitconfig
       push = {
