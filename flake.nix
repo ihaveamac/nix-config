@@ -241,6 +241,20 @@
           }
         ); # imacbooknix
 
+        "samsunglaptop" = nixos-unstable.lib.nixosSystem (
+          let
+            me = "ihaveahax";
+            system = "x86_64-linux";
+          in
+          {
+            inherit system;
+
+            specialArgs = mkSpecialArgs me system;
+
+            modules = [ ./additional-systems/nixos-samsunglaptop/configuration.nix ];
+          }
+        ); # imacbooknix
+
         "liveimage" = nixos-unstable.lib.nixosSystem (
           let
             me = "nixos";

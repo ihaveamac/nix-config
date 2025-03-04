@@ -24,3 +24,4 @@ Not maintained as well as the others, but I sometimes use them.
 * nixos-imacbooknix -> MacBook Pro Intel using NixOS
 * nix-darwin-imacbook -> MacBook Pro Intel using nix-darwin
 * nixos-liveimage -> Used as the base for custom ISOs
+* nixos-samsunglaptop - Samsung 900X5L
