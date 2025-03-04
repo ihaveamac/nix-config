@@ -70,8 +70,9 @@
       discord
       telegram-desktop
       vlc
-      prismlauncher
       keepassxc
+      nextcloud-client
+      libreoffice-qt6-fresh
     ];
   };
 
