@@ -100,6 +100,10 @@
     tailscale.enable = true;
   };
 
+  hardware = {
+    bluetooth.enable = true;
+  };
+
   networking.firewall.allowedTCPPorts = [ 8000 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
 
