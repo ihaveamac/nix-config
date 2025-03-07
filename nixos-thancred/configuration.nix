@@ -222,6 +222,7 @@
         signal-desktop
         finamp
         imhex
+        dolphin-emu
         # crashes immediately on launch in wayland, so i also have to force xwayland
         (subtitlecomposer.overrideAttrs (
           final: prev: {
