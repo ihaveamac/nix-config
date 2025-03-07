@@ -35,6 +35,7 @@
     (r.common-nixos + /cfg-xdg.nix)
     (r.common-nixos + /cfg-neovim.nix)
     (r.common-nixos + /cfg-zsh.nix)
+    (r.common-nixos + /cfg-syncthing.nix)
     (r.root + /nixos-thancred/cfg-java.nix)
     ./hardware-configuration.nix
     inputs.hax-nur.nixosModules.overlay
@@ -98,6 +99,10 @@
 
   services = {
     tailscale.enable = true;
+  };
+
+  hardware = {
+    bluetooth.enable = true;
   };
 
   networking.firewall.allowedTCPPorts = [ 8000 ];
