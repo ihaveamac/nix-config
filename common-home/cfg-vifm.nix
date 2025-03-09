@@ -476,7 +476,7 @@ in
 
         " Interaction with system clipboard
         ${lib.optionalString isLinux ''
-          if $WAYLAND_DISPLAY
+          if $WAYLAND_DISPLAY != ${"''"}
               if executable('wl-copy')
                   " Yank current directory path into primary and selection clipboards
                   nnoremap yd :!echo -n %d | wl-copy %i &&
@@ -485,7 +485,7 @@ in
                   nnoremap yf :!echo -n %c:p | wl-copy %i &&
                               \ echo -n %c:p | wl-copy -p %i<cr>
               endif
-          elseif $DISPLAY
+          elseif $DISPLAY != ${"''"}
               if executable('xclip')
                   " Yank current directory path into the clipboard
                   nnoremap yd :!echo %d | xclip %i<cr>
@@ -517,9 +517,9 @@ in
         " nnoremap A cW
 
         " Open console in current directory
-        if $DISPLAY && executable('xterm')
+        if $DISPLAY != ${"''"} && executable('xterm')
             nnoremap ,t :!xterm &<cr>
-        elseif $TERMINAL
+        elseif $TERMINAL != ${"''"}
             nnoremap ,t :!$TERMINAL &<cr>
         endif
 
@@ -527,7 +527,7 @@ in
         nnoremap ,c :write | edit $MYVIFMRC | restart full<cr>
 
         " Open gvim to edit vifmrc
-        if $DISPLAY && executable('gvim')
+        if $DISPLAY != ${"''"} && executable('gvim')
             nnoremap ,C :!gvim --remote-tab-silent $MYVIFMRC &<cr>
         endif
 
