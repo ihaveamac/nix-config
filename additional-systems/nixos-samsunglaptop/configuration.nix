@@ -74,6 +74,7 @@
       keepassxc
       nextcloud-client
       libreoffice-qt6-fresh
+      hax.kwin-move-window
     ];
   };
 
