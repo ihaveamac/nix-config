@@ -96,6 +96,12 @@
       dedicatedServer.openFirewall = true;
     };
     tmux.enable = true;
+    kde-pim = {
+      enable = lib.mkForce true;
+      kontact = true;
+      kmail = true;
+      merkuro = true;
+    };
   };
 
   services = {
