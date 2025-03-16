@@ -32,6 +32,6 @@ in
     #(mkPythonEnv pkgs.python312Packages (p: [ p.requests ]) {})
     (mkPythonEnv pkgs.python313Packages (p: [ p.requests ]) { })
     # python314Packages.requests has failing dependencies
-    (mkPythonEnv pkgs.python314Packages (p: [ ]) { })
+    #(mkPythonEnv pkgs.python314Packages (p: [ ]) { })
   ];
 }
