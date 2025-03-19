@@ -62,6 +62,7 @@ in
       # contacts fails to build due to a hash change
       inherit (config.services.nextcloud.package.packages.apps)
         calendar
+        contacts
         notes
         music
         mail
@@ -69,12 +70,6 @@ in
         previewgenerator
         richdocuments
         ;
-      contacts = pkgs.fetchNextcloudApp {
-        hash = "sha256-Slk10WZfUQGsYnruBR5APSiuBd3jh3WG1GIqKhTUdfU=";
-        url = "https://github.com/nextcloud-releases/contacts/releases/download/v6.1.2/contacts-v6.1.2.tar.gz";
-        license = "agpl3Only";
-        description = "contacts app";
-      };
     };
     phpOptions = {
       "opcache.interned_strings_buffer" = "23";
