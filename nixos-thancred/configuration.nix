@@ -71,6 +71,10 @@
       apfs = true;
       squashfs = true;
     };
+    # set Magic Keyboard fn keys to be fn keys by default
+    extraModprobeConfig = ''
+      options hid_apple fnmode=2
+    '';
   };
 
   networking = {
