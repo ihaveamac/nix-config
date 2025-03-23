@@ -5,7 +5,14 @@
   ...
 }:
 
+# This puts MediaWiki in a container, but separates MariaDB from it so it keeps running on the host.
+# This is mainly for testing so I can eventually move wiki.hacks.guide to NixOS.
+# I need to run two wikis on the same server, but I want them to share a database, so they can share tables.
+# Also it probably would be good for any future services that use MariaDB.
+
 let
+  # this is mainly for sops use
+  mwUserUID = 993;
   hostname = "ihaveahax.net";
   simpleExtensions = import ./simple-extensions { inherit pkgs; };
   composerExtensions = import ./composer-extensions { inherit pkgs; };
@@ -13,7 +20,9 @@ let
   mediawikiPackage = pkgs.hax.mediawiki_1_43;
 in
 {
-  sops.secrets."mediawiki-password" = { };
+  sops.secrets."mediawiki-password" = {
+    uid = mwUserUID;
+  };
 
   containers.mediawiki = {
     autoStart = true;
@@ -32,9 +41,9 @@ in
         mountPoint = "/var/lib/mediawiki";
         isReadOnly = false;
       };
-      mysql = {
-        hostPath = "/var/lib/mysql-mediawiki";
-        mountPoint = "/var/lib/mysql";
+      mysqlSocket = {
+        hostPath = "/run/mysqld";
+        mountPoint = "/run/mysqld";
         isReadOnly = false;
       };
     };
@@ -52,6 +61,11 @@ in
           { enabled, all }: enabled ++ [ (pkgs.callPackage ./deriv-luasandbox.nix { inherit php; }) ]
         );
         nginx.hostName = hostname;
+        database = {
+          createLocally = false;
+          socket = "/run/mysqld/mysqld.sock";
+          passwordFile = "/run/mediawiki-password";
+        };
         extensions = {
           inherit (simpleExtensions)
             CodeMirror
@@ -80,10 +94,23 @@ in
           # others that require composer should go here and need manual updating from time to time
           # (until i make some better tooling...)
         };
-        extraConfig = ''
+        extraConfig = let
+          errorReporting = false;
+        in ''
           # hax.services.mediawiki.extraConfig
           $wgUseInstantCommons = true;
           $wgEnableEmail = false;
+
+          ini_set('display_errors','Off');
+          ini_set('error_reporting', E_ALL );
+
+          ${lib.optionalString errorReporting ''
+          ini_set('display_errors','On');
+          $wgShowHostnames = true;
+          $wgShowExceptionDetails = true;
+          $wgShowDebug = true;
+          $wgDevelopmentWarnings = true;
+          ''}
 
           $wgGroupPermissions['sysop']['interwiki'] = true;
           $wgGroupPermissions['*']['createaccount'] = false;
@@ -135,10 +162,26 @@ in
         '';
       };
 
+      users.users.mediawiki.uid = 993;
+
       networking.firewall.allowedTCPPorts = [ 80 ];
 
       system.stateVersion = "24.05";
     };
+  };
+
+  services.mysql = with config.containers.mediawiki.config.hax.services.mediawiki.database; {
+    enable = true;
+    package = pkgs.mariadb_1011;
+    ensureDatabases = [ name ];
+    ensureUsers = [
+      {
+        name = user;
+        ensurePermissions = {
+          "${name}.*" = "ALL PRIVILEGES";
+        };
+      }
+    ];
   };
 
   services.nginx.virtualHosts = {
