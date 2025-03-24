@@ -96,37 +96,42 @@
     "lix": {
       "flake": false,
       "locked": {
-        "lastModified": 1737234286,
-        "narHash": "sha256-pgDJZjj4jpzkFxsqBTI/9Yb0n3gW+DvDtuv9SwQZZcs=",
-        "rev": "079528098f5998ba13c88821a2eca1005c1695de",
-        "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/079528098f5998ba13c88821a2eca1005c1695de.tar.gz?rev=079528098f5998ba13c88821a2eca1005c1695de"
+        "lastModified": 1742768998,
+        "narHash": "sha256-7had/RbTEihxfu/kQ6JPf4jpU7y0+MQWM9LplYto+fA=",
+        "ref": "main",
+        "rev": "56df5ba164a006902a1092ffcaaf42bb963fcc78",
+        "revCount": 17720,
+        "type": "git",
+        "url": "https://git.lix.systems/lix-project/lix"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://git.lix.systems/lix-project/lix/archive/release-2.92.tar.gz"
+        "ref": "main",
+        "type": "git",
+        "url": "https://git.lix.systems/lix-project/lix"
       }
     },
     "lix-module": {
       "inputs": {
         "flake-utils": "flake-utils",
         "flakey-profile": "flakey-profile",
-        "lix": "lix",
+        "lix": [
+          "lix"
+        ],
         "nixpkgs": [
           "nixos-unstable"
         ]
       },
       "locked": {
-        "lastModified": 1741892773,
-        "narHash": "sha256-8oUT6D7VlsuLkms3zBsUaPBUoxucmFq62QdtyVpjq0Y=",
-        "ref": "refs/heads/release-2.92",
-        "rev": "ed7a2fa83145868ecb830d6b3c73ebfd81a9e911",
-        "revCount": 130,
+        "lastModified": 1742709496,
+        "narHash": "sha256-6rWA8QlVe3HTCVHyI/gJ5IULyvHkT9d8fMpYC0Kyeh8=",
+        "ref": "main",
+        "rev": "d8e4fee796342636f345e358f33583c8b2fa496e",
+        "revCount": 137,
         "type": "git",
         "url": "https://git.lix.systems/lix-project/nixos-module"
       },
       "original": {
-        "ref": "refs/heads/release-2.92",
+        "ref": "main",
         "type": "git",
         "url": "https://git.lix.systems/lix-project/nixos-module"
       }
@@ -235,6 +240,7 @@
       "inputs": {
         "hax-nur": "hax-nur",
         "home-manager": "home-manager",
+        "lix": "lix",
         "lix-module": "lix-module",
         "ninfs": "ninfs",
         "nix-darwin": "nix-darwin",
