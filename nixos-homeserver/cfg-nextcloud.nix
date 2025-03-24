@@ -54,7 +54,7 @@ in
   # https://wiki.nixos.org/wiki/Nextcloud
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud30;
+    package = pkgs.nextcloud31;
     hostName = "homeserver.tail08e9a.ts.net";
     https = true;
     maxUploadSize = "16G";
