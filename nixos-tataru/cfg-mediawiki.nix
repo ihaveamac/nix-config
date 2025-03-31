@@ -162,7 +162,7 @@ in
         '';
       };
 
-      users.users.mediawiki.uid = 993;
+      users.users.mediawiki.uid = mwUserUID;
 
       networking.firewall.allowedTCPPorts = [ 80 ];
 
