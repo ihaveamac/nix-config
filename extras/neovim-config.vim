@@ -29,6 +29,7 @@ command! Q :q
 " i don't remember what this is for
 " autocmd filetype python nnoremap ;r :term python3 %<cr>
 autocmd FileType python set expandtab tabstop=4 shiftwidth=4 autoindent
+autocmd FileType php set noexpandtab tabstop=4 shiftwidth=4 autoindent
 autocmd FileType json set expandtab tabstop=2 shiftwidth=2 autoindent
 autocmd FileType nix set expandtab tabstop=2 shiftwidth=2 autoindent
 autocmd FileType lua set expandtab tabstop=4 shiftwidth=4 autoindent
