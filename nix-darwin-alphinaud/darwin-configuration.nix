@@ -52,7 +52,8 @@ in
     #})
     uutils-coreutils
     qemu
-    squashfuse
+    # fuse3 doesn't work on macOS yet, so i have to force it to use fuse(2)
+    (squashfuse.override { fuse3 = pkgs.fuse; })
     (p7zip.override { enableUnfree = true; })
     (_7zz.override { enableUnfree = true; })
     btop
