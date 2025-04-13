@@ -171,7 +171,8 @@
   };
 
   virtualisation = {
-    vmware.host.enable = true;
+    # needs a login
+    #vmware.host.enable = true;
     docker = {
       storageDriver = lib.mkForce "zfs";
       daemon.settings = {
