@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     ######################################################################
     # begin common-home/cfg-docker-aliases.nix
 

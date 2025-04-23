@@ -40,7 +40,7 @@
 
         # end nix-darwin-macbook/home.nix
       '';
-      initExtra = ''
+      initContent = ''
         ######################################################################
         # begin nix-darwin-macbook/home.nix
 

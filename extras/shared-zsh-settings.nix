@@ -26,7 +26,7 @@ in
 
   # zshrc
   # NixOS: programs.zsh.interactiveShellInit
-  # Home Manager: initExtra
+  # Home Manager: initContent
   interactiveShellInit = ''
     if [ `id -u` != 0 ]; then
       if [ "$IGNORE_DOTFILE_SECRETS" != "1" ]; then

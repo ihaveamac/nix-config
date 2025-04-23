@@ -16,7 +16,7 @@
     man.enable = false;
     nix-index.enable = lib.mkForce false;
     zsh = {
-      initExtra = ''
+      initContent = ''
         ######################################################################
         # begin nixos-tataru/home.nix
 

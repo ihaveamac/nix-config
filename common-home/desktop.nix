@@ -32,7 +32,7 @@
 
   programs.zsh = {
     oh-my-zsh.plugins = [ "doctl" ];
-    initExtra = ''
+    initContent = ''
       ######################################################################
       # begin home/desktop.nix
 

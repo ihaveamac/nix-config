@@ -35,7 +35,7 @@ in
       extraConfig = zshShared.ohMyZsh.config;
     };
     envExtra = zshShared.shellInit;
-    initExtra = ''
+    initContent = ''
       # manually set options
       ${lib.optionalString (zshShared.options != [ ]) ''
         # Set zsh options.

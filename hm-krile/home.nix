@@ -29,17 +29,17 @@
       package = pkgs.firefox-esr-128;
     };
     zsh = {
-      initExtraFirst = ''
-        ######################################################################
-        # begin hm-krile/home.nix (first)
+      #initContent = lib.mkBefore ''
+      #  ######################################################################
+      #  # begin hm-krile/home.nix (first)
 
-        #if [ "$SteamEnv" = "1" ]; then
-        #  echo "Running in SteamEnv, unsetting LD_PRELOAD"
-        #  export LD_PRELOAD=""
-        #fi
+      #  #if [ "$SteamEnv" = "1" ]; then
+      #  #  echo "Running in SteamEnv, unsetting LD_PRELOAD"
+      #  #  export LD_PRELOAD=""
+      #  #fi
 
-        # end hm-krile/home.nix (first)
-      '';
+      #  # end hm-krile/home.nix (first)
+      #'';
       envExtra = ''
         ######################################################################
         # begin hm-krile/home.nix
@@ -50,7 +50,7 @@
 
         # end hm-krile/home.nix
       '';
-      initExtra = ''
+      initContent = ''
         ######################################################################
         # begin hm-krile/home.nix
 

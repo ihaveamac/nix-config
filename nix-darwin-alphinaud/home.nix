@@ -76,7 +76,7 @@ in
 
         # end nix-darwin-alphinaud/home.nix
       '';
-      initExtra = ''
+      initContent = ''
         ######################################################################
         # begin nix-darwin-alphinaud/home.nix
 
