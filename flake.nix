@@ -41,13 +41,8 @@
       inputs.treefmt-nix.follows = "treefmt-nix";
     };
     # I changed this from 2.92 due to an issue with editline patching errors
-    lix = {
-      url = "git+https://git.lix.systems/lix-project/lix?ref=main";
-      flake = false;
-    };
     lix-module = {
-      url = "git+https://git.lix.systems/lix-project/nixos-module?ref=main";
-      inputs.lix.follows = "lix";
+      url = "git+https://git.lix.systems/lix-project/nixos-module?ref=release-2.93";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
     ninfs = {
@@ -69,7 +64,6 @@
       nixos-apple-silicon,
       treefmt-nix,
       hax-nur,
-      lix,
       lix-module,
       ninfs,
       srcds-nix,
