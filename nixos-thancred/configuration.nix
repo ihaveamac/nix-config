@@ -55,6 +55,9 @@
       # remove nvidia from the list
       services.xserver.videoDrivers = lib.mkForce [ ];
     };
+    "linux-6.14".configuration = {
+      boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_14;
+    };
   };
 
   boot = {
@@ -68,7 +71,8 @@
     kernelModules = [ "sg" ]; # needed for MakeMKV
     supportedFilesystems = {
       ntfs = true;
-      apfs = true;
+      # broken with 6.14
+      #apfs = true;
       squashfs = true;
     };
     # set Magic Keyboard fn keys to be fn keys by default
