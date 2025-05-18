@@ -15,7 +15,7 @@
   inputs = {
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-darwin = {
-      url = "nix-darwin";
+      url = "github:nix-darwin/nix-darwin";
       # to fix some dependency of keepassxc
       inputs.nixpkgs.follows = "nixos-unstable";
     };
