@@ -39,6 +39,11 @@ in
     inputs.lix-module.nixosModules.default
   ];
 
+  # required by:
+  # * homebrew.enable
+  # * system.defaults.dock.persistent-apps
+  system.primaryUser = me;
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
@@ -118,10 +123,11 @@ in
 
   # defaults activation issue: https://github.com/LnL7/nix-darwin/issues/658
   # activation scripts issue: https://github.com/LnL7/nix-darwin/issues/663
-  system.activationScripts.postUserActivation.text = ''
-    echo calling activateSettings...
-    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-  '';
+  # postUserActivation is now removed since nix-darwin is switching to root-based activation
+  #system.activationScripts.postUserActivation.text = ''
+  #  echo calling activateSettings...
+  #  /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+  #'';
 
   system.darwinLabel =
     let
@@ -173,9 +179,10 @@ in
   system.systemBuilderCommands = ''
     cat > $out/hax-switch-config <<EOF
     #! ${pkgs.bash}/bin/bash
-    sudo nix-env -p /nix/var/nix/profiles/system --set $out
-    $out/activate-user
-    sudo $out/activate
+    sudo bash -c "nix-env -p /nix/var/nix/profiles/system --set $out && $out/activate"
+    #sudo nix-env -p /nix/var/nix/profiles/system --set $out
+    #$out/activate-user
+    #sudo $out/activate
     EOF
     chmod +x $out/hax-switch-config
   '';
