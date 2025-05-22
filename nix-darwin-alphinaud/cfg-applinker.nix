@@ -14,7 +14,9 @@
     # sfml build error
     #dolphin-emu
     utm
-    prismlauncher
+    # these two have qt build errors
+    #prismlauncher
+    #qbittorrent
     (hexfiend.overrideAttrs (oldAttrs: {
       installPhase =
         oldAttrs.installPhase
@@ -27,7 +29,6 @@
     localsend
     audacity
     (feishin.override { electron_31 = electron_32; })
-    qbittorrent
   ];
   system.activationScripts.applications.text = lib.mkForce ''
     # Set up applications but better.
