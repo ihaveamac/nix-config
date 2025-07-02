@@ -9,7 +9,8 @@
 {
   nixpkgs.config.allowUnsupportedSystem = true;
   environment.systemPackages = with pkgs; [
-    keepassxc
+    # gpgme marked as broken, also i use strongbox now
+    #keepassxc
     iina
     # sfml build error
     #dolphin-emu
