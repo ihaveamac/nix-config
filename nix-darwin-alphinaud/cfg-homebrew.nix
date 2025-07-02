@@ -47,7 +47,7 @@
         "vmware-fusion"
         "bartender"
         "telegram"
-        "handbrake"
+        "handbrake-app"
         #"linearmouse"
         #"little-snitch"
         "istat-menus"
@@ -58,7 +58,7 @@
         "nextcloud"
         "signal"
         "iterm2"
-        "syncthing" # moved from services.syncthing due to technical issues on macOS
+        "syncthing-app" # moved from services.syncthing due to technical issues on macOS
 
         # no auto updates
         # CU: checks for updates but doesn't auto-download
@@ -69,7 +69,7 @@
         #"ios-app-signer"
         #"keepassxc" # CU
         "libreoffice" # CU
-        "mullvadvpn" # CU
+        "mullvad-vpn" # CU
         "suspicious-package" # CU
         #"yubico-yubikey-manager"
         "openzfs"
