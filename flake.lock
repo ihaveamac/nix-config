@@ -58,11 +58,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750902249,
-        "narHash": "sha256-2eTfpE91c9G4r62dfakxIMoIOuiQuFKdzozXWOBg7NA=",
+        "lastModified": 1751431965,
+        "narHash": "sha256-wyYG3Wj/TcqPe/a+KOcgqdJpR8EssklwWfcgkSKmpEg=",
         "owner": "ihaveamac",
         "repo": "nur-packages",
-        "rev": "16652fe98814f9a45145b7f99fe4cc9efc36a753",
+        "rev": "20f464f4e4274622258085bb4bc898dfc4eb31f7",
         "type": "github"
       },
       "original": {
@@ -79,11 +79,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1751146119,
-        "narHash": "sha256-gvjG95TCnUVJkvQvLMlnC4NqiqFyBdJk3o8/RwuHeaU=",
+        "lastModified": 1751429452,
+        "narHash": "sha256-4s5vRtaqdNhVBnbOWOzBNKrRa0ShQTLoEPjJp3joeNI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "76d0c31fce2aa0c71409de953e2f9113acd5b656",
+        "rev": "df12269039dcf752600b1bcc176bacf2786ec384",
         "type": "github"
       },
       "original": {
@@ -96,11 +96,11 @@
     "lix": {
       "flake": false,
       "locked": {
-        "lastModified": 1750762203,
-        "narHash": "sha256-LmQhjQ7c+AOkwhvR9GFgJOy8oHW35MoQRELtrwyVnPw=",
-        "rev": "38b358ce27203f972faa2973cf44ba80c758f46e",
+        "lastModified": 1751235704,
+        "narHash": "sha256-J4ycLoXHPsoBoQtEXFCelL4xlq5pT8U9tNWNKm43+YI=",
+        "rev": "1d7368585eebaa2c4bdbcb88fe600cfb2239b2c6",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/38b358ce27203f972faa2973cf44ba80c758f46e.tar.gz?rev=38b358ce27203f972faa2973cf44ba80c758f46e"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/1d7368585eebaa2c4bdbcb88fe600cfb2239b2c6.tar.gz?rev=1d7368585eebaa2c4bdbcb88fe600cfb2239b2c6"
       },
       "original": {
         "type": "tarball",
@@ -117,11 +117,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750776670,
-        "narHash": "sha256-EfA5K5EZAnspmraJrXQlziffVpaT+QDBiE6yKmuaNNQ=",
+        "lastModified": 1751240025,
+        "narHash": "sha256-SXUAlxpjPRkArRMHy5+Hdi+PiC+ND9yzzIjiaHmTvQU=",
         "ref": "release-2.93",
-        "rev": "c3c78a32273e89d28367d8605a4c880f0b6607e3",
-        "revCount": 146,
+        "rev": "8b1094356f4723d6e89d3f8a95b333ee16d9ab02",
+        "revCount": 147,
         "type": "git",
         "url": "https://git.lix.systems/lix-project/nixos-module"
       },
@@ -139,11 +139,11 @@
         "pyctr": "pyctr"
       },
       "locked": {
-        "lastModified": 1743114249,
-        "narHash": "sha256-FiGHU/GnV+x1Sriv407Z153yQGQHE0aB1TOcgKjCW5Q=",
+        "lastModified": 1751242163,
+        "narHash": "sha256-8tVXRaIj1fU//JYqw7cNqSfCdVqq74Fz5I2TzN+QBKY=",
         "owner": "ihaveamac",
         "repo": "ninfs",
-        "rev": "2eb4442150bfd564ca54c7753ca92fa4fd77177b",
+        "rev": "8a5a02cd1eb7c33e383dc02edc866032aa5355ed",
         "type": "github"
       },
       "original": {
@@ -159,11 +159,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750618568,
-        "narHash": "sha256-w9EG5FOXrjXGfbqCcQg9x1lMnTwzNDW5BMXp8ddy15E=",
+        "lastModified": 1751313918,
+        "narHash": "sha256-HsJM3XLa43WpG+665aGEh8iS8AfEwOIQWk3Mke3e7nk=",
         "owner": "nix-darwin",
         "repo": "nix-darwin",
-        "rev": "1dd19f19e4b53a1fd2e8e738a08dd5fe635ec7e5",
+        "rev": "e04a388232d9a6ba56967ce5b53a8a6f713cdfcf",
         "type": "github"
       },
       "original": {
@@ -195,11 +195,11 @@
     },
     "nixos-unstable": {
       "locked": {
-        "lastModified": 1751011381,
-        "narHash": "sha256-krGXKxvkBhnrSC/kGBmg5MyupUUT5R6IBCLEzx9jhMM=",
+        "lastModified": 1751271578,
+        "narHash": "sha256-P/SQmKDu06x8yv7i0s8bvnnuJYkxVGBWLWHaU+tt4YY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "30e2e2857ba47844aa71991daa6ed1fc678bcbb7",
+        "rev": "3016b4b15d13f3089db8a41ef937b13a9e33a8df",
         "type": "github"
       },
       "original": {
@@ -217,11 +217,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1743113777,
-        "narHash": "sha256-5f6YJgox7FPJcofmMOHdqP/vPj3LnoCNWqcahRpcVls=",
+        "lastModified": 1751241918,
+        "narHash": "sha256-r0DX1WA/U7eb+GszDKWMrfkHy1fRy8BF+p1/3QakoTc=",
         "owner": "ihaveamac",
         "repo": "pyctr",
-        "rev": "c5caca8d897da2e32ce859275f6382e0411a2d08",
+        "rev": "545ff4413b6026fb43ecc4ae0aadf62fbfcc7261",
         "type": "github"
       },
       "original": {
