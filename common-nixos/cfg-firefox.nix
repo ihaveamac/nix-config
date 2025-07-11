@@ -19,6 +19,6 @@
       "widget.use-xdg-desktop-portal.file-picker" = 1;
     };
     policies = import (r.extras + /firefox-policies.nix);
-    package = pkgs.firefox-esr-128;
+    #package = pkgs.firefox-esr-128;
   };
 }

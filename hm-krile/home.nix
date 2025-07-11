@@ -26,7 +26,7 @@
         keepassxc # remember to configure KeePassXC to not update this file
       ];
       policies = import (r.extras + /firefox-policies.nix);
-      package = pkgs.firefox-esr-128;
+      #package = pkgs.firefox-esr-128;
     };
     zsh = {
       #initContent = lib.mkBefore ''
