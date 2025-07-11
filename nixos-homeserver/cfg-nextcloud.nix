@@ -64,7 +64,6 @@ in
         calendar
         contacts
         notes
-        music
         mail
         bookmarks
         previewgenerator
