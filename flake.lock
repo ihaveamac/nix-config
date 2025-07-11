@@ -139,11 +139,11 @@
         "pyctr": "pyctr"
       },
       "locked": {
-        "lastModified": 1751923285,
-        "narHash": "sha256-MCiRRbOGc2IUihfVnDNA3QllHM9V5amXCUSL2L0UdRY=",
+        "lastModified": 1752214829,
+        "narHash": "sha256-MUxf80hDTimeeL0yZfu70VdEgL+x5H6t+yhQVQTmB9g=",
         "owner": "ihaveamac",
         "repo": "ninfs",
-        "rev": "a4f863c1a7019a8afe8134ac6f30bfc9ac324a53",
+        "rev": "1ca01f25e321ba6da992a9c0860a84287600fbfe",
         "type": "github"
       },
       "original": {
