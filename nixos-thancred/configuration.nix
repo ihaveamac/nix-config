@@ -50,14 +50,11 @@
   system.nixos.tags = [ config.boot.kernelPackages.kernel.name ];
 
   specialisation = {
-    nouveau.configuration = {
-      system.nixos.tags = [ "nouveau" ];
-      # remove nvidia from the list
-      services.xserver.videoDrivers = lib.mkForce [ ];
-    };
-    "linux-6.14".configuration = {
-      boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_14;
-    };
+    #nouveau.configuration = {
+    #  system.nixos.tags = [ "nouveau" ];
+    #  # remove nvidia from the list
+    #  services.xserver.videoDrivers = lib.mkForce [ ];
+    #};
   };
 
   boot = {
@@ -150,6 +147,10 @@
       localNetworkGameTransfers.openFirewall = true;
       dedicatedServer.openFirewall = true;
       protontricks.enable = true;
+    };
+    gamescope = {
+      enable = true;
+      capSysNice = true;
     };
     gamemode.enable = true;
     partition-manager.enable = true;
