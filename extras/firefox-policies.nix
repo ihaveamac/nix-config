@@ -57,6 +57,7 @@ in
     "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
     "browser.urlbar.sponsoredTopSites" = lock-false;
     "browser.ml.enable" = lock-false;
+    "browser.ml.linkPreview.enabled" = lock-false;
     "browser.ml.chat.enabled" = lock-false;
     "browser.topsites.contile.enabled" = lock-false;
   };
