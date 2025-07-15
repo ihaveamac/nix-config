@@ -70,6 +70,7 @@
       nixos-apple-silicon,
       treefmt-nix,
       hax-nur,
+      lix,
       lix-module,
       ninfs,
       srcds-nix,
