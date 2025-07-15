@@ -96,37 +96,41 @@
     "lix": {
       "flake": false,
       "locked": {
-        "lastModified": 1751235704,
-        "narHash": "sha256-J4ycLoXHPsoBoQtEXFCelL4xlq5pT8U9tNWNKm43+YI=",
-        "rev": "1d7368585eebaa2c4bdbcb88fe600cfb2239b2c6",
-        "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/1d7368585eebaa2c4bdbcb88fe600cfb2239b2c6.tar.gz?rev=1d7368585eebaa2c4bdbcb88fe600cfb2239b2c6"
+        "lastModified": 1752561648,
+        "narHash": "sha256-s0qATN8YnwCU8Kk+/xjXPZgMktSmojebO7lJV6VJZng=",
+        "owner": "lix-project",
+        "repo": "lix",
+        "rev": "ca12657a6805045a7e81b2ea761e1af66c4ea1a7",
+        "type": "github"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://git.lix.systems/lix-project/lix/archive/release-2.93.tar.gz"
+        "owner": "lix-project",
+        "repo": "lix",
+        "type": "github"
       }
     },
     "lix-module": {
       "inputs": {
         "flake-utils": "flake-utils",
         "flakey-profile": "flakey-profile",
-        "lix": "lix",
+        "lix": [
+          "lix"
+        ],
         "nixpkgs": [
           "nixos-unstable"
         ]
       },
       "locked": {
-        "lastModified": 1751240025,
-        "narHash": "sha256-SXUAlxpjPRkArRMHy5+Hdi+PiC+ND9yzzIjiaHmTvQU=",
-        "ref": "release-2.93",
-        "rev": "8b1094356f4723d6e89d3f8a95b333ee16d9ab02",
-        "revCount": 147,
+        "lastModified": 1751909859,
+        "narHash": "sha256-gbpuESxl/An4GTh7QEbQRYJozVIxWkwVGbWK0/0GoRc=",
+        "ref": "main",
+        "rev": "4d4c2b8f0a801c91ce5b717c77fe3a17efa1402f",
+        "revCount": 150,
         "type": "git",
         "url": "https://git.lix.systems/lix-project/nixos-module"
       },
       "original": {
-        "ref": "release-2.93",
+        "ref": "main",
         "type": "git",
         "url": "https://git.lix.systems/lix-project/nixos-module"
       }
@@ -235,6 +239,7 @@
       "inputs": {
         "hax-nur": "hax-nur",
         "home-manager": "home-manager",
+        "lix": "lix",
         "lix-module": "lix-module",
         "ninfs": "ninfs",
         "nix-darwin": "nix-darwin",
