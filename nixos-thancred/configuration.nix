@@ -114,6 +114,7 @@
     my-inputs.ninfs.ninfs
     ffmpeg_7-full
     sops
+    alsa-utils # mainly for arecord | aplay
   ];
 
   environment.sessionVariables = {
