@@ -226,7 +226,7 @@
         nextcloud-client
         handbrake
         makemkv
-        gimp
+        gimp3
         # build failure
         #dvdisaster
         audacity
