@@ -7,7 +7,9 @@
 
 let
   javas = {
-    jdk8 = pkgs.jdk8;
+    # TODO: uncomment once in nixos-unstable
+    # https://github.com/NixOS/nixpkgs/issues/425323
+    #jdk8 = pkgs.jdk8;
     jdk17 = pkgs.jdk17;
     jdk21 = pkgs.jdk21;
   };
