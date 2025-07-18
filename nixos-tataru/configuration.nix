@@ -83,9 +83,7 @@
       PasswordAuthentication = false;
     };
     collabora-online = {
-      # TODO: re-enable once libreoffice-collabora is fixed
-      # https://github.com/NixOS/nixpkgs/issues/383483
-      enable = false;
+      enable = true;
       port = 9980;
       settings = {
         server_name = "coolwsd.ihaveahax.net";
