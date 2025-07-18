@@ -230,7 +230,8 @@
         # build failure
         #dvdisaster
         audacity
-        prismlauncher
+        # i set up my jdks differently (but this needs at least one in the list)
+        ( prismlauncher.override { jdks = [ jdk21 ]; } )
         steamtinkerlaunch
         signal-desktop
         finamp
