@@ -17,7 +17,7 @@ in
       expireDuplicatesFirst = true;
       extended = true;
       append = true;
-      path = "$HOME/.local/state/zsh_history";
+      path = ".local/state/zsh_history";
     };
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
