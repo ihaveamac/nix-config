@@ -213,10 +213,8 @@
         barrier
         localsend
         okteta
-        # TODO: uncomment once fixed and in nixos-unstable
-        # https://github.com/NixOS/nixpkgs/issues/425328
-        #jetbrains.pycharm-professional
-        #jetbrains.phpstorm
+        jetbrains.pycharm-professional
+        jetbrains.phpstorm
         vlc
         wineWow64Packages.unstableFull
         (lutris.override { extraPkgs = pkgs: [ pkgs.wineWow64Packages.unstableFull ]; })
