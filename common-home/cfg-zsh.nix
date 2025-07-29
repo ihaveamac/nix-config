@@ -12,12 +12,12 @@ in
 {
   programs.zsh = {
     enable = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     history = {
       expireDuplicatesFirst = true;
       extended = true;
       append = true;
-      path = ".local/state/zsh_history";
+      path = "${config.home.homeDirectory}/.local/state/zsh_history";
     };
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
