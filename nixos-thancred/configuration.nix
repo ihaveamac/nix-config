@@ -227,7 +227,8 @@
         gimp3
         # build failure
         #dvdisaster
-        audacity
+        # TODO: https://github.com/NixOS/nixpkgs/issues/428792
+        #audacity
         # i set up my jdks differently (but this needs at least one in the list)
         ( prismlauncher.override { jdks = [ jdk21 ]; } )
         steamtinkerlaunch
