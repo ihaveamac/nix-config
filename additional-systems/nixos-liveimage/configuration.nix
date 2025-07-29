@@ -73,6 +73,7 @@
     discord
     python3Packages.python
     smartmontools
+    chntpw
   ];
 
   home-manager.users.${me}.imports = [
