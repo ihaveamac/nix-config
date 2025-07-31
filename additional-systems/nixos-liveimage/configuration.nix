@@ -74,6 +74,9 @@
     python3Packages.python
     smartmontools
     chntpw
+    neofetch
+    fastfetch
+    hyfetch
   ];
 
   home-manager.users.${me}.imports = [
