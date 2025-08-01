@@ -27,8 +27,11 @@
 
   isoImage.squashfsCompression = "zstd -Xcompression-level 1";
 
-  # force x11
-  services.displayManager.defaultSession = "plasmax11";
+  services = {
+    # force x11
+    displayManager.defaultSession = "plasmax11";
+    usbmuxd.enable = true;
+  };
 
   system.nixos.tags = [
     "liveimage"
@@ -77,6 +80,8 @@
     neofetch
     fastfetch
     hyfetch
+    libimobiledevice
+    ifuse
   ];
 
   home-manager.users.${me}.imports = [
