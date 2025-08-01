@@ -28,7 +28,8 @@
         '';
     }))
     localsend
-    audacity
+    # TODO: https://github.com/NixOS/nixpkgs/issues/428792
+    #audacity
     (feishin.override { electron_31 = electron_32; })
   ];
   system.activationScripts.applications.text = lib.mkForce ''
