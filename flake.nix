@@ -26,6 +26,7 @@
     nixos-apple-silicon = {
       url = "github:tpwrules/nixos-apple-silicon";
       inputs.nixpkgs.follows = "nixos-unstable";
+      inputs.treefmt-nix.follows = "treefmt-nix";
     };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
