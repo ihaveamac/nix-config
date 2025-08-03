@@ -1,5 +1,5 @@
 {
   "baseimage": "amd64/python:3.11-slim",
   "imagename": "ianburgwin/red-discordbot",
-  "version": "3.5.18"
+  "version": "3.5.20"
 }
