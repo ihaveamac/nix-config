@@ -22,7 +22,7 @@ let
         #ls -l $f >> $out/inputs.txt
         #echo >> $out/inputs.txt
 
-        for jdk in $f/*.jdk; do
+        for jdk in $f/Library/Java/JavaVirtualMachines/*.jdk; do
           echo "linking $jdk"
           ln -s $jdk $out/
         done

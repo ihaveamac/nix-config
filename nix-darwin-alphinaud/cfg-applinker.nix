@@ -15,8 +15,7 @@
     # sfml build error
     #dolphin-emu
     utm
-    # these two have qt build errors
-    #prismlauncher
+    prismlauncher
     #qbittorrent
     (hexfiend.overrideAttrs (oldAttrs: {
       installPhase =
