@@ -16,7 +16,7 @@
     #dolphin-emu
     utm
     prismlauncher
-    #qbittorrent
+    qbittorrent
     (hexfiend.overrideAttrs (oldAttrs: {
       installPhase =
         oldAttrs.installPhase
