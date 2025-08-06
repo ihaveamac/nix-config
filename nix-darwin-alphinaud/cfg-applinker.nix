@@ -12,8 +12,6 @@
     # gpgme marked as broken, also i use strongbox now
     #keepassxc
     iina
-    # sfml build error
-    #dolphin-emu
     utm
     prismlauncher
     qbittorrent
