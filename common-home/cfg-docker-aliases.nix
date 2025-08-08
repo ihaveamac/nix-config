@@ -25,6 +25,10 @@
       eval "$*"
       cleanup
     }
+    dcw() {
+      export SSH_TARGET=wiki-root
+      dockerssh docker compose "$@";
+    }
     dcwprod() {
       export SSH_TARGET=wiki-root
       dockerssh docker compose -f prod-docker-compose.yml "$@";
