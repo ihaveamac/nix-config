@@ -1,3 +1,5 @@
+# No longer updated on GitHub. [View on Codeberg](https://codeberg.org/ihaveahax/nix-config)
+
 # nix config
 
 This is my config for NixOS, nix-darwin, and home-manager.
